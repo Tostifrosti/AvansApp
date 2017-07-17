@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{45A038D3-12A1-4A0B-A888-A5F7AE2A917B}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AvansApp</RootNamespace>
+    <AssemblyName>AvansApp</AssemblyName>
+    <DefaultLanguage>nl-NL</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>AvansApp_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>BD28D95EF4B3C495097BC296DCD062D66B3F0C36</PackageCertificateThumbprint>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeSharedAssemblyFrameworkPackage>false</UseDotNetNativeSharedAssemblyFrameworkPackage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeSharedAssemblyFrameworkPackage>false</UseDotNetNativeSharedAssemblyFrameworkPackage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeSharedAssemblyFrameworkPackage>false</UseDotNetNativeSharedAssemblyFrameworkPackage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeSharedAssemblyFrameworkPackage>false</UseDotNetNativeSharedAssemblyFrameworkPackage>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="AvansApp_StoreKey.pfx" />
+    <PRIResource Include="Strings\en-us\Resources.resw" />
+    <PRIResource Include="Strings\nl-nl\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BackgroundTasks\BackgroundTask.cs" />
+    <Compile Include="BackgroundTasks\Results.backgroundtask.cs" />
+    <Compile Include="Converters\BoolConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
+    <Compile Include="Converters\CourseDetailsConverter.cs" />
+    <Compile Include="Converters\DataConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\DayOfWeekConverter.cs" />
+    <Compile Include="Converters\LesuurBackgroundColor.cs" />
+    <Compile Include="Converters\LesuurConverter.cs" />
+    <Compile Include="Converters\LesuurDisabledConverter.cs" />
+    <Compile Include="Converters\LesuurVisibilityConverter.cs" />
+    <Compile Include="Converters\MarkForegroundConverter.cs" />
+    <Compile Include="Converters\StatusConverter.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Helpers\DeviceTypeHelper.cs" />
+    <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\ResourceExtensions.cs" />
+    <Compile Include="Helpers\Singleton.cs" />
+    <Compile Include="Helpers\StorageHelper.cs" />
+    <Compile Include="Helpers\Untils.cs" />
+    <Compile Include="Models\Enums\ClassroomAvailabilityType.cs" />
+    <Compile Include="Models\Enums\HttpMethod.cs" />
+    <Compile Include="Models\Enums\OAuthFormat.cs" />
+    <Compile Include="Models\Enums\ScheduleType.cs" />
+    <Compile Include="Models\OAuth.cs" />
+    <Compile Include="Models\OAuth_Client.cs" />
+    <Compile Include="Models\OAuth_Response.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\ServerModels\Account.cs" />
+    <Compile Include="Models\ServerModels\Announcement.cs" />
+    <Compile Include="Models\ServerModels\Announcements.cs" />
+    <Compile Include="Models\ServerModels\Availability.cs" />
+    <Compile Include="Models\ServerModels\BBAnnouncements.cs" />
+    <Compile Include="Models\ServerModels\Classroom.cs" />
+    <Compile Include="Models\ServerModels\ClassroomAvailability.cs" />
+    <Compile Include="Models\ServerModels\Disruption.cs" />
+    <Compile Include="Models\ServerModels\DisruptionItem.cs" />
+    <Compile Include="Models\ServerModels\Employee.cs" />
+    <Compile Include="Models\ServerModels\EmployeeImage.cs" />
+    <Compile Include="Models\ServerModels\Exam.cs" />
+    <Compile Include="Models\ServerModels\Name.cs" />
+    <Compile Include="Models\ServerModels\People.cs" />
+    <Compile Include="Models\ServerModels\Result.cs" />
+    <Compile Include="Models\ServerModels\Schedule.cs" />
+    <Compile Include="Models\ServerModels\Student.cs" />
+    <Compile Include="Models\ServerModels\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ActivationService.cs" />
+    <Compile Include="Services\Pages\AnnouncementService.cs" />
+    <Compile Include="Services\BackgroundTaskService.cs" />
+    <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\Pages\ClassroomAvailabilityService.cs" />
+    <Compile Include="Services\Pages\DisruptionService.cs" />
+    <Compile Include="Services\Pages\EmployeeService.cs" />
+    <Compile Include="ViewModels\DisruptionItemVM.cs" />
+    <Compile Include="ViewModels\Pages\ClassroomAvailabilityPageDetailViewModel.cs" />
+    <Compile Include="ViewModels\Pages\DisruptionSinglePageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\EmployeeSinglePageViewModel.cs" />
+    <Compile Include="Services\Pages\ExamService.cs" />
+    <Compile Include="Services\Results.notification.cs" />
+    <Compile Include="Services\Pages\ResultService.cs" />
+    <Compile Include="Services\Pages\ScheduleService.cs" />
+    <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="Services\ToastNotificationService.cs" />
+    <Compile Include="SplashPage.xaml.cs">
+      <DependentUpon>SplashPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Pages\AnnouncementPageDetailViewModel.cs" />
+    <Compile Include="ViewModels\Pages\AnnouncementPageViewModel.cs" />
+    <Compile Include="ViewModels\AnnouncementVM.cs" />
+    <Compile Include="ViewModels\AvailabilityVM.cs" />
+    <Compile Include="ViewModels\ClassroomAvailabilityVM.cs" />
+    <Compile Include="ViewModels\ClassroomVM.cs" />
+    <Compile Include="ViewModels\EmployeeVM.cs" />
+    <Compile Include="ViewModels\ExamVM.cs" />
+    <Compile Include="ViewModels\Pages\ClassroomAvailabilityPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\DisruptionPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\EmployeePageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ExamPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ProfilePageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ResultPageDetailViewModel.cs" />
+    <Compile Include="ViewModels\Pages\ResultPageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SchedulePageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\SplashPageViewModel.cs" />
+    <Compile Include="ViewModels\ProfileVM.cs" />
+    <Compile Include="ViewModels\ResultVM.cs" />
+    <Compile Include="ViewModels\ScheduleVM.cs" />
+    <Compile Include="ViewModels\Pages\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\ShellNavigationItem.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\AnnouncementsPage.xaml.cs">
+      <DependentUpon>AnnouncementsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AnnouncementsPageDetail.xaml.cs">
+      <DependentUpon>AnnouncementsPageDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AnnouncementsPageDetailControl.xaml.cs">
+      <DependentUpon>AnnouncementsPageDetailControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClassroomAvailabilityPage.xaml.cs">
+      <DependentUpon>ClassroomAvailabilityPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClassroomAvailabilitySinglePage.xaml.cs">
+      <DependentUpon>ClassroomAvailabilitySinglePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisruptionsPage.xaml.cs">
+      <DependentUpon>DisruptionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisruptionsSinglePage.xaml.cs">
+      <DependentUpon>DisruptionsSinglePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeesPage.xaml.cs">
+      <DependentUpon>EmployeesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeesSinglePage.xaml.cs">
+      <DependentUpon>EmployeesSinglePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExamsPage.xaml.cs">
+      <DependentUpon>ExamsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyProfilePage.xaml.cs">
+      <DependentUpon>MyProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResultsPage.xaml.cs">
+      <DependentUpon>ResultsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResultsPageDetail.xaml.cs">
+      <DependentUpon>ResultsPageDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResultsPageDetailControl.xaml.cs">
+      <DependentUpon>ResultsPageDetailControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SchedulePage.xaml.cs">
+      <DependentUpon>SchedulePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="AvansApp_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\entreeOWBonderwijsboulevarddenbosch-max-620x350.jpg" />
+    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="SplashPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\AnnouncementsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AnnouncementsPageDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AnnouncementsPageDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClassroomAvailabilityPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClassroomAvailabilitySinglePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisruptionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DisruptionsSinglePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeesSinglePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MyProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResultsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResultsPageDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResultsPageDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SchedulePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.15063.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.15063.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\DeviceFamily-Desktop\" />
+    <Folder Include="Views\DeviceFamily-Mobile\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.DeveloperTools">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>1.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLight">
+      <Version>5.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="AvansApp.Views.DisruptionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:converter="using:AvansApp.Converters"
+    xmlns:vm="using:AvansApp.ViewModels"
+    DataContext="{Binding DisruptionPageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid Background="White" MaxWidth="1000">
+            <TextBlock x:Name="NoResult" Text="Geen storingen gevonden!" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
+            <TextBlock x:Name="LoadingText" Text="Laden.." Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
+            
+            <ListView x:Name="ListDisruptions" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Visibility="Visible" Grid.Row="0" Grid.Column="0" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="ItemClick">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand, Mode=OneWay}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="0,0,0,0" />
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontWeight" Value="Normal"/>
+                        <Setter Property="Padding" Value="10,0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:DisruptionItemVM">
+                        <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,15,5,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="25" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Title, Mode=OneWay}" TextWrapping="WrapWholeWords" Margin="0,0,75,0" FontWeight="Bold" VerticalAlignment="Top" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind PublicationDate, Converter={StaticResource DateTimeConverter}, Mode=OneWay}" Margin="0,0,75,0" FontSize="14" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Bottom" />
+                            <FontIcon Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Glyph="{x:Bind Icon, Mode=OneWay}" FontSize="20" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                            <!--<TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Text="{x:Bind Icon, Mode=OneWay}" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />-->
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

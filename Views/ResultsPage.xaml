@@ -1,0 +1,121 @@
+﻿<Page
+    x:Class="AvansApp.Views.ResultsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:AvansApp.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:views="using:AvansApp.Views"
+    xmlns:converter="using:AvansApp.Converters"
+    DataContext="{Binding ResultPageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <converter:MarkForegroundConverter x:Key="MarkForeground" />
+            
+            <DataTemplate x:Key="MasterListViewItemTemplate" x:DataType="vm:ResultVM">
+                <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind CursusNaam, Mode=OneWay}" TextWrapping="WrapWholeWords" Margin="0,0,5,0" FontWeight="Bold" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind ToetsOmschrijving, Mode=OneWay}" FontSize="14" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Bottom"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Resultaat, Mode=OneWay}" FontSize="18" Foreground="{x:Bind Resultaat, Mode=OneWay, Converter={StaticResource MarkForeground}}" Margin="0,0,10,0" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+        
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea" Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="TitleRow" Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MasterColumn" Width="396" />
+            <ColumnDefinition x:Name="DetailColumn" Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            x:Name="MasterArea"
+            Grid.Row="1" Grid.Column="0"
+            BorderBrush="LightGray" BorderThickness="0,0,1,0">
+
+            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your master content.-->
+            <!-- {ThemeResource SystemControlPageBackgroundChromeLowBrush} -->
+            <ListView
+                x:Name="MasterListView"
+                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+                ItemContainerTransitions="{x:Null}"
+                ItemTemplate="{StaticResource MasterListViewItemTemplate}"
+                IsItemClickEnabled="True"
+                Background="White">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="ItemClick">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+            
+        <!-- Content -->
+        <Grid x:Name="DetailContentPresenter" Padding="0,0" Grid.Row="1" Grid.Column="1">
+            <views:ResultsPageDetailControl x:Name="DetailControl" MasterMenuItem="{x:Bind ViewModel.Selected, Mode=OneWay}"/>
+        </Grid>
+
+        <!--  Adaptive triggers  -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="CurrentStateChanged">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.StateChangedCommand}"/>
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ContentArea.Padding" Value="0"/>
+                        <Setter Target="MasterColumn.Width" Value="396" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MasterColumn.Width" Value="*" />
+                        <Setter Target="DetailColumn.Width" Value="0" />
+                        <Setter Target="MasterListView.SelectionMode" Value="None" />
+                        <Setter Target="MasterArea.Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

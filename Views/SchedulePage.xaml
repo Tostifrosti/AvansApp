@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="AvansApp.Views.SchedulePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:AvansApp.Converters"
+    xmlns:vm="using:AvansApp.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding SchedulePageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converter:CourseDetailsConverter x:Key="CourseDetailsConverter" />
+            <converter:DayOfWeekConverter x:Key="DayOfWeekConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid Background="White" MaxWidth="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Button x:Name="NextDayButton" Style="{StaticResource DefaultButtonStyle}" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;" Width="50" Margin="10,10" Command="{x:Bind ViewModel.OnPreviousDayClickCommand, Mode=OneWay}" HorizontalAlignment="Left"></Button>
+                <StackPanel>
+                    <TextBlock Text="{x:Bind ViewModel.Header, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" />
+                    <TextBlock Text="{x:Bind ViewModel.HeaderDay, Mode=OneWay, Converter={StaticResource DayOfWeekConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Normal" FontSize="16" />
+                </StackPanel>
+                <Button x:Name="PreviousDayButton" Style="{StaticResource DefaultButtonStyle}" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;" Width="50" Margin="10,10" Command="{x:Bind ViewModel.OnNextDayClickCommand, Mode=OneWay}" HorizontalAlignment="Right"></Button>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1" BorderBrush="Gray" BorderThickness="0,1,0,1">
+                <TextBlock x:Name="NoScheduleText" Text="Geen lessen!" FontSize="18" FontWeight="Normal" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" />
+                <TextBlock x:Name="FirstTimeText" FontSize="18" FontWeight="Normal" FontStyle="Italic" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" TextAlignment="Center" >Je kan je roostercode invoeren <LineBreak/> in de instellingen pagina.</TextBlock>
+
+                <ListView x:Name="ScheduleListView" ItemsSource="{x:Bind ViewModel.CurrentDay, Mode=OneWay}" IsSwipeEnabled="False" Visibility="Collapsed" IsItemClickEnabled="False" Height="Auto" Width="Auto" Margin="0" Padding="0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0,0,0,0" />
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Padding" Value="10,0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ScheduleVM">
+                            <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,8,5,8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition MinHeight="25" Height="Auto" />
+                                    <RowDefinition MinHeight="25" Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0">
+                                    <TextBlock Text="{x:Bind StartTijdString, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center" />
+                                    <TextBlock Text=" | " FontWeight="Normal" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{x:Bind EindTijdString, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind Vak, Converter={StaticResource CourseDetailsConverter}, Mode=OneWay}" TextWrapping="Wrap" Padding="0" Margin="0,0,0,0" FontSize="16" FontWeight="Normal" Foreground="Black" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Top" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Details, Converter={StaticResource CourseDetailsConverter}, Mode=OneWay}" TextWrapping="Wrap" Padding="0" Margin="0,0,0,0" FontSize="14" FontStyle="Italic" Foreground="Gray" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Bottom"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Button x:Name="TodayButton" Grid.Column="0" Grid.Row="2" Content="Vandaag" Style="{StaticResource DefaultButtonStyle}"  Command="{x:Bind ViewModel.OnTodayClickCommand, Mode=OneWay}" Width="125" Margin="0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        </Grid>
+    </Grid>
+</Page>

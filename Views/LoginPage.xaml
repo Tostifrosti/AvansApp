@@ -1,0 +1,67 @@
+﻿<Page
+    x:Class="AvansApp.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:AvansApp.Converters"
+    DataContext="{Binding LoginPageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Grid Grid.Row="0" x:Name="HeaderPanel" Background="#C6002A" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="HeaderText" HorizontalAlignment="Center" Text="Avans Login" Style="{StaticResource TagLineTextStyle}" />
+        </Grid>
+        
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
+            <Grid Background="White" MaxWidth="1000">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" CornerRadius="0" BorderBrush="White" BorderThickness="0" Margin="10" VerticalAlignment="Top">
+                    <Grid x:Name="LayoutRoot" Height="250" VerticalAlignment="Top">
+                        <Grid.Background>
+                            <ImageBrush ImageSource ="../Assets/entreeOWBonderwijsboulevarddenbosch-max-620x350.jpg" Stretch="UniformToFill"></ImageBrush>
+                        </Grid.Background>
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
+                        <TextBlock Text="Welkom" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="bij Avans" Margin="6,0,0,0" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="!" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#000"/>
+                    </StackPanel>
+                    <TextBlock LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="#333" HorizontalAlignment="Stretch" TextAlignment="Left">
+                    Welkom bij de gloednieuwe Avans App!
+                    <LineBreak/>
+                    <LineBreak/>Met deze App kan je je Blackboard nieuws of mededelingen bekijken, resultaten inzien, rooster bekijken, medewerkers opzoeken, vrije ruimtes zoeken en nog veel meer!
+                    Met gebruik van de nieuwe UWP Framework, kan de App op zowel Windows Phone als Desktop gebruikt worden.
+                    <LineBreak/>
+                    <LineBreak/>Druk op de Login knop om in te loggen via de Avans Services.<LineBreak/>Dit inlog proces gaat via (een beveiligde verbinding van) de in-app browser.
+                    <LineBreak/>
+                    <LineBreak/>Vindt je een bug of heb je leuk idee voor de app? Stuur gerust je ideeën via de Feedback knop in je instellingen (zodra je bent ingelogd).
+                    <LineBreak/><LineBreak/>Veel plezier met de App!
+                    </TextBlock>
+                    <Button x:Name="LoginButton" Content="Login" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" Width="150" FontSize="18" />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
