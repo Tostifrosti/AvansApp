@@ -7,19 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:converter="using:AvansApp.Converters"
     DataContext="{Binding EmployeePageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary>
-            <Flyout x:Key="SearchFlyout">
-                <Grid Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Minimaal 3 karakters." HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Normal" FontStyle="Italic" Margin="0" Padding="0" Foreground="Black" />
-                </Grid>
-            </Flyout>
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -50,14 +45,40 @@
                             <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnKeyDownCommand, Mode=OneWay}" />
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
+                    <!--<FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom">
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Uid="SearchFlyout" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Normal" FontStyle="Italic" Margin="0" Padding="0" Foreground="Black" />
+                            </Grid>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>-->
                 </TextBox>
                 <Button x:Name="SearchButton" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnSearchButtonClickCommand, Mode=OneWay}" Content="Zoeken" Style="{StaticResource DefaultButtonStyle}" Width="75" Height="35" FontSize="14" Margin="0,0,5,0" />
             </Grid>
 
-            <TextBlock x:Name="LoadingText" Visibility="Collapsed" Grid.Column="0" Grid.Row="1" Text="Laden.." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
-            <TextBlock x:Name="NoResultText" Visibility="Collapsed" Grid.Column="0" Grid.Row="1" Text="Geen medewerkers gevonden!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
+            <!-- Loading -->
+            <Grid Background="White" Canvas.ZIndex="1" 
+                  Grid.Row="1" Grid.Column="0"
+                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" />
+                <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+            </Grid>
+
+            <!-- No Result -->
+            <Grid Background="White" Canvas.ZIndex="1" 
+                  Grid.Row="1" Grid.Column="0"
+                  Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock x:Uid="NoResultEmployees" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+            </Grid>
+
             <!-- List View -->
-            <ListView x:Name="ListEmployees" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Visibility="Visible" Grid.Column="0" Grid.Row="1" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
+            <ListView Grid.Column="0" Grid.Row="1" IsItemClickEnabled="True"
+                      ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
+                      Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}"
+                      Height="Auto" Width="Auto" Margin="0" Padding="0" >
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnItemClickCommand, Mode=OneWay}" />

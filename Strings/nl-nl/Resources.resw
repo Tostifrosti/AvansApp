@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Loading.Text" xml:space="preserve">
+    <value>Laden...</value>
+  </data>
+  <data name="NoResult.Text" xml:space="preserve">
+    <value>Geen resultaten</value>
+  </data>
+  <data name="NoResultAnnouncements.Text" xml:space="preserve">
+    <value>Geen mededelingen gevonden!</value>
+  </data>
+  <data name="NoResultCA.Text" xml:space="preserve">
+    <value>De school is gesloten of we hebben het lokaal niet kunnen vinden!</value>
+  </data>
+  <data name="NoResultDisruptions.Text" xml:space="preserve">
+    <value>Geen storingen gevonden!</value>
+  </data>
+  <data name="NoResultEmployees.Text" xml:space="preserve">
+    <value>Geen medewerkers gevonden!</value>
+  </data>
+  <data name="NoResultExams.Text" xml:space="preserve">
+    <value>Geen tentamens gevonden!</value>
+  </data>
+  <data name="SearchFlyout.Text" xml:space="preserve">
+    <value>Minimaal 3 karakters.</value>
+  </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>Nee</value>
   </data>

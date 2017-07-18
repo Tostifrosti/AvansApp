@@ -27,7 +27,16 @@ namespace AvansApp.ViewModels.Pages
             get { return _selected; }
             set { Set(ref _selected, value); }
         }
-        
+        private bool _isLoading;
+        public bool IsLoading {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
         private bool SearchBoxChanged; // TODO
         //private Flyout SearchFlyout { get; set; } // TODO
         private string _searchBoxText;
@@ -78,6 +87,8 @@ namespace AvansApp.ViewModels.Pages
                 {
                     if (SearchBoxText.Length >= 3)
                     {
+                        IsLoading = true;
+                        HasNoResult = false;
                         Items.Clear();
 
                         List<EmployeeVM> data = await Service.GetEmployees(SearchBoxText);
@@ -86,6 +97,8 @@ namespace AvansApp.ViewModels.Pages
                             Items.Add(item);
                         }
                         //SearchFlyout.Hide();
+                        IsLoading = false;
+                        HasNoResult = Items.Count <= 0;
                     }
                     else
                     {

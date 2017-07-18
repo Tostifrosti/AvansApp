@@ -19,7 +19,16 @@ namespace AvansApp.ViewModels.Pages
             get { return _selected; }
             set { Set(ref _selected, value); }
         }
-
+        private bool _isLoading;
+        public bool IsLoading {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
         public ICommand OnItemClickCommand { get; private set; }
 
         public ExamPageViewModel()
@@ -33,17 +42,24 @@ namespace AvansApp.ViewModels.Pages
         }
         public async Task LoadDataAsync()
         {
-            Items.Clear();
-
-            var service = new ExamService();
-            var data = await service.GetExams();
-            data = data.OrderByDescending(d => d.DateTime).ToList();
-
-            foreach (var item in data)
+            if (Items.Count <= 0)
             {
-                Items.Add(item);
+                IsLoading = true;
+                HasNoResult = false;
+                Items.Clear();
+
+                var service = new ExamService();
+                var data = await service.GetExams();
+                data = data.OrderByDescending(d => d.DateTime).ToList();
+
+                foreach (var item in data)
+                {
+                    Items.Add(item);
+                }
+                Selected = Items.FirstOrDefault();
+                IsLoading = false;
+                HasNoResult = Items.Count <= 0;
             }
-            Selected = Items.FirstOrDefault();
         }
 
         private void OnItemClick(ItemClickEventArgs e)

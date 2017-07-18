@@ -26,6 +26,11 @@ namespace AvansApp.ViewModels.Pages
             get { return _isLoading; }
             set { Set(ref _isLoading, value); }
         }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
         private VisualState _currentState;
 
         private AnnouncementVM _selected;
@@ -59,6 +64,7 @@ namespace AvansApp.ViewModels.Pages
             if (Items.Count <= 0)
             {
                 IsLoading = true;
+                HasNoResult = false;
                 var data = await Service.GetAnnouncements();
                 data = new List<AnnouncementVM>(data.OrderByDescending(d => d.DateTime));
 
@@ -68,6 +74,7 @@ namespace AvansApp.ViewModels.Pages
                 }
                 Selected = Items.FirstOrDefault();
                 IsLoading = false;
+                HasNoResult = Items.Count <= 0;
             }
         }
 

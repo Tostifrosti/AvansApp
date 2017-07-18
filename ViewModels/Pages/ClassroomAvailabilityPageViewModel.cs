@@ -30,6 +30,17 @@ namespace AvansApp.ViewModels.Pages
             get { return _searchBoxText; }
             set { Set(ref _searchBoxText, value); }
         }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
         private ClassroomAvailabilityService Service { get; set; }
         public ICommand OnSearchButtonClickCommand { get; private set; }
         public ICommand OnItemClickCommand { get; private set; }
@@ -63,6 +74,8 @@ namespace AvansApp.ViewModels.Pages
                 SearchBoxChanged = false;
                 if (!string.IsNullOrEmpty(SearchBoxText) && !string.IsNullOrWhiteSpace(SearchBoxText))
                 {
+                    IsLoading = true;
+                    HasNoResult = false;
                     Classrooms.Clear();
                     Items.Clear();
 
@@ -82,13 +95,19 @@ namespace AvansApp.ViewModels.Pages
                         }
                     } else {
                         // Empty List
+                        Classrooms.Clear();
                         Items.Clear();
+                        HasNoResult = true;
                     }
+                    IsLoading = false;
                 }
                 else
                 {
                     // Empty List
+                    Classrooms.Clear();
                     Items.Clear();
+                    IsLoading = false;
+                    HasNoResult = false;
                 }
             }
         }

@@ -16,6 +16,8 @@
             <converter:BoolConverter x:Key="BoolConverter" />
             <converter:LesuurBackgroundColor x:Key="LesuurBackgroundColor" />
             <converter:LesuurDisabledConverter x:Key="LesuurDisabledConverter" />
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -49,10 +51,24 @@
                 <Button x:Name="SearchButton" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnSearchButtonClickCommand, Mode=OneWay}" Content="Zoeken" Style="{StaticResource DefaultButtonStyle}" Width="75" Height="35" FontSize="14" Margin="0,0,5,0" />
             </Grid>
 
-            <TextBlock x:Name="NoResult" Grid.Column="0" Grid.Row="1" Text="De school is gesloten of we hebben geen lokalen kunnen vinden!" TextWrapping="WrapWholeWords" TextAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
-            <TextBlock x:Name="LoadingText" Grid.Column="0" Grid.Row="1" Text="Laden.." Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
+            <!-- Loading -->
+            <Grid Background="White" Canvas.ZIndex="1" 
+              Grid.Row="1" Grid.Column="0"
+              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" />
+                <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+            </Grid>
             
-            <ListView x:Name="ListClassroomAvailabilities" ScrollViewer.BringIntoViewOnFocusChange="True" Grid.Column="0" Grid.Row="1" ItemsSource="{x:Bind ViewModel.Classrooms, Mode=OneWay}" Visibility="Visible" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
+            <!-- No Result -->
+            <Grid Background="White" Canvas.ZIndex="1" 
+              Grid.Row="1" Grid.Column="0"
+              Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock x:Uid="NoResultCA" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+            </Grid>
+
+            <ListView Grid.Column="0" Grid.Row="1" ScrollViewer.BringIntoViewOnFocusChange="True" 
+                      ItemsSource="{x:Bind ViewModel.Classrooms, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}" 
+                      IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnItemClickCommand, Mode=OneWay}" />

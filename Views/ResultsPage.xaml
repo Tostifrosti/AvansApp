@@ -21,6 +21,8 @@
     <Page.Resources>
         <ResourceDictionary>
             <converter:MarkForegroundConverter x:Key="MarkForeground" />
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
             
             <DataTemplate x:Key="MasterListViewItemTemplate" x:DataType="vm:ResultVM">
                 <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
@@ -52,10 +54,29 @@
             <ColumnDefinition x:Name="DetailColumn" Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- TODO: Add result overview (with total EC). Icon: Diagnostic - E9D9 -->
+        
+        <!-- Loading -->
+        <Grid Background="White" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" />
+            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+        </Grid>
+
+        <!-- No Result -->
+        <Grid Background="White" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" Margin="0,-50,0,0" FontSize="60" Opacity="0.5" FontWeight="Bold" Foreground="Gray" FontFamily="Segoe MDL2 Assets" />
+            <TextBlock x:Uid="NoResult" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+        </Grid>
+        
         <Grid
             x:Name="MasterArea"
             Grid.Row="1" Grid.Column="0"
-            BorderBrush="LightGray" BorderThickness="0,0,1,0">
+            BorderBrush="LightGray" BorderThickness="0,0,1,0"
+            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
 
             <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your master content.-->
             <!-- {ThemeResource SystemControlPageBackgroundChromeLowBrush} -->
