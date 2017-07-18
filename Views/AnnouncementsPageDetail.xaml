@@ -9,9 +9,17 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:views="using:AvansApp.Views"
     mc:Ignorable="d">
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid x:Name="ContentArea"
-        Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+        Background="{StaticResource MyApplicationPageBackgroundThemeBrush}"
         Margin="0">
 
         <views:AnnouncementsPageDetailControl MasterMenuItem="{x:Bind ViewModel.Item}"/>

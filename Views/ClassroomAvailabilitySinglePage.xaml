@@ -17,6 +17,7 @@
             <converter:LesuurVisibilityConverter x:Key="LesuurVisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -30,9 +31,9 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
-    
-    <Grid Background="White">
-        <Grid Background="White" MaxWidth="1000">
+
+    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
+        <Grid Background="Transparent" MaxWidth="1000">
             <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled">
                 <Grid MaxWidth="1000">
                     <Grid.RowDefinitions>
@@ -43,21 +44,22 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical" BorderBrush="{StaticResource MySplitContentBorderBursh}" BorderThickness="0,0,0,1">
                         <StackPanel Margin="0,30" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <!-- Lokaal -->
-                            <TextBlock Text="{x:Bind ViewModel.Item.Classroom, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="20" FontWeight="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="{x:Bind ViewModel.Item.Classroom, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="20" FontWeight="Medium" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
                             
                             <!-- Soort Lokaal -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock Text="Soort Lokaal: " TextAlignment="Center" FontSize="14" Foreground="Gray" Margin="0,0,5,0" />
-                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomType, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="Gray" />
+                                <TextBlock Text="Soort Lokaal: " TextAlignment="Center" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" Margin="0,0,5,0" />
+                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomType, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" />
                             </StackPanel>
                             
                             <!-- Aantal plaatsen-->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock Text="Aantal Plaatsen: " TextAlignment="Center" FontSize="14" Foreground="Gray" Margin="0,0,5,0" />
-                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomSpace, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="Gray" />
+                                <TextBlock Text="Aantal Plaatsen: " TextAlignment="Center" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" Margin="0,0,5,0" />
+                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomSpace, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -104,8 +106,10 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding ScheduleTime, Mode=OneWay, Converter={StaticResource LesuurConverter}}" FontSize="16" Margin="10,0,0,0" Padding="0" TextAlignment="Left" Foreground="Black" VerticalAlignment="Center" />
-                                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Occupied, Mode=OneWay, Converter={StaticResource BoolConverter}}" FontSize="16" Margin="0,0,20,0" Padding="0" TextAlignment="Right" Foreground="Black" FontStyle="Italic" FontWeight="Normal" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding ScheduleTime, Mode=OneWay, Converter={StaticResource LesuurConverter}}" 
+                                                           FontSize="16" Margin="10,0,0,0" Padding="0" TextAlignment="Left" Foreground="{StaticResource MyTextForegroundBrush}" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Occupied, Mode=OneWay, Converter={StaticResource BoolConverter}}" 
+                                                           FontSize="16" Margin="0,0,20,0" Padding="0" TextAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" FontStyle="Italic" FontWeight="Normal" VerticalAlignment="Center" />
                                             </Grid>
                                         </ListViewItem>
                                     </Grid>

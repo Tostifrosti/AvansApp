@@ -16,30 +16,37 @@
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
             <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Background="White">
+
+    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
 
         <!-- Loading -->
         <Grid Background="White" Canvas.ZIndex="1" 
               Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" />
-            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{StaticResource MyProgressRingForegroundBrush}" />
+            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" 
+                       TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyLoadingTextForegroundBrush}" />
         </Grid>
 
         <!-- No Result -->
         <Grid Background="White" Canvas.ZIndex="1" 
               Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Margin="0,-50,0,0" Opacity="0.5" FontWeight="Bold" Foreground="Gray" FontFamily="Segoe MDL2 Assets" />
-            <TextBlock x:Uid="NoResultDisruptions" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
+            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Margin="0,-50,0,0" Opacity="0.5" FontWeight="Bold" Foreground="{StaticResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+            <TextBlock x:Uid="NoResultDisruptions" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" 
+                       TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyLoadingTextForegroundBrush}" />
         </Grid>
         
         <!-- Disruptions -->
-        <Grid Background="White" MaxWidth="1000" 
+        <Grid Background="Transparent" MaxWidth="1000" 
               Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
-            
-            <ListView x:Name="ListDisruptions" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Visibility="Visible" Grid.Row="0" Grid.Column="0" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0">
+
+            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
+                      Visibility="Visible" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand, Mode=OneWay}" />
@@ -51,14 +58,14 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0,0,0,0" />
                         <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Foreground" Value="{StaticResource MyTextForegroundBrush}"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,0" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:DisruptionItemVM">
-                        <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,15,5,15">
+                        <Grid BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,15,5,15">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -67,9 +74,12 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Title, Mode=OneWay}" TextWrapping="WrapWholeWords" Margin="0,0,75,0" FontWeight="Bold" VerticalAlignment="Top" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind PublicationDate, Converter={StaticResource DateTimeConverter}, Mode=OneWay}" Margin="0,0,75,0" FontSize="14" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Bottom" />
-                            <FontIcon Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Glyph="{x:Bind Icon, Mode=OneWay}" FontSize="20" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Title, Mode=OneWay}" TextWrapping="WrapWholeWords" 
+                                       Margin="0,0,75,0" FontWeight="Bold" VerticalAlignment="Top" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind PublicationDate, Mode=OneWay, Converter={StaticResource DateTimeConverter}}" 
+                                       Margin="0,0,75,0" FontSize="14" FontStyle="Italic" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Bottom" />
+                            <FontIcon Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Glyph="{x:Bind Icon, Mode=OneWay}" FontSize="20" Foreground="{StaticResource MySubTextForegroundBrush}" 
+                                      HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />
                             <!--<TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Text="{x:Bind Icon, Mode=OneWay}" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" />-->
                         </Grid>
                     </DataTemplate>

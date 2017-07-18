@@ -17,6 +17,10 @@
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/Themes.xml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -48,8 +52,9 @@
                         <TextBlock Text="{x:Bind MasterMenuItem.Resultaat, Mode=OneWay}" Foreground="White" FontSize="36" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Grid>
 
-                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Width="Auto" Height="Auto" Margin="0,0" Padding="5,10" Background="White" CornerRadius="5,5,0,0" BorderThickness="1,1,1,0" BorderBrush="LightGray" HorizontalAlignment="Stretch">
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                    <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical" Width="Auto" Height="Auto" Margin="0,0" Padding="5,10" Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" 
+                                CornerRadius="5,5,0,0" BorderThickness="1,1,1,0" BorderBrush="LightGray" HorizontalAlignment="Stretch">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -58,11 +63,12 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE77B;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Coordnitator" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.Docent, Mode=OneWay, Converter={StaticResource DataConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE77B;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Coordnitator" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.Docent, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -71,11 +77,12 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8FB;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Aantal EC" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.AantalEC, Mode=OneWay, Converter={StaticResource DataConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8FB;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Aantal EC" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.AantalEC, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -84,11 +91,12 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8F1;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Weging" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.Weging, Mode=OneWay, Converter={StaticResource DataConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8F1;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Weging" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.Weging, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -97,11 +105,12 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE787;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Datum" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.ToetsDatumString, Mode=OneWay, Converter={StaticResource DataConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE787;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Datum" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.ToetsDatumString, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -110,11 +119,12 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE787;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Laatst bijgewerkt" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.MutatieDatumString, Mode=OneWay, Converter={StaticResource DataConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE787;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Laatst bijgewerkt" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.MutatieDatumString, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -123,11 +133,12 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE0A2;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Status" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.StatusUitslag, Mode=OneWay, Converter={StaticResource StatusConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE0A2;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Status" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.StatusUitslag, Mode=OneWay, Converter={StaticResource StatusConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
-                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="LightGray" BorderThickness="0,0,0,0">
+                        <Grid Margin="10,10" Padding="0,0,0,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -136,9 +147,10 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8BD;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Omschrijving" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.ToetsOmschrijving, Mode=OneWay, Converter={StaticResource DataConverter}}" Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8BD;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Omschrijving" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind MasterMenuItem.ToetsOmschrijving, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                       Padding="0,0,5,0" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                         </Grid>
                     </StackPanel>
                 </Grid>

@@ -29,7 +29,25 @@ namespace AvansApp.ViewModels.Pages
             get { return _headerDay; }
             set { Set(ref _headerDay, value); }
         }
-
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
+        private bool _hasNoResult;
+        public bool HasNoResult
+        {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
+        private bool _hasNoScheduleCode;
+        public bool HasNoScheduleCode
+        {
+            get { return _hasNoScheduleCode; }
+            set { Set(ref _hasNoScheduleCode, value); }
+        }
+        public bool ButtonsEnabled { get { return !_isLoading && !_hasNoResult && !_hasNoScheduleCode; } }
         public ICommand OnPreviousDayClickCommand { get; private set; }
         public ICommand OnNextDayClickCommand { get; private set; }
         public ICommand OnTodayClickCommand { get; private set; }
@@ -65,12 +83,18 @@ namespace AvansApp.ViewModels.Pages
         {
             if (OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
             {
+                IsLoading = true;
+                HasNoResult = false;
+                HasNoScheduleCode = false;
+
                 string scheduleCode = OAuth.GetInstance().Client.GetTokenFromVault("ScheduleCode");
                 bool withoutBlanks = OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks");
                 List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Classroom, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
 
                 todayIndex = (withoutBlanks == true) ? Service.TodayIndex : 0;
                 currentDayIndex = todayIndex;
+
+                Items.Clear();
 
                 if (data.Count > 0)
                 {
@@ -85,14 +109,21 @@ namespace AvansApp.ViewModels.Pages
                     }
                     CurrentDay = Items[todayIndex];
                 }
-
+                IsLoading = false;
+                HasNoResult = Items.Count <= 0;
+                HasNoScheduleCode = false;
             }
             else
             {
+                Items.Clear();
                 todayIndex = 0;
                 currentDayIndex = 0;
-            }
 
+                IsLoading = false;
+                HasNoResult = false;
+                HasNoScheduleCode = true;
+            }
+            OnPropertyChanged("ButtonsEnabled");
         }
 
         private void OnPreviousDayClick(ItemClickEventArgs e)

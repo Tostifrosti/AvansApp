@@ -117,8 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Disclaimer.Text" xml:space="preserve">
+    <value>Info &amp; Disclaimers</value>
+  </data>
+  <data name="FeedbackButton.Content" xml:space="preserve">
+    <value>Give feedback</value>
+  </data>
+  <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
+    <value>Fill schedule with blank days?</value>
+  </data>
+  <data name="FirstTimeSchedule1.Text" xml:space="preserve">
+    <value>You can enter your schedulecode</value>
+  </data>
+  <data name="FirstTimeSchedule2.Text" xml:space="preserve">
+    <value>in the settingspage. </value>
+  </data>
   <data name="Loading.Text" xml:space="preserve">
     <value>Loading...</value>
+  </data>
+  <data name="LoggedInString.Text" xml:space="preserve">
+    <value>You're logged in as </value>
+  </data>
+  <data name="LoginButton.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="NoResult.Text" xml:space="preserve">
     <value>No results</value>
@@ -138,17 +162,41 @@
   <data name="NoResultExams.Text" xml:space="preserve">
     <value>No exams found!</value>
   </data>
+  <data name="NoResultSchedule.Text" xml:space="preserve">
+    <value>No lessons!</value>
+  </data>
+  <data name="SaveButtonText.Content" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ScheduleTodayButton.Content" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="SearchButton.Content" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="SearchFlyout.Text" xml:space="preserve">
     <value>Minimum of 3 characters.</value>
+  </data>
+  <data name="SettingsHeader1.Text" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="SettingsHeader1Sub.Text" xml:space="preserve">
+    <value>Enter here your Schedule code:</value>
+  </data>
+  <data name="SettingsHeader2.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="SettingsHeader3.Text" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="SettingsHeader4.Text" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OnContent" xml:space="preserve">
     <value>Yes</value>
-  </data>
-  <data name="SettingsPage_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
   </data>
   <data name="SettingsPage_ThemeToggle.OffContent" xml:space="preserve">
     <value>Dark</value>
@@ -182,5 +230,8 @@
   </data>
   <data name="Shell_SettingsPage" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="TryAgainButton.Content" xml:space="preserve">
+    <value>Try again!</value>
   </data>
 </root>

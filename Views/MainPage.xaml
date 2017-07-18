@@ -4,18 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    DataContext="{Binding MainPageViewModel, Source={StaticResource Locator}}"
     xmlns:vm="using:AvansApp.ViewModels"
     xmlns:converter="using:AvansApp.Converters"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    DataContext="{Binding MainPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <converter:VisibilityConverter x:Key="VisibilityConverter"/>
 
             <DataTemplate x:Key="NavigationMenuItemDataTemplate" x:DataType="vm:ShellNavigationItem">
@@ -36,12 +38,11 @@
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <!-- {ThemeResource SystemControlForegroundAccentBrush} -->
                         <Rectangle
                             Width="6"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
-                            Fill="White"
+                            Fill="{StaticResource MyNavigationRectangleBrush}"
                             Visibility="{x:Bind SelectedVis, Mode=OneWay}" />
                         <FontIcon
                             HorizontalAlignment="Center"
@@ -69,15 +70,15 @@
             <RowDefinition Height="*" />
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <!--  Top-level navigation menu + app content  -->
-        <!-- PaneBackground="{ThemeResource SystemControlBackgroundAltHighBrush}" -->
         <SplitView
             x:Name="NavigationMenu"
             Grid.Row="1"
             Grid.RowSpan="2"
             DisplayMode="{x:Bind ViewModel.DisplayMode, Mode=OneWay}"
-            PaneBackground="#C6002A"
-            Background="#C6002A"
+            PaneBackground="{StaticResource MyNavigationPaneBackgroundBrush}"
+            Background="{StaticResource MyNavigationPaneBackgroundBrush}"
             IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
             OpenPaneLength="260">
             <SplitView.Pane>
@@ -99,8 +100,10 @@
                                     <Image x:Name="ProfileImage" Source="{x:Bind ViewModel.ProfileImage, Mode=OneWay}" Width="50" Height="50" Margin="0,20" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </StackPanel>
                                 <StackPanel Margin="10,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                    <TextBlock Text="{x:Bind ViewModel.User.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                                    <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" 
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource MyNavigationTextBrush}"/>
+                                    <TextBlock Text="{x:Bind ViewModel.User.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" 
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource MyNavigationTextBrush}"/>
                                 </StackPanel>
                             </StackPanel>
                             <ItemsControl
@@ -121,14 +124,15 @@
             </SplitView.Pane>
 
             <SplitView.Content>
-                <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
                     <Frame x:Name="MainFrame"/>
                 </Grid>
             </SplitView.Content>
         </SplitView>
 
         <!--  Header  -->
-        <Grid Grid.Row="0" x:Name="HeaderPanel" VerticalAlignment="Top" Background="#C6002A" BorderThickness="0" Height="48" Visibility="{x:Bind ViewModel.IsHeaderVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+        <Grid x:Name="HeaderPanel" Grid.Row="0" VerticalAlignment="Top" Background="{StaticResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" 
+              Visibility="{x:Bind ViewModel.IsHeaderVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  Width="50"/>
                 <ColumnDefinition Width="*" />
@@ -138,12 +142,13 @@
             </Grid.RowDefinitions>
             
             <!--  Navigation menu button  -->
-            <Button Width="48" Height="48" BorderThickness="0" Background="Transparent" Foreground="White" Command="{x:Bind ViewModel.OpenPaneCommand}" Margin="0">
+            <Button Width="48" Height="48" BorderThickness="0" Background="Transparent" Foreground="{StaticResource MyNavigationHamburgerBrush}" Command="{x:Bind ViewModel.OpenPaneCommand}" Margin="0">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" FontSize="20" FontWeight="Normal" Foreground="White"/>
             </Button>
 
-            <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Auto" VerticalScrollMode="Disabled">
-                <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{StaticResource TagLineTextStyle}"
+            <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Auto" VerticalScrollMode="Disabled">
+                <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{StaticResource TagLineTextStyle}" Foreground="{StaticResource MyNavigationTextBrush}"
                            Height="27" MaxLines="1" TextWrapping="Wrap" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="-50,0,0,0"/>
             </ScrollViewer>
         </Grid>

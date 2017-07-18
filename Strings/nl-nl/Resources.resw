@@ -117,8 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Disclaimer.Text" xml:space="preserve">
+    <value>Overige informatie &amp; Disclaimers</value>
+  </data>
+  <data name="FeedbackButton.Content" xml:space="preserve">
+    <value>Geef feedback</value>
+  </data>
+  <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
+    <value>Rooster aanvullen met lege dagen?</value>
+  </data>
+  <data name="FirstTimeSchedule1.Text" xml:space="preserve">
+    <value>Je kan je roostercode invoeren</value>
+  </data>
+  <data name="FirstTimeSchedule2.Text" xml:space="preserve">
+    <value>in de instellingen pagina.</value>
+  </data>
   <data name="Loading.Text" xml:space="preserve">
     <value>Laden...</value>
+  </data>
+  <data name="LoggedInString.Text" xml:space="preserve">
+    <value>Je bent ingelogd als </value>
+  </data>
+  <data name="LoginButton.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Uitloggen</value>
   </data>
   <data name="NoResult.Text" xml:space="preserve">
     <value>Geen resultaten</value>
@@ -138,17 +162,41 @@
   <data name="NoResultExams.Text" xml:space="preserve">
     <value>Geen tentamens gevonden!</value>
   </data>
+  <data name="NoResultSchedule.Text" xml:space="preserve">
+    <value>Geen lessen!</value>
+  </data>
+  <data name="SaveButtonText.Content" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ScheduleTodayButton.Content" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="SearchButton.Content" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
   <data name="SearchFlyout.Text" xml:space="preserve">
     <value>Minimaal 3 karakters.</value>
+  </data>
+  <data name="SettingsHeader1.Text" xml:space="preserve">
+    <value>Rooster</value>
+  </data>
+  <data name="SettingsHeader1Sub.Text" xml:space="preserve">
+    <value>Vul hier je Rooster code in:</value>
+  </data>
+  <data name="SettingsHeader2.Text" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="SettingsHeader3.Text" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="SettingsHeader4.Text" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>Nee</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OnContent" xml:space="preserve">
     <value>Ja</value>
-  </data>
-  <data name="SettingsPage_Theme.Text" xml:space="preserve">
-    <value>Thema</value>
   </data>
   <data name="SettingsPage_ThemeToggle.OffContent" xml:space="preserve">
     <value>Donker</value>
@@ -182,5 +230,8 @@
   </data>
   <data name="Shell_SettingsPage" xml:space="preserve">
     <value>Instellingen</value>
+  </data>
+  <data name="TryAgainButton.Content" xml:space="preserve">
+    <value>Probeer opnieuw!</value>
   </data>
 </root>

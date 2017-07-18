@@ -13,6 +13,10 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -22,8 +26,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.VerticalScrollMode="Auto">
 
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your detail content.-->
-            <Grid Background="White"> <!-- {ThemeResource SystemControlPageBackgroundChromeLowBrush} -->
+            <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -31,8 +34,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
-                <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="0,0,0,1" Margin="10,0">
+
+                <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MySplitContentBorderBursh}" BorderThickness="0,0,0,1" Margin="10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -47,10 +50,11 @@
                     <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind MasterMenuItem.DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="Gray" />
                 </Grid>
                 
-                <WebView Grid.Column="0" Grid.Row="1" x:Name="Htmlview" helper:Untils.SourceString="{x:Bind MasterMenuItem.Message, Mode=OneWay}" 
-                        Width="Auto" Height="Auto" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,0"
-                        IsRightTapEnabled="False" IsDoubleTapEnabled="True" IsTapEnabled="True" CanDrag="True"
-                        ManipulationMode="System" NavigationStarting="{x:Bind MasterMenuItem.HTMLview_NavigationStarting}" />
+                <WebView Grid.Column="0" Grid.Row="1" helper:Untils.SourceString="{x:Bind MasterMenuItem.Message, Mode=OneWay}" 
+                         DefaultBackgroundColor="Transparent"
+                         Width="Auto" Height="Auto" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,0"
+                         IsRightTapEnabled="False" IsDoubleTapEnabled="True" IsTapEnabled="True" CanDrag="True"
+                         ManipulationMode="System" NavigationStarting="{x:Bind MasterMenuItem.HTMLview_NavigationStarting}" />
             </Grid>
         </ScrollViewer>
         

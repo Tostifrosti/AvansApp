@@ -10,45 +10,50 @@
     
     <Page.Resources>
         <ResourceDictionary>
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converter:VisibilityConverter x:Key="VisibilityConverter" />
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Background="White">
+
+    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <!-- Header -->
-        <Grid Grid.Row="0" x:Name="HeaderPanel" Background="#C6002A" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <TextBlock x:Name="HeaderText" HorizontalAlignment="Center" Text="Avans Login" Style="{StaticResource TagLineTextStyle}" />
+        <Grid Grid.Row="0" x:Name="HeaderPanel" Background="{StaticResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="HeaderText" HorizontalAlignment="Center" Text="Avans Login" Style="{StaticResource TagLineTextStyle}" Foreground="{StaticResource MyHeaderTextForegroundBrush}" />
         </Grid>
         
         <!-- Content -->
-        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
-            <Grid Background="White" MaxWidth="1000">
+        <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollMode="Enabled" 
+                      VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
+            <Grid Background="Transparent" MaxWidth="1000">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Grid.Column="0" CornerRadius="0" BorderBrush="White" BorderThickness="0" Margin="10" VerticalAlignment="Top">
+                <Border Grid.Row="0" Grid.Column="0" CornerRadius="0" BorderBrush="Transparent" BorderThickness="0" Margin="10" VerticalAlignment="Top">
                     <Grid x:Name="LayoutRoot" Height="250" VerticalAlignment="Top">
                         <Grid.Background>
                             <ImageBrush ImageSource ="../Assets/entreeOWBonderwijsboulevarddenbosch-max-620x350.jpg" Stretch="UniformToFill"></ImageBrush>
                         </Grid.Background>
                     </Grid>
                 </Border>
+                
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+                    
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                        <TextBlock Text="Welkom" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="bij Avans" Margin="6,0,0,0" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
-                        <TextBlock Text="!" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#000"/>
+                        <TextBlock Text="Welkom bij Avans!" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}"/>
                     </StackPanel>
-                    <TextBlock LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="#333" HorizontalAlignment="Stretch" TextAlignment="Left">
+
+                    <TextBlock LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" 
+                               HorizontalAlignment="Stretch" TextAlignment="Left">
                     Welkom bij de gloednieuwe Avans App!
                     <LineBreak/>
                     <LineBreak/>Met deze App kan je je Blackboard nieuws of mededelingen bekijken, resultaten inzien, rooster bekijken, medewerkers opzoeken, vrije ruimtes zoeken en nog veel meer!
@@ -59,7 +64,9 @@
                     <LineBreak/>Vindt je een bug of heb je leuk idee voor de app? Stuur gerust je ideeën via de Feedback knop in je instellingen (zodra je bent ingelogd).
                     <LineBreak/><LineBreak/>Veel plezier met de App!
                     </TextBlock>
-                    <Button x:Name="LoginButton" Content="Login" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" Width="150" FontSize="18" />
+                    <Button x:Uid="LoginButton" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
+                            Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" 
+                            Width="150" FontSize="18" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

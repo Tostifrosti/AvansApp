@@ -11,8 +11,10 @@
     <Page.Resources>
         <ResourceDictionary>
             <converter:DataConverter x:Key="DataConverter" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -27,8 +29,9 @@
         </TransitionCollection>
     </Page.Transitions>
 
-    <Grid Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <ScrollViewer MaxWidth="1000" HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ScrollViewer MaxWidth="1000" Background="Transparent" HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled" HorizontalAlignment="Stretch" 
+                      HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -42,13 +45,14 @@
                         <Image x:Name="ProfileImage" Source="{x:Bind ViewModel.ProfileImage, Mode=OneWay}" Width="100" Height="100" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Margin="0,5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="{x:Bind ViewModel.MyProfile.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="{x:Bind ViewModel.MyProfile.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" Foreground="{StaticResource MyTextForegroundBrush}"
+                                   FontSize="18" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <!--<TextBlock Text="{x:Bind MyProfileVM.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" />-->
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0" HorizontalAlignment="Stretch">
-                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="Gray" BorderThickness="0,0,0,1">
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="25" />
@@ -57,11 +61,13 @@
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8D4;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Studentnr." FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.MyProfile.Studentnummer, Mode=OneWay, Converter={StaticResource DataConverter}}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8D4;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{StaticResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Studentnr." FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.MyProfile.Studentnummer, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                     </Grid>
-                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="Gray" BorderThickness="0,0,0,1">
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="25" />
@@ -70,11 +76,13 @@
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE77B;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Beschrijving" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.MyProfile.Title, Mode=OneWay, Converter={StaticResource DataConverter}}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE77B;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{StaticResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Beschrijving" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.MyProfile.Title, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                     </Grid>
-                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="Gray" BorderThickness="0,0,0,0">
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="25" />
@@ -83,12 +91,14 @@
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE715;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Email" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.MyProfile.Emailadres, Mode=OneWay, Converter={StaticResource DataConverter}}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE715;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{StaticResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Email" FontSize="14" Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.MyProfile.Emailadres, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{StaticResource MyTextForegroundBrush}" />
                     </Grid>
 
-                    <!--<Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="Gray" BorderThickness="0,0,0,1">
+                    <!--<Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -97,7 +107,8 @@
                                 <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE787;" FontSize="24" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE787;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{StaticResource MyTextForegroundBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Werkdagen" FontSize="14" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" />
                             <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind SelectedEmployee.Werkdagen, Mode=OneWay, Converter={StaticResource DataConverter}}" TextWrapping="WrapWholeWords" VerticalAlignment="Center" HorizontalAlignment="Right" />
                         </Grid>

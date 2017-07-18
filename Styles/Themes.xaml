@@ -1,0 +1,83 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <!-- Page -->
+            <SolidColorBrush x:Key="MyApplicationPageBackgroundThemeBrush" Color="White"/>
+            <SolidColorBrush x:Key="MyTextForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="MySubTextForegroundBrush" Color="Gray" />
+            <SolidColorBrush x:Key="MyHeaderTextForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="MyParagraphTextBrush" Color="#666" />
+            <SolidColorBrush x:Key="MyBodyTextBrush" Color="#333" />
+            
+            <!-- Navigation -->
+            <SolidColorBrush x:Key="MyNavigationHeaderBackgroundBrush" Color="#C6002A" />
+            <SolidColorBrush x:Key="MyNavigationRectangleBrush" Color="White" />
+            <SolidColorBrush x:Key="MyNavigationPaneBackgroundBrush" Color="#C6002A" />
+            <SolidColorBrush x:Key="MyNavigationTextBrush" Color="White" />
+            <SolidColorBrush x:Key="MyNavigationHamburgerBrush" Color="White" />
+
+            <!-- Button -->
+            <SolidColorBrush x:Key="MyButtonForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="MyButtonBackgroundBrush" Color="#C6002A"/>
+
+
+            <!-- Loading -->
+            <SolidColorBrush x:Key="MyProgressRingForegroundBrush" Color="Gray" />
+            <SolidColorBrush x:Key="MyLoadingTextForegroundBrush" Color="Gray" />
+            
+            <!-- Borders -->
+            <SolidColorBrush x:Key="MyBorderBursh" Color="LightGray" />
+            <SolidColorBrush x:Key="MySplitContentBorderBursh" Color="Black" />
+            
+            <!-- TextBox -->
+            <SolidColorBrush x:Key="MyTextBoxBorderBrush" Color="LightGray" />
+            <SolidColorBrush x:Key="MyTextBoxForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="MyTextBoxBackgroundBrush" Color="White" />
+            
+            <!-- Switch -->
+            <SolidColorBrush x:Key="MyToggleTextBrush" Color="Black" />
+        </ResourceDictionary>
+        
+        
+        <ResourceDictionary x:Key="Dark">
+            <!-- Page -->
+            <SolidColorBrush x:Key="MyApplicationPageBackgroundThemeBrush" Color="Black"/>
+            <SolidColorBrush x:Key="MyTextForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="MySubTextForegroundBrush" Color="LightGray" />
+            <SolidColorBrush x:Key="MyHeaderTextForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="MyParagraphTextBrush" Color="White" />
+            <SolidColorBrush x:Key="MyBodyTextBrush" Color="White" />
+
+            <!-- Navigation -->
+            <SolidColorBrush x:Key="MyNavigationHeaderBackgroundBrush" Color="#C6002A" />
+            <SolidColorBrush x:Key="MyNavigationRectangleBrush" Color="White" />
+            <SolidColorBrush x:Key="MyNavigationPaneBackgroundBrush" Color="#C6002A" />
+            <SolidColorBrush x:Key="MyNavigationTextBrush" Color="White" />
+            <SolidColorBrush x:Key="MyNavigationHamburgerBrush" Color="White" />
+            
+            <!-- Button -->
+            <SolidColorBrush x:Key="MyButtonForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="MyButtonBackgroundBrush" Color="#C6002A"/>
+            
+            <!-- Loading -->
+            <SolidColorBrush x:Key="MyProgressRingForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="MyLoadingTextForegroundBrush" Color="White" />
+            
+            <!-- Borders -->
+            <SolidColorBrush x:Key="MyBorderBursh" Color="LightGray" />
+            <SolidColorBrush x:Key="MySplitContentBorderBursh" Color="White" />
+
+            <!-- TextBox -->
+            <SolidColorBrush x:Key="MyTextBoxBorderBrush" Color="LightGray" />
+            <SolidColorBrush x:Key="MyTextBoxForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="MyTextBoxBackgroundBrush" Color="White" />
+
+            <!-- Switch -->
+            <SolidColorBrush x:Key="MyToggleTextBrush" Color="White" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>
