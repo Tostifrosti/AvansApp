@@ -103,14 +103,8 @@
 
 
                     <TextBlock x:Uid="Disclaimer" Margin="0,20,0,5" FontWeight="Bold" FontSize="16" TextAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
-                    <TextBlock Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center">
-                        Deze App gebruikt alleen de Avans Hogeschool service voor verificatie van het ingevulde account en het ophalen van data.
-                        <LineBreak/>Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus niet bij enige gevoelige data komen.
-                        <LineBreak/><LineBreak/><Italic>De App is niet van, voor of door Avans Hogeschool en heeft daarvoor geen enkele aansprakelijkheid of verantwoordelijkheid over de Applicatie. 
-                        Er wordt alleen gebruik gemaakt van de service die Avans Hogeschool aanbied om de benodigde data van de gebruiker op te halen. 
-                        Doordat deze App alleen data ophaalt, kan er geen controle worden uitgevoerd op de data zelf. De maker(s) van deze App aanvaarden ook geen aansprakelijkheid voor de juistheid van de gegeven informatie. 
-                        (Deze App houdt zich aan de richtlijnen die zijn gegeven op: https://publicapi.avans.nl/)</Italic>
-                    </TextBlock>
+                    <TextBlock x:Uid="SettingsPageInfo" Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
+                    <TextBlock x:Uid="SettingsPageDisclaimer" Margin="0,10,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{StaticResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

@@ -138,8 +138,26 @@
   <data name="LoggedInString.Text" xml:space="preserve">
     <value>You're logged in as </value>
   </data>
-  <data name="LoginButton.Text" xml:space="preserve">
+  <data name="LoginButton.Content" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="LoginPageBody.Text" xml:space="preserve">
+    <value>Welcome to the new Avans App!
+
+With this app you can view your Blackboard news or announcements, view your own results &amp; schedule and even search for Avans employees, classroom availability and many more! Using the new UWP Framework, the App can be used on both Windows Phone and Desktop.
+
+Press the Login button to sign in through the Avans Services.
+This login process is via (a secure connection from) the in-app browser.
+
+Do you have a bug or have a nice idea for the app? Please send your ideas via the Feedback button in your settings (as soon as you log in).
+
+Have fun!</value>
+  </data>
+  <data name="LoginPageHeader.Text" xml:space="preserve">
+    <value>Avans Login</value>
+  </data>
+  <data name="LoginPageParagraph.Text" xml:space="preserve">
+    <value>Welcome to Avans!</value>
   </data>
   <data name="LogoutButton.Content" xml:space="preserve">
     <value>Logout</value>
@@ -191,6 +209,16 @@
   </data>
   <data name="SettingsHeader4.Text" xml:space="preserve">
     <value>Info</value>
+  </data>
+  <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
+    <value>The App is not made by Avans University and has no responsibility or correlation for the Application.
+Only the service offered by Avans Hogeschool is used to collect the required data from the user.
+Due to the fact that this app only retrieves data, it has no control on the data itself. The creator (s) of this App also accept no liability for the accuracy of the data.
+(This App complies with the guidelines given at https://publicapi.avans.nl/)</value>
+  </data>
+  <data name="SettingsPageInfo.Text" xml:space="preserve">
+    <value>This App only uses the Avans University services for verification of the account that is signed in, and data retrieval.
+Because the verification of your account is via the in-app browser, the App can not retrieve any sensitive data.</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>No</value>

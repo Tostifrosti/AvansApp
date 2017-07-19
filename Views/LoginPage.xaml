@@ -27,7 +27,7 @@
         
         <!-- Header -->
         <Grid Grid.Row="0" x:Name="HeaderPanel" Background="{StaticResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <TextBlock x:Name="HeaderText" HorizontalAlignment="Center" Text="Avans Login" Style="{StaticResource TagLineTextStyle}" Foreground="{StaticResource MyHeaderTextForegroundBrush}" />
+            <TextBlock x:Name="HeaderText" x:Uid="LoginPageHeader" HorizontalAlignment="Center" Style="{StaticResource TagLineTextStyle}" Foreground="{StaticResource MyHeaderTextForegroundBrush}" />
         </Grid>
         
         <!-- Content -->
@@ -49,21 +49,11 @@
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                        <TextBlock Text="Welkom bij Avans!" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}"/>
+                        <TextBlock x:Uid="LoginPageParagraph" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}"/>
                     </StackPanel>
 
-                    <TextBlock LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" 
-                               HorizontalAlignment="Stretch" TextAlignment="Left">
-                    Welkom bij de gloednieuwe Avans App!
-                    <LineBreak/>
-                    <LineBreak/>Met deze App kan je je Blackboard nieuws of mededelingen bekijken, resultaten inzien, rooster bekijken, medewerkers opzoeken, vrije ruimtes zoeken en nog veel meer!
-                    Met gebruik van de nieuwe UWP Framework, kan de App op zowel Windows Phone als Desktop gebruikt worden.
-                    <LineBreak/>
-                    <LineBreak/>Druk op de Login knop om in te loggen via de Avans Services.<LineBreak/>Dit inlog proces gaat via (een beveiligde verbinding van) de in-app browser.
-                    <LineBreak/>
-                    <LineBreak/>Vindt je een bug of heb je leuk idee voor de app? Stuur gerust je ideeën via de Feedback knop in je instellingen (zodra je bent ingelogd).
-                    <LineBreak/><LineBreak/>Veel plezier met de App!
-                    </TextBlock>
+                    <TextBlock x:Uid="LoginPageBody" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" 
+                               HorizontalAlignment="Stretch" TextAlignment="Left" />
                     <Button x:Uid="LoginButton" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
                             Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" 
                             Width="150" FontSize="18" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}" />
