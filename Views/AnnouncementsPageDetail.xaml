@@ -19,7 +19,7 @@
     </Page.Resources>
 
     <Grid x:Name="ContentArea"
-        Background="{StaticResource MyApplicationPageBackgroundThemeBrush}"
+        Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}"
         Margin="0">
 
         <views:AnnouncementsPageDetailControl MasterMenuItem="{x:Bind ViewModel.Item}"/>

@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
 using AvansApp.Helpers;
-using AvansApp.Models;
 using AvansApp.Models.Enums;
 using AvansApp.Services.Pages;
 
@@ -53,12 +52,14 @@ namespace AvansApp.ViewModels.Pages
         public ICommand OnTodayClickCommand { get; private set; }
 
         private ScheduleService Service { get; set; }
+        private SettingsService Settings { get; set; }
 
         public SchedulePageViewModel()
         {
             Items = new List<ObservableCollection<ScheduleVM>>();
             CurrentDay = new ObservableCollection<ScheduleVM>();
-            Service = new ScheduleService();
+            Service = Singleton<ScheduleService>.Instance;
+            Settings = Singleton<SettingsService>.Instance;
 
             todayIndex = 0;
             currentDayIndex = 0;
@@ -66,12 +67,6 @@ namespace AvansApp.ViewModels.Pages
             OnPreviousDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnPreviousDayClick, (e) => { return true; });
             OnNextDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnNextDayClick, (e) => { return true; });
             OnTodayClickCommand = new RelayCommand<ItemClickEventArgs>(OnTodayClick, (e) => { return true; });
-            //PreviousDayButton.IsEnabled = false;
-            //NextDayButton.IsEnabled = false;
-            //TodayButton.IsEnabled = false;
-
-            // Remove old key (could clear a lot of storage)
-            OAuth.GetInstance().Client.RemoveFromVault("ScheduleStorage");
             
             SetHeader();
         }
@@ -81,14 +76,14 @@ namespace AvansApp.ViewModels.Pages
         }
         public async Task LoadDataAsync()
         {
-            if (OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
+            if (Settings.KeyExists(SettingsService.ScheduleCodeKey))
             {
                 IsLoading = true;
                 HasNoResult = false;
                 HasNoScheduleCode = false;
 
-                string scheduleCode = OAuth.GetInstance().Client.GetTokenFromVault("ScheduleCode");
-                bool withoutBlanks = OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks");
+                string scheduleCode = await Settings.ReadScheduleCode();
+                bool withoutBlanks = await Settings.ReadScheduleBlanks();
                 List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Classroom, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
 
                 todayIndex = (withoutBlanks == true) ? Service.TodayIndex : 0;
@@ -151,7 +146,7 @@ namespace AvansApp.ViewModels.Pages
         }
         private void OnTodayClick(ItemClickEventArgs e)
         {
-            if (CurrentDay != null && CurrentDay.Count > 0) //&& todayIndex != null
+            if (CurrentDay != null && CurrentDay.Count > 0)
             {
                 CurrentDay = Items[todayIndex];
                 currentDayIndex = todayIndex;
@@ -161,6 +156,7 @@ namespace AvansApp.ViewModels.Pages
         }
         private void SetCurrentDay()
         {
+            // TODO
             if (CurrentDay.Count <= 0 || (CurrentDay.Count == 1 && CurrentDay[0].Id < 0))
             {
                 //ScheduleListView.ItemsSource = new List<ScheduleVM>();
@@ -188,43 +184,5 @@ namespace AvansApp.ViewModels.Pages
                 HeaderDay = DateTime.Now.DayOfWeek.ToString();
             }
         }
-
-        /*protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            await ViewModel.LoadDataAsync();
-            //FirstTimeText.Visibility = Visibility.Collapsed;
-            if (e != null && e.Parameter != null)
-            {
-                //main = (MainPage)e.Parameter;
-                //main.PageTitle = "Rooster";
-
-                if(OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
-                {
-                    string scheduleCode = OAuth.GetInstance().Client.GetTokenFromVault("ScheduleCode");
-                    DateTime date = DateTime.Now.AddMonths(-3); // If you like to look back. 
-                    string previousDate = date.Day + "-" + date.Month + "-" + date.Year;
-                    date = date.AddMonths(6);
-                    string nextDate = date.Day + "-" + date.Month + "-" + date.Year;
-                    string type = GetScheduleType(ScheduleType.Group);
-                    if(OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks"))
-                        GetScheduleWithoutBlanks("?type=" + type + "&param=" + scheduleCode + "&start=" + previousDate + "&end=" + nextDate);
-                    else
-                        GetScheduleWithBlanks("?type=" + type + "&param=" + scheduleCode + "&start=" + previousDate + "&end=" + nextDate);
-                }
-                else
-                {
-                    todayIndex = 0;
-                    currentDayIndex = 0;
-                    PreviousDayButton.IsEnabled = false;
-                    NextDayButton.IsEnabled = false;
-                    TodayButton.IsEnabled = false;
-                    SetHeader();
-                    //ScheduleListView.Visibility = Visibility.Collapsed;
-                    //NoScheduleText.Visibility = Visibility.Collapsed;
-                    //FirstTimeText.Visibility = Visibility.Visible;
-                }
-            }
-        }*/
     }
 }

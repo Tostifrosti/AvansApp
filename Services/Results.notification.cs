@@ -1,4 +1,6 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
+﻿using AvansApp.Helpers;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using Windows.UI.Notifications;
 
 namespace AvansApp.Services
@@ -7,12 +9,14 @@ namespace AvansApp.Services
     {
         public void Show()
         {
+            const string logo = "ms-appdata:///Assets/StoreLogo.png";
+            
             // Create the toast content
             var content = new ToastContent()
             {
                 // Documentation: https://developer.microsoft.com/en-us/windows/uwp-community-toolkit/api/microsoft_toolkit_uwp_notifications_toastcontent
-                Launch = "ToastContentActivationParams",
-
+                Launch = "ResultsNotification",
+                Scenario = ToastScenario.Default,
                 Visual = new ToastVisual()
                 {
                     BindingGeneric = new ToastBindingGeneric()
@@ -27,8 +31,18 @@ namespace AvansApp.Services
                             new AdaptiveText()
                             {
                                  Text = @"Er staat een nieuw resultaat voor je klaar!"
+                            },
+                            new AdaptiveImage()
+                            {
+                                Source = logo
                             }
+                        },
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = logo,
+                            HintCrop = ToastGenericAppLogoCrop.Circle
                         }
+
                     }
                 },
 
@@ -37,7 +51,7 @@ namespace AvansApp.Services
                     Buttons =
                     {
                         // Documentation: https://developer.microsoft.com/en-us/windows/uwp-community-toolkit/api/microsoft_toolkit_uwp_notifications_toastbutton
-                        new ToastButton("Bekijken", "ToastButtonActivationArguments")
+                        new ToastButton("ToastNotificationButton1".GetLocalized(), "ResultsNotification")
                         {
                             ActivationType = ToastActivationType.Foreground
                         },
@@ -52,7 +66,9 @@ namespace AvansApp.Services
             {
                 // Gets or sets the unique identifier of this notification within the notification Group. 
                 // Documentation: https://docs.microsoft.com/uwp/api/windows.ui.notifications.toastnotification
-                Tag = "AvansResult" // Max length 16 characters.
+                Tag = "AvansResult", // Max length 16 characters.
+                ExpirationTime = DateTime.Now.AddMonths(1),
+                Group = "AvansResults"
             };
 
             // And show the toast

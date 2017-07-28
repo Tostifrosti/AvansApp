@@ -12,3 +12,5 @@ Omdat de verificatie van uw account via de in-app browser gaat, is het niet moge
 
 #### De Avans App is niet van Avans Hogeschool en heeft daarvoor geen enkele verantwoordelijkheid over de Applicatie. De developer van de app gebruikt alleen de servers die de Avans Hogeschool aanbied om de benodigde data van de gebruiker op te halen.
 #### De App laat dus alleen data zien zijn opgehaald door de server. Voor enige verkeerde of misleidende data is de developer niet aansprakelijk.
+
+Site: [https://tostifrosti.github.io/AvansApp](https://tostifrosti.github.io/AvansApp/)

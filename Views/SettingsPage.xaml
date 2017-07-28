@@ -18,15 +18,15 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
             <StackPanel Background="Transparent" MaxWidth="1000">
                 
                 <!-- Rooster -->
                 <StackPanel Margin="10,0,10,20">
-                    <TextBlock x:Uid="SettingsHeader1" FontSize="20" Foreground="{StaticResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="2" />
-                    <TextBlock x:Uid="SettingsHeader1Sub" Margin="5,10,0,0" FontStyle="Italic" FontSize="14" Foreground="{StaticResource MyTextForegroundBrush}" />
+                    <TextBlock x:Uid="SettingsHeader1" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
+                    <TextBlock x:Uid="SettingsHeader1Sub" Margin="5,10,0,0" FontStyle="Italic" FontSize="14" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     <Grid Margin="5,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -37,7 +37,7 @@
                         </Grid.RowDefinitions>
                         <TextBox Grid.Column="0" Grid.Row="0" Text="{x:Bind ViewModel.ScheduleCodeInputText, Mode=TwoWay}" PlaceholderText="Rooster code" FontSize="16" 
                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="1" Height="30" 
-                                 BorderBrush="{StaticResource MyTextBoxBorderBrush}" Foreground="{StaticResource MyTextBoxForegroundBrush}" Background="{StaticResource MyTextBoxBackgroundBrush}">
+                                 Style="{ThemeResource MyTextBox}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="KeyDown">
                                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnScheduleCodeKeydownCommand, Mode=OneWay}" />
@@ -45,15 +45,13 @@
                             </i:Interaction.Behaviors>
                         </TextBox>
                         <Button x:Uid="SaveButtonText" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnScheduleCodeButtonClickCommand, Mode=OneWay}" 
-                                Style="{StaticResource DefaultButtonStyle}" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}"
-                                FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="5,0,0,0" />
+                                Style="{ThemeResource MyButton}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="5,0,0,0" />
                     </Grid>
                     
                     <StackPanel Margin="5,0" Orientation="Vertical" HorizontalAlignment="Left">
                         <TextBlock x:Uid="FillScheduleWithBlanks" TextWrapping="WrapWholeWords"
-                                   Foreground="{StaticResource MyTextForegroundBrush}" />
-                        <ToggleSwitch x:Uid="SettingsPage_ScheduleBlanksToggle" IsOn="{x:Bind ViewModel.IsScheduleWithoutBlanksEnabled, Mode=OneWay}"
-                                      Foreground="{StaticResource MyToggleTextBrush}">
+                                   Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_ScheduleBlanksToggle" IsOn="{x:Bind ViewModel.IsScheduleWithoutBlanksEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Toggled">
                                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnScheduleBlanksToggleCommand, Mode=OneWay}" />
@@ -64,15 +62,12 @@
                 </StackPanel>
                 
                 <!-- Theme Toggle -->
-                <!--<StackPanel Margin="10,0,10,20">
-                    <TextBlock x:Uid="SettingsHeader2" FontSize="20" Foreground="{StaticResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="2" />
+                <StackPanel Margin="10,0,10,20">
+                    <TextBlock x:Uid="SettingsHeader2" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
 
                     <StackPanel Margin="5,0">
-                        <ToggleSwitch
-                                    x:Uid="SettingsPage_ThemeToggle" Foreground="{StaticResource MyToggleTextBrush}"
-                                    IsOn="{x:Bind ViewModel.IsLightThemeEnabled, Mode=OneWay}"
-                                    Margin="0,4,0,0">
+                        <ToggleSwitch x:Uid="SettingsPage_ThemeToggle" IsOn="{x:Bind ViewModel.IsLightThemeEnabled, Mode=OneWay}" Style="{ThemeResource MyToggleSwitch}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Toggled">
                                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.SwitchThemeCommand}"/>
@@ -80,31 +75,31 @@
                             </i:Interaction.Behaviors>
                         </ToggleSwitch>
                     </StackPanel>
-                </StackPanel>-->
+                </StackPanel>
 
                 <!-- Profiel -->
                 <StackPanel Margin="10,0,10,20">
-                    <TextBlock x:Uid="SettingsHeader3" FontSize="20" Foreground="{StaticResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="2" />
+                    <TextBlock x:Uid="SettingsHeader3" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <TextBlock x:Uid="LoggedInString" Margin="0,0,5,0" Foreground="{StaticResource MyTextForegroundBrush}"/>
-                        <TextBlock Text="{x:Bind ViewModel.User.Fullname, Mode=OneWay}" Foreground="{StaticResource MyTextForegroundBrush}" />
+                        <TextBlock x:Uid="LoggedInString" Margin="0,0,5,0" Foreground="{ThemeResource MyTextForegroundBrush}"/>
+                        <TextBlock Text="{x:Bind ViewModel.User.Fullname, Mode=OneWay}" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     </StackPanel>
                     <Button x:Uid="LogoutButton" Command="{x:Bind ViewModel.OnLogoutButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
-                            Style="{StaticResource DefaultButtonStyle}" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}" />
+                            Style="{ThemeResource MyButton}" />
                 </StackPanel>
                 
                 <!-- Overige -->
                 <StackPanel Margin="10,0,10,10">
-                    <TextBlock x:Uid="SettingsHeader4" FontSize="20" Foreground="{StaticResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="2" />
+                    <TextBlock x:Uid="SettingsHeader4" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
                     <Button x:Uid="FeedbackButton" Command="{x:Bind ViewModel.OnFeedbackButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
-                            Style="{StaticResource DefaultButtonStyle}" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}" />
+                            Style="{ThemeResource MyButton}" />
 
 
-                    <TextBlock x:Uid="Disclaimer" Margin="0,20,0,5" FontWeight="Bold" FontSize="16" TextAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}" />
-                    <TextBlock x:Uid="SettingsPageInfo" Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
-                    <TextBlock x:Uid="SettingsPageDisclaimer" Margin="0,10,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{StaticResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
+                    <TextBlock x:Uid="Disclaimer" Margin="0,20,0,5" FontWeight="Bold" FontSize="16" TextAlignment="Center" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    <TextBlock x:Uid="SettingsPageInfo" Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
+                    <TextBlock x:Uid="SettingsPageDisclaimer" Margin="0,10,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

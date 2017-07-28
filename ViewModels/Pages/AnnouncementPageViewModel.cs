@@ -49,7 +49,7 @@ namespace AvansApp.ViewModels.Pages
         public AnnouncementPageViewModel()
         {
             IsLoading = true;
-            Service = new AnnouncementService();
+            Service = Singleton<AnnouncementService>.Instance;
             Items = new ObservableCollection<AnnouncementVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);

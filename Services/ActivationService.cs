@@ -27,8 +27,7 @@ namespace AvansApp.Services
                 return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<NavigationService>();
             }
         }
-
-
+        
         public ActivationService(App app, Type defaultNavItem, UIElement shell = null)
         {
             _app = app;
@@ -49,7 +48,7 @@ namespace AvansApp.Services
                 {
                     // Create a Frame to act as the navigation context and navigate to the first page
                     Window.Current.Content = _shell;
-                    /*NavigationService.Frame.NavigationFailed += (sender, e) =>
+                    NavigationService.Frame.NavigationFailed += (sender, e) =>
                     {
                         throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
                     };
@@ -57,7 +56,7 @@ namespace AvansApp.Services
                     if (SystemNavigationManager.GetForCurrentView() != null)
                     {
                         SystemNavigationManager.GetForCurrentView().BackRequested += OnAppViewBackButtonRequested;
-                    }*/
+                    }
                 }
             }
 
@@ -73,6 +72,7 @@ namespace AvansApp.Services
                 var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem);
                 if (defaultHandler.CanHandle(activationArgs))
                 {
+                    // Navigate to frame
                     await defaultHandler.HandleAsync(activationArgs);
                 }
 
@@ -86,7 +86,7 @@ namespace AvansApp.Services
 
         private async Task InitializeAsync()
         {
-            Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasks();
+            //Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasks();
             await ThemeSelectorService.InitializeAsync();
             await Task.CompletedTask;
         }
@@ -100,7 +100,7 @@ namespace AvansApp.Services
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
             yield return Singleton<ToastNotificationsService>.Instance;
-            yield return Singleton<BackgroundTaskService>.Instance;
+            //yield return Singleton<BackgroundTaskService>.Instance;
 
             yield break;
         }
@@ -110,7 +110,7 @@ namespace AvansApp.Services
             return args is IActivatedEventArgs;
         }
 
-        /*private void OnFrameNavigated(object sender, NavigationEventArgs e)
+        private void OnFrameNavigated(object sender, NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = (NavigationService.CanGoBack) ?
                 AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
@@ -123,6 +123,6 @@ namespace AvansApp.Services
                 NavigationService.GoBack();
                 e.Handled = true;
             }
-        }*/
+        }
     }
 }

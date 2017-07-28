@@ -19,15 +19,15 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <!-- Header -->
-        <Grid Grid.Row="0" x:Name="HeaderPanel" Background="{StaticResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <TextBlock x:Name="HeaderText" x:Uid="LoginPageHeader" HorizontalAlignment="Center" Style="{StaticResource TagLineTextStyle}" Foreground="{StaticResource MyHeaderTextForegroundBrush}" />
+        <Grid Grid.Row="0" x:Name="HeaderPanel" Background="{ThemeResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="HeaderText" x:Uid="LoginPageHeader" HorizontalAlignment="Center" Style="{ThemeResource TagLineTextStyle}" Foreground="{ThemeResource MyHeaderTextForegroundBrush}" />
         </Grid>
         
         <!-- Content -->
@@ -49,14 +49,13 @@
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                        <TextBlock x:Uid="LoginPageParagraph" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{StaticResource MyTextForegroundBrush}"/>
+                        <TextBlock x:Uid="LoginPageParagraph" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{ThemeResource MyTextForegroundBrush}"/>
                     </StackPanel>
 
-                    <TextBlock x:Uid="LoginPageBody" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{StaticResource MyBodyTextBrush}" 
+                    <TextBlock x:Uid="LoginPageBody" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource MyBodyTextBrush}" 
                                HorizontalAlignment="Stretch" TextAlignment="Left" />
                     <Button x:Uid="LoginButton" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
-                            Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" 
-                            Width="150" FontSize="18" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}" />
+                            Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Width="150" FontSize="18" Style="{ThemeResource MyButton}" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

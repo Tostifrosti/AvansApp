@@ -37,7 +37,7 @@ namespace AvansApp.ViewModels.Pages
             get { return _hasNoResult; }
             set { Set(ref _hasNoResult, value); }
         }
-        private bool SearchBoxChanged; // TODO
+        private bool SearchBoxChanged;
         //private Flyout SearchFlyout { get; set; } // TODO
         private string _searchBoxText;
         public string SearchBoxText
@@ -60,21 +60,16 @@ namespace AvansApp.ViewModels.Pages
             OnKeyDownCommand = new RelayCommand<KeyRoutedEventArgs>(OnKeyDown);
 
             SearchBoxChanged = false;
-            Service = new EmployeeService();
-            
-            //this.Loaded += EmployeesPage_Loaded;
+            Service = Singleton<EmployeeService>.Instance;
         }
         public void Initialize()
         {
             MainPageViewModel.SetPageTitle("Shell_EmployeesPage".GetLocalized());
-        }
 
-        /*private void EmployeesPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            SearchFlyout = Resources["SearchFlyout"] as Flyout;
+            /*SearchFlyout = Resources["SearchFlyout"] as Flyout;
             SearchFlyout.Placement = Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode.Bottom;
-            SearchFlyout.Hide();
-        }*/
+            SearchFlyout.Hide();*/
+        }
         
 
         private async void OnSearchButtonClick(ItemClickEventArgs args)
@@ -119,7 +114,6 @@ namespace AvansApp.ViewModels.Pages
         private async void OnItemClick(ItemClickEventArgs args)
         {
             EmployeeVM item = args?.ClickedItem as EmployeeVM;
-            //main.PageTitle = SelectedEmployee.DisplayName;
 
             if (item != null)
             {

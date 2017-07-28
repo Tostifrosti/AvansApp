@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.System.Threading;
+
+using AvansApp.Helpers;
+using AvansApp.Services;
+using AvansApp.Services.Pages;
+using AvansApp.ViewModels;
 
 namespace AvansApp.BackgroundTasks
 {
@@ -10,8 +15,8 @@ namespace AvansApp.BackgroundTasks
     {
         public static string Message;
 
-        private volatile bool _cancelRequested = false;
-        private IBackgroundTaskInstance _taskInstance;
+        //private volatile bool _cancelRequested = false;
+        //private IBackgroundTaskInstance _taskInstance;
         private BackgroundTaskDeferral _deferral;
 
         public override void Register()
@@ -24,13 +29,9 @@ namespace AvansApp.BackgroundTasks
                 {
                     Name = taskName
                 };
-
-                // TODO UWPTemplates: Define your trigger here and set your conditions
-                // Note conditions are optional
-                // Documentation: https://docs.microsoft.com/windows/uwp/launch-resume/create-and-register-an-inproc-background-task
-
-                builder.SetTrigger(new TimeTrigger(15, false));
-                builder.AddCondition(new SystemCondition(SystemConditionType.UserPresent));
+                
+                builder.SetTrigger(new TimeTrigger(30, false)); // 30 minutes cycle, debug: 1 minute
+                builder.AddCondition(new SystemCondition(SystemConditionType.FreeNetworkAvailable));
 
                 builder.Register();
             }
@@ -39,29 +40,29 @@ namespace AvansApp.BackgroundTasks
         public override Task RunAsyncInternal(IBackgroundTaskInstance taskInstance)
         {
             if (taskInstance == null)
-            {
                 return null;
-            }
 
             _deferral = taskInstance.GetDeferral();
-
-            return Task.Run(() =>
+            
+            return Task.Run(async () =>
             {
-
-                // TODO UWPTemplates: Insert the code that should be executed in the background task here. 
-                // This sample initializes a timer that counts to 100 in steps of 10.  It updates Message each time.
-
                 // Documentation: 
                 //      * General: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/support-your-app-with-background-tasks
                 //      * Debug: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/debug-a-background-task 
                 //      * Monitoring: https://docs.microsoft.com/windows/uwp/launch-resume/monitor-background-task-progress-and-completion
+                
 
-                // To show the background progress and message on any page in the application,  
-                // subscribe to the Progress and Completed events. 
-                // You can do this via "BackgroundTaskService.GetBackgroundTasksRegistration"
+                ResultService service = Singleton<ResultService>.Instance;
+                List<ResultVM> results = await service.RequestResults();
 
-                _taskInstance = taskInstance;
-                ThreadPoolTimer.CreatePeriodicTimer(new TimerElapsedHandler(SampleTimerCallback), TimeSpan.FromSeconds(1));
+                bool hasNewResults = service.CompareNewResults(results);
+
+                if (hasNewResults)
+                {
+                    Singleton<ToastNotificationsService>.Instance.Show();
+                }
+
+                _deferral.Complete();
             });
         }
 
@@ -69,33 +70,6 @@ namespace AvansApp.BackgroundTasks
         {
             // TODO UWPTemplates: Insert code to handle the cancelation request here. 
             // Documentation: https://docs.microsoft.com/windows/uwp/launch-resume/handle-a-cancelled-background-task
-        }
-
-
-
-        // SAMPLE
-        private void SampleTimerCallback(ThreadPoolTimer timer)
-        {
-            if ((_cancelRequested == false) && (_taskInstance.Progress < 100))
-            {
-                _taskInstance.Progress += 10;
-                Message = $"Background Task { _taskInstance.Task.Name} running";
-            }
-            else
-            {
-                timer.Cancel();
-
-                if (_cancelRequested)
-                {
-                    Message = $"Background Task {_taskInstance.Task.Name} cancelled";
-                }
-                else
-                {
-                    Message = $"Background Task {_taskInstance.Task.Name} finished";
-                }
-
-                _deferral?.Complete();
-            }
         }
     }
 }

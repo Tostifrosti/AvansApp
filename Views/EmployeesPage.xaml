@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Padding="0" Margin="0">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Padding="0" Margin="0">
         <Grid Background="Transparent" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="60" BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1" >
+            <Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="60" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
@@ -41,9 +41,9 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="{StaticResource MyTextBoxBorderBrush}" 
-                         PlaceholderText="Zoek naar een Medewerker" FontSize="18" Foreground="{StaticResource MyTextBoxForegroundBrush}" Background="{StaticResource MyTextBoxBackgroundBrush}"
-                         Width="Auto" Height="35" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                
+                <TextBox x:Uid="EmployeePageTextbox" Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="0" BorderThickness="1" 
+                         FontSize="18" Style="{ThemeResource MyTextBox}" Width="Auto" Height="35" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="KeyDown">
                             <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnKeyDownCommand, Mode=OneWay}" />
@@ -61,24 +61,24 @@
                     </FlyoutBase.AttachedFlyout>-->
                 </TextBox>
                 <Button x:Uid="SearchButton" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnSearchButtonClickCommand, Mode=OneWay}" Width="75" Height="35" Margin="0,0,5,0" 
-                        FontSize="14" Style="{StaticResource DefaultButtonStyle}" Foreground="{StaticResource MyButtonForegroundBrush}" Background="{StaticResource MyButtonBackgroundBrush}" />
+                        FontSize="14" Style="{ThemeResource MyButton}" />
             </Grid>
 
             <!-- Loading -->
-            <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
                   Grid.Row="1" Grid.Column="0"
                   Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-                <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{StaticResource MyProgressRingForegroundBrush}" />
+                <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
                 <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyLoadingTextForegroundBrush}" />
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
             </Grid>
 
             <!-- No Result -->
-            <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
                   Grid.Row="1" Grid.Column="0"
                   Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
                 <TextBlock x:Uid="NoResultEmployees" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" 
-                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyLoadingTextForegroundBrush}" />
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
             </Grid>
 
             <!-- List View -->
@@ -98,14 +98,14 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0,0,0,0" />
                         <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Foreground" Value="{StaticResource MyTextForegroundBrush}"/>
+                        <Setter Property="Foreground" Value="{ThemeResource MyTextForegroundBrush}"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,0" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:EmployeeVM">
-                        <Grid BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,8,5,8">
+                        <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,8,5,8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -116,9 +116,9 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind DisplayName, Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Top" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Email, Mode=OneWay}" FontSize="14" FontStyle="Italic" 
-                                       Foreground="{StaticResource MySubTextForegroundBrush}" VerticalAlignment="Bottom"/>
+                                       Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Bottom"/>
 
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Room, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" Foreground="{StaticResource MySubTextForegroundBrush}" 
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Room, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" Foreground="{ThemeResource MySubTextForegroundBrush}" 
                                        HorizontalAlignment="Right" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>

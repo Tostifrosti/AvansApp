@@ -149,7 +149,7 @@ namespace AvansApp.Services.Pages
         }
         private void DeleteOldStorage(List<AnnouncementVM> storage)
         {
-            // TODO
+            
         }*/
     }
 }

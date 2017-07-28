@@ -42,7 +42,7 @@
                             Width="6"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
-                            Fill="{StaticResource MyNavigationRectangleBrush}"
+                            Fill="{ThemeResource MyNavigationRectangleBrush}"
                             Visibility="{x:Bind SelectedVis, Mode=OneWay}" />
                         <FontIcon
                             HorizontalAlignment="Center"
@@ -77,8 +77,8 @@
             Grid.Row="1"
             Grid.RowSpan="2"
             DisplayMode="{x:Bind ViewModel.DisplayMode, Mode=OneWay}"
-            PaneBackground="{StaticResource MyNavigationPaneBackgroundBrush}"
-            Background="{StaticResource MyNavigationPaneBackgroundBrush}"
+            PaneBackground="{ThemeResource MyNavigationPaneBackgroundBrush}"
+            Background="{ThemeResource MyNavigationPaneBackgroundBrush}"
             IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
             OpenPaneLength="260">
             <SplitView.Pane>
@@ -101,9 +101,9 @@
                                 </StackPanel>
                                 <StackPanel Margin="10,0" VerticalAlignment="Center">
                                     <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" 
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource MyNavigationTextBrush}"/>
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ThemeResource MyNavigationTextBrush}"/>
                                     <TextBlock Text="{x:Bind ViewModel.User.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" 
-                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{StaticResource MyNavigationTextBrush}"/>
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ThemeResource MyNavigationTextBrush}"/>
                                 </StackPanel>
                             </StackPanel>
                             <ItemsControl
@@ -131,7 +131,7 @@
         </SplitView>
 
         <!--  Header  -->
-        <Grid x:Name="HeaderPanel" Grid.Row="0" VerticalAlignment="Top" Background="{StaticResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" 
+        <Grid x:Name="HeaderPanel" Grid.Row="0" VerticalAlignment="Top" Background="{ThemeResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" 
               Visibility="{x:Bind ViewModel.IsHeaderVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  Width="50"/>
@@ -142,13 +142,13 @@
             </Grid.RowDefinitions>
             
             <!--  Navigation menu button  -->
-            <Button Width="48" Height="48" BorderThickness="0" Background="Transparent" Foreground="{StaticResource MyNavigationHamburgerBrush}" Command="{x:Bind ViewModel.OpenPaneCommand}" Margin="0">
+            <Button Width="48" Height="48" BorderThickness="0" Background="Transparent" Foreground="{ThemeResource MyNavigationHamburgerBrush}" Command="{x:Bind ViewModel.OpenPaneCommand}" Margin="0">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" FontSize="20" FontWeight="Normal" Foreground="White"/>
             </Button>
 
             <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                           VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Auto" VerticalScrollMode="Disabled">
-                <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{StaticResource TagLineTextStyle}" Foreground="{StaticResource MyNavigationTextBrush}"
+                <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{ThemeResource TagLineTextStyle}" Foreground="{ThemeResource MyNavigationTextBrush}"
                            Height="27" MaxLines="1" TextWrapping="Wrap" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="-50,0,0,0"/>
             </ScrollViewer>
         </Grid>

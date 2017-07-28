@@ -23,25 +23,25 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
 
         <!-- Loading -->
-        <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
               Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
               Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{StaticResource MyProgressRingForegroundBrush}" />
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
             <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyLoadingTextForegroundBrush}" />
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
         </Grid>
 
         <!-- No Result -->
-        <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
               Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
               Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Margin="0,-50,0,0" Opacity="0.5" 
-                      FontWeight="Bold" Foreground="{StaticResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                      FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
             <TextBlock x:Uid="NoResultExams" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" 
-                       TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MyLoadingTextForegroundBrush}" />
+                       TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
         </Grid>
         
         <!-- Exams -->
@@ -62,7 +62,7 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0,0,0,0" />
                         <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Foreground" Value="{StaticResource MyTextForegroundBrush}"/>
+                        <Setter Property="Foreground" Value="{ThemeResource MyTextForegroundBrush}"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,0" />
                     </Style>
@@ -92,7 +92,7 @@
                             </StackPanel>
 
                             <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Text="{x:Bind Classroom, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" 
-                                       Foreground="{StaticResource MySubTextForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                       Foreground="{ThemeResource MySubTextForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

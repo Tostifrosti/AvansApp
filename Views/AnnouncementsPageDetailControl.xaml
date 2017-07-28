@@ -7,8 +7,8 @@
     xmlns:helper="using:AvansApp.Helpers"
     xmlns:converter="using:AvansApp.Converters"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="720"
+    d:DesignWidth="1280">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -26,7 +26,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.VerticalScrollMode="Auto">
 
-            <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -35,7 +35,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{StaticResource MySplitContentBorderBursh}" BorderThickness="0,0,0,1" Margin="10,0">
+                <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MySplitContentBorderBursh}" BorderThickness="0,0,0,1" Margin="10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -44,14 +44,14 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{x:Bind MasterMenuItem.Title, Mode=OneWay}" TextWrapping="Wrap" Padding="0,10" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="Black" />
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{x:Bind MasterMenuItem.Title, Mode=OneWay}" TextWrapping="Wrap" Padding="0,10" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="{ThemeResource MyTextForegroundBrush}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{x:Bind MasterMenuItem.Course, Mode=OneWay}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="Gray" />
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind MasterMenuItem.DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="Gray" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{x:Bind MasterMenuItem.Course, Mode=OneWay}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind MasterMenuItem.DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
                 </Grid>
                 
                 <WebView Grid.Column="0" Grid.Row="1" helper:Untils.SourceString="{x:Bind MasterMenuItem.Message, Mode=OneWay}" 
-                         DefaultBackgroundColor="Transparent"
+                         Style="{ThemeResource MyWebView}"
                          Width="Auto" Height="Auto" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,0"
                          IsRightTapEnabled="False" IsDoubleTapEnabled="True" IsTapEnabled="True" CanDrag="True"
                          ManipulationMode="System" NavigationStarting="{x:Bind MasterMenuItem.HTMLview_NavigationStarting}" />

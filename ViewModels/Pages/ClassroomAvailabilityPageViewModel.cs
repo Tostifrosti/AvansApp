@@ -51,7 +51,7 @@ namespace AvansApp.ViewModels.Pages
 
         public ClassroomAvailabilityPageViewModel()
         {
-            Service = new ClassroomAvailabilityService();
+            Service = Singleton<ClassroomAvailabilityService>.Instance;
             Items = new ObservableCollection<ClassroomAvailabilityVM>();
             Classrooms = new ObservableCollection<ClassroomVM>();
             SearchBoxChanged = false;
@@ -134,8 +134,6 @@ namespace AvansApp.ViewModels.Pages
             ClassroomVM item = e?.ClickedItem as ClassroomVM;
             if (item != null)
             {
-                //main.PageTitle = SelectedClassroom.Classroom;
-
                 NavigationService.Navigate(typeof(ClassroomAvailabilityPageDetailViewModel).FullName, item);
             }
         }

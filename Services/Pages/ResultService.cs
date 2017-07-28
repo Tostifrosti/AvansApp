@@ -32,12 +32,12 @@ namespace AvansApp.Services.Pages
                     SaveToStorage(result); // async
                 }
                 _results = result;*/
-                _results = await Request();
+                _results = await RequestResults();
             }
             return _results;
         }
 
-        private async Task<List<ResultVM>> Request()
+        public async Task<List<ResultVM>> RequestResults()
         {
             List<ResultVM> results = new List<ResultVM>();
             XmlDocument doc = await OAuth.GetInstance().RequestXML(base_url + "/resultaten/v2/", new List<string>(), Models.Enums.HttpMethod.GET);
@@ -147,6 +147,10 @@ namespace AvansApp.Services.Pages
             return results;
         }
 
+        public bool CompareNewResults(List<ResultVM> newResults)
+        {
+            return false;
+        }
         /*private async Task<List<ResultVM>> GetFromStorage()
         {
             if (await Helper.FileExistsAsync(StorageKey))

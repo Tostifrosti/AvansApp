@@ -117,8 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnswerOptionNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="AnswerOptionYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CAHeader1.Text" xml:space="preserve">
+    <value>Classroom type:</value>
+  </data>
+  <data name="CAHeader2.Text" xml:space="preserve">
+    <value>Number of seats:</value>
+  </data>
+  <data name="DialogScheduleCodeSavedBody" xml:space="preserve">
+    <value>Your schedule code is successfully saved!</value>
+  </data>
+  <data name="DialogScheduleCodeSavedHeader" xml:space="preserve">
+    <value>Schedule code</value>
+  </data>
   <data name="Disclaimer.Text" xml:space="preserve">
     <value>Info &amp; Disclaimers</value>
+  </data>
+  <data name="EmployeePageRow1.Text" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EmployeePageRow2.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmployeePageRow3.Text" xml:space="preserve">
+    <value>Work</value>
+  </data>
+  <data name="EmployeePageRow4.Text" xml:space="preserve">
+    <value>Working days</value>
+  </data>
+  <data name="EmployeePageRow5.Text" xml:space="preserve">
+    <value>Room</value>
+  </data>
+  <data name="EmployeePageRow6.Text" xml:space="preserve">
+    <value>Academy</value>
+  </data>
+  <data name="EmployeePageTextbox.PlaceholderText" xml:space="preserve">
+    <value>Search an employee</value>
+  </data>
+  <data name="ErrorMsgAuthDialog" xml:space="preserve">
+    <value>Something went wrong during the verification of your account.
+Please try again later!</value>
+  </data>
+  <data name="ErrorMsgAuthDialogHeader" xml:space="preserve">
+    <value>Authentication Error</value>
+  </data>
+  <data name="ErrorMsgDialog" xml:space="preserve">
+    <value>Something went wrong...
+Please try again later!</value>
+  </data>
+  <data name="ErrorMsgDialogHeader" xml:space="preserve">
+    <value>Error</value>
   </data>
   <data name="FeedbackButton.Content" xml:space="preserve">
     <value>Give feedback</value>
@@ -162,6 +215,21 @@ Have fun!</value>
   <data name="LogoutButton.Content" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="LogoutMessageDialogContent" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data name="LogoutMessageDialogHeader" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="MyProfileRow1.Text" xml:space="preserve">
+    <value>Student no.</value>
+  </data>
+  <data name="MyProfileRow2.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MyProfileRow3.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="NoResult.Text" xml:space="preserve">
     <value>No results</value>
   </data>
@@ -182,6 +250,27 @@ Have fun!</value>
   </data>
   <data name="NoResultSchedule.Text" xml:space="preserve">
     <value>No lessons!</value>
+  </data>
+  <data name="ResultsPageRow1.Text" xml:space="preserve">
+    <value>Coordinator</value>
+  </data>
+  <data name="ResultsPageRow2.Text" xml:space="preserve">
+    <value>Amount EC</value>
+  </data>
+  <data name="ResultsPageRow3.Text" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="ResultsPageRow4.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ResultsPageRow5.Text" xml:space="preserve">
+    <value>Last updated</value>
+  </data>
+  <data name="ResultsPageRow6.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ResultsPageRow7.Text" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="SaveButtonText.Content" xml:space="preserve">
     <value>Save</value>
@@ -258,6 +347,21 @@ Because the verification of your account is via the in-app browser, the App can 
   </data>
   <data name="Shell_SettingsPage" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SplashPageProgressionText1" xml:space="preserve">
+    <value>Connecting to server..</value>
+  </data>
+  <data name="SplashPageProgressionText2" xml:space="preserve">
+    <value>Verify Account..</value>
+  </data>
+  <data name="SplashPageProgressionText3" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="SplashPageProgressionTextError" xml:space="preserve">
+    <value>Cannot connect to server!</value>
+  </data>
+  <data name="ToastNotificationButton1" xml:space="preserve">
+    <value>View</value>
   </data>
   <data name="TryAgainButton.Content" xml:space="preserve">
     <value>Try again!</value>

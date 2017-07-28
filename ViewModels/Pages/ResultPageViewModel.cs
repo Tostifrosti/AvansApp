@@ -43,7 +43,7 @@ namespace AvansApp.ViewModels.Pages
 
         public ResultPageViewModel()
         {
-            Service = new ResultService();
+            Service = Singleton<ResultService>.Instance;
             Items = new ObservableCollection<ResultVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);
@@ -60,7 +60,6 @@ namespace AvansApp.ViewModels.Pages
                 IsLoading = true;
                 HasNoResult = false;
                 var data = await Service.GetResults();
-                //data = data.OrderByDescending(d => d.ToetsDatum).ToList();
                 data = data.OrderByDescending(d => d.MutatieDatum).ToList();
 
                 foreach (var item in data)

@@ -108,7 +108,7 @@ namespace AvansApp.ViewModels.Pages
                             //System.Diagnostics.Debug.WriteLine("Authentication Http Error: " + webAuthenticationResult.ResponseErrorDetail.ToString());
 
                             // Dialog
-                            var auth_http_error = new MessageDialog("Er ging iets fout tijdens het verifiëren van uw account.\nProbeer het later opnieuw!", "Authenticatie error.");
+                            var auth_http_error = new MessageDialog("ErrorMsgAuthDialog".GetLocalized(), "ErrorMsgAuthDialogHeader".GetLocalized());
                             await auth_http_error.ShowAsync();
 
                             IsLoginButtonVisible = true;
@@ -132,7 +132,7 @@ namespace AvansApp.ViewModels.Pages
                     //Debug.WriteLine("Webauthentication Error: " + Error.Message);
 
                     // Dialog
-                    var auth_error = new MessageDialog("Er is helaas iets fout gegaan...\nProbeer het later opnieuw!", "Error");
+                    var auth_error = new MessageDialog("ErrorMsgDialog".GetLocalized(), "ErrorMsgDialogHeader".GetLocalized());
                     await auth_error.ShowAsync();
 
                     IsLoginButtonVisible = true;
@@ -141,7 +141,7 @@ namespace AvansApp.ViewModels.Pages
             else
             {
                 // Dialog
-                var auth_error = new MessageDialog("Er is helaas iets fout gegaan...\nProbeer het later opnieuw!", "Error");
+                var auth_error = new MessageDialog("ErrorMsgDialog".GetLocalized(), "ErrorMsgDialogHeader".GetLocalized());
                 await auth_error.ShowAsync();
 
                 IsLoginButtonVisible = true;

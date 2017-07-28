@@ -18,6 +18,7 @@
             <converter:LesuurDisabledConverter x:Key="LesuurDisabledConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
             <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
                 <ResourceDictionary Source="../Styles/Themes.xaml" />
@@ -25,7 +26,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <Grid Background="Transparent" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
@@ -44,7 +45,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="SearchBox" Grid.Column="0" Grid.Row="0" BorderThickness="1" Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         BorderBrush="{StaticResource MyTextBoxBorderBrush}" Foreground="{StaticResource MyTextBoxForegroundBrush}" Background="{StaticResource MyTextBoxBackgroundBrush}"
+                         Style="{ThemeResource MyTextBox}"
                          PlaceholderText="Zoek naar een Lokaal" FontSize="18" Width="Auto" Height="35" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="KeyDown">
@@ -53,12 +54,11 @@
                     </i:Interaction.Behaviors>
                 </TextBox>
                 <Button x:Uid="SearchButton" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnSearchButtonClickCommand, Mode=OneWay}"
-                        Style="{StaticResource DefaultButtonStyle}" Background="{StaticResource MyButtonBackgroundBrush}" Foreground="{StaticResource MyButtonForegroundBrush}" 
-                        Width="75" Height="35" FontSize="14" Margin="0,0,5,0" />
+                        Style="{ThemeResource MyButton}" Width="75" Height="35" FontSize="14" Margin="0,0,5,0" />
             </Grid>
 
             <!-- Loading -->
-            <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
                   Grid.Row="1" Grid.Column="0"
                   Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
                 <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" />
@@ -66,15 +66,16 @@
             </Grid>
             
             <!-- No Result -->
-            <Grid Background="{StaticResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
               Grid.Row="1" Grid.Column="0"
               Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
                 <TextBlock x:Uid="NoResultCA" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
             </Grid>
 
-            <ListView Grid.Column="0" Grid.Row="1" Background="{StaticResource MyApplicationPageBackgroundThemeBrush}"
+            <ListView Grid.Column="0" Grid.Row="1" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}"
                       ScrollViewer.BringIntoViewOnFocusChange="True" 
-                      ItemsSource="{x:Bind ViewModel.Classrooms, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}" 
+                      ItemsSource="{x:Bind ViewModel.Classrooms, Mode=OneWay}" 
+                      Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}" 
                       IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
@@ -90,12 +91,12 @@
                         <Setter Property="Foreground" Value="Black"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,0" />
-                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Background" Value="Transparent" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:ClassroomVM">
-                        <Grid BorderBrush="{StaticResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,15,5,10">
+                        <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,15,5,10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="40" />
                             </Grid.RowDefinitions>
@@ -103,7 +104,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind Classroom, Mode=OneWay}" Foreground="{StaticResource MyTextForegroundBrush}" TextWrapping="WrapWholeWords" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Left" />
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind Classroom, Mode=OneWay}" Foreground="{ThemeResource MyTextForegroundBrush}" TextWrapping="WrapWholeWords" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Left" />
 
                             <Border Grid.Row="0" Grid.Column="1" MinHeight="0" MinWidth="0" Background="{Binding Occupied, Mode=OneWay, Converter={StaticResource LesuurBackgroundColor}}" 
                                                 BorderThickness="0" CornerRadius="100" Width="25" Height="25" Margin="0" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center"></Border>

@@ -30,6 +30,7 @@ namespace AvansApp.ViewModels.Pages
             set { Set(ref _hasNoResult, value); }
         }
         public ICommand OnItemClickCommand { get; private set; }
+        private ExamService Service { get; set; }
 
         public ExamPageViewModel()
         {
@@ -48,8 +49,8 @@ namespace AvansApp.ViewModels.Pages
                 HasNoResult = false;
                 Items.Clear();
 
-                var service = new ExamService();
-                var data = await service.GetExams();
+                Service = Singleton<ExamService>.Instance;
+                var data = await Service.GetExams();
                 data = data.OrderByDescending(d => d.DateTime).ToList();
 
                 foreach (var item in data)
@@ -64,7 +65,7 @@ namespace AvansApp.ViewModels.Pages
 
         private void OnItemClick(ItemClickEventArgs e)
         {
-            // TODO
+            // TODO?
         }
     }
 }

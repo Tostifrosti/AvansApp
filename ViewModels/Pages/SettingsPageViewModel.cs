@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Input;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Windows.Storage;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Contacts;
-using Windows.ApplicationModel.Email;
 using Windows.Foundation.Metadata;
 using Windows.UI.Popups;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-using AvansApp.Models;
 using AvansApp.Services;
 using AvansApp.Helpers;
+using AvansApp.Services.Pages;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -28,8 +22,6 @@ namespace AvansApp.ViewModels.Pages
             }
         }
         private bool SearchBoxChanged;
-        private List<string> SettlementOptions { get; set; }
-
         private bool _isLightThemeEnabled;
         public bool IsLightThemeEnabled
         {
@@ -44,10 +36,10 @@ namespace AvansApp.ViewModels.Pages
             set { Set(ref _appDescription, value); }
         }
 
-        private string scheduleCodeInputText;
+        private string _scheduleCodeInputText;
         public string ScheduleCodeInputText {
-            get { return scheduleCodeInputText; }
-            set { Set(ref scheduleCodeInputText, value); }
+            get { return _scheduleCodeInputText; }
+            set { Set(ref _scheduleCodeInputText, value); }
         }
         private bool _isScheduleWithoutBlanksEnabled;
         public bool IsScheduleWithoutBlanksEnabled
@@ -62,49 +54,42 @@ namespace AvansApp.ViewModels.Pages
         public ICommand OnScheduleCodeKeydownCommand { get; private set; }
         public ICommand OnScheduleCodeButtonClickCommand { get; private set; }
         public ICommand OnScheduleBlanksToggleCommand { get; private set; }
-        public ProfileVM User { get; set; }
+        private ProfileVM _user;
+        public ProfileVM User {
+            get { return _user; }
+            set { Set(ref _user, value); }
+        }
+        private SettingsService Service { get; set; }
 
         public SettingsPageViewModel()
         {
             SearchBoxChanged = false;
-            SettlementOptions = new List<string> { "onderwijsboulevard", "hoofdgebouw" };
+            
+            Service = Singleton<SettingsService>.Instance;
 
-            User = new ProfileVM(); // TODO
+            User = new ProfileVM();
             SwitchThemeCommand = new RelayCommand(async () => { await ThemeSelectorService.SwitchThemeAsync(); });
-            OnFeedbackButtonClickCommand = new RelayCommand<ItemClickEventArgs>(OnFeedbackClick);
-            OnLogoutButtonClickCommand = new RelayCommand<ItemClickEventArgs>(OnLogoutButtonClick);
+            OnFeedbackButtonClickCommand = new RelayCommand(OnFeedbackClick);
+            OnLogoutButtonClickCommand = new RelayCommand(OnLogoutButtonClick);
             OnScheduleCodeKeydownCommand = new RelayCommand<KeyRoutedEventArgs>(OnScheduleCodeKeydown);
-            OnScheduleCodeButtonClickCommand = new RelayCommand<ItemClickEventArgs>(OnScheduleCodeButtonClick);
+            OnScheduleCodeButtonClickCommand = new RelayCommand(OnScheduleCodeButtonClick);
             OnScheduleBlanksToggleCommand = new RelayCommand(OnScheduleBlanksToggle);
-
-            if (OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
-                ScheduleCodeInputText = OAuth.GetInstance().Client.GetTokenFromVault("ScheduleCode");
-
-            IsScheduleWithoutBlanksEnabled = OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks");
-
-            /*Settlement.ItemsSource = SettlementOptions;
-            if(main.CheckTokenExists("Settlement")) {
-                string token = main.GetTokenFromVault("Settlement");
-                Settlement.SelectedIndex = SettlementOptions.IndexOf(token);
-            }*/
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
             MainPageViewModel.SetPageTitle("Shell_SettingsPage".GetLocalized());
             IsLightThemeEnabled = ThemeSelectorService.IsLightThemeEnabled;
-            AppDescription = GetAppDescription();
-        }
-        private string GetAppDescription()
-        {
-            var package = Package.Current;
-            var packageId = package.Id;
-            var version = packageId.Version;
+            AppDescription = Service.GetAppDescription();
 
-            return $"{package.DisplayName} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            ScheduleCodeInputText = await Service.ReadScheduleCode();
+            IsScheduleWithoutBlanksEnabled = await Service.ReadScheduleBlanks();
+
+            User = await Singleton<ProfileService>.Instance.GetUserAsync();
         }
         
-        private async void OnScheduleCodeButtonClick(ItemClickEventArgs e)
+        
+        private async void OnScheduleCodeButtonClick()
         {
             if (ScheduleCodeInputText != null)
             {
@@ -113,32 +98,20 @@ namespace AvansApp.ViewModels.Pages
                     SearchBoxChanged = false;
                     if (!string.IsNullOrEmpty(ScheduleCodeInputText))
                     {
-                        if (OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
-                            OAuth.GetInstance().Client.RemoveFromVault("ScheduleCode");
-                        OAuth.GetInstance().Client.AddToVault("ScheduleCode", "ScheduleCode", ScheduleCodeInputText);
+                        await Service.SaveScheduleCode(ScheduleCodeInputText);
 
-                        var dialog = new MessageDialog("Je rooster code is succesvol opgeslagen!", "Rooster code");
+                        var dialog = new MessageDialog("DialogScheduleCodeSavedBody".GetLocalized(), "DialogScheduleCodeSavedHeader".GetLocalized());
                         await dialog.ShowAsync();
                     }
                     else
                     {
-                        if (OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
-                            OAuth.GetInstance().Client.RemoveFromVault("ScheduleCode");
+                        Service.RemoveKey(SettingsService.ScheduleCodeKey);
                     }
                 }
 
             }
         }
-        /*private void Settlement_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedItem = Settlement.SelectedValue.ToString().ToLower();
-            if(main.CheckTokenExists("Settlement"))
-            {
-                main.RemoveFromVault("Settlement");
-            }
-            main.AddToVault("Settlement", "Settlement", selectedItem);
-        }*/
-        private async void OnFeedbackClick(ItemClickEventArgs e)
+        private async void OnFeedbackClick()
         {
             var contact = new Contact()
             {
@@ -153,8 +126,7 @@ namespace AvansApp.ViewModels.Pages
 
             // Get the device manufacturer, model name, OS details etc.
             string device_info = "";
-
-            string newline = (Helpers.DeviceTypeHelper.GetDeviceFormFactorType() == Helpers.DeviceFormFactorType.Phone) ? "\r\n" : "<br />";
+            string newline = (DeviceTypeHelper.GetDeviceFormFactorType() == DeviceFormFactorType.Phone) ? "\r\n" : "<br />";
 
             if (ApiInformation.IsTypePresent("Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation"))
             {
@@ -167,7 +139,7 @@ namespace AvansApp.ViewModels.Pages
                 device_info = "Fabrikant: " + deviceManufacturer.ToString() + newline + "Model: " + deviceModel.ToString() + newline + "OS: " + operatingSystem.ToString() + newline + "Hardware versie: " + systemHardwareVersion.ToString() + newline + "Firmware versie: " + systemFirmwareVersion.ToString();
             }
             string subject = "Feedback over Avans App";
-            string body = "Hallo, " + newline + newline +
+            string body =   "Hallo, " + newline + newline +
                             "Type hier je bericht... " + newline + newline +
                             "Met vriendelijke groet, " + newline +
                             "Onbekend" + newline + newline + newline +
@@ -176,52 +148,22 @@ namespace AvansApp.ViewModels.Pages
                             "Mijn Build: " + Package.Current.Id.Version.Build.ToString() + newline +
                             "Architectuur: " + Package.Current.Id.Architecture + newline +
                             device_info;
-            await ComposeEmail(contact, subject, body, null);
-
+            await Service.ComposeEmail(contact, subject, body, null);
         }
-        private async void OnLogoutButtonClick(ItemClickEventArgs e)
+        private async void OnLogoutButtonClick()
         {
-            var dialog = new MessageDialog("Weet je zeker dat je wilt uitloggen?", "Uitloggen");
+            var dialog = new MessageDialog("LogoutMessageDialogContent".GetLocalized(), "LogoutMessageDialogHeader".GetLocalized());
 
-            dialog.Commands.Add(new UICommand("Ja") { Id = 0 });
-            dialog.Commands.Add(new UICommand("Nee") { Id = 1 });
+            dialog.Commands.Add(new UICommand("AnswerOptionYes".GetLocalized()) { Id = 0 });
+            dialog.Commands.Add(new UICommand("AnswerOptionNo".GetLocalized()) { Id = 1 });
 
             var response = await dialog.ShowAsync();
 
-            if (response != null && response.Label == "Ja")
+            if (response != null && response.Id.ToString() == "0")
             {
-                OAuth.GetInstance().Client.EmptyVault();
+                Service.ClearAllSettings();
                 NavigationService.NavigateToFrame(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
             }
-
-        }
-
-        private async Task ComposeEmail(Contact recipient, string subject, string messageBody, StorageFile attachmentFile = null)
-        {
-            var emailMessage = new EmailMessage()
-            {
-                Body = messageBody,
-                Subject = subject
-            };
-            if (attachmentFile != null)
-            {
-                var stream = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromFile(attachmentFile);
-
-                var attachment = new EmailAttachment(
-                    attachmentFile.Name,
-                    stream);
-
-                emailMessage.Attachments.Add(attachment);
-            }
-
-            var email = recipient.Emails.FirstOrDefault();
-            if (email != null)
-            {
-                var emailRecipient = new EmailRecipient(email.Address);
-                emailMessage.To.Add(emailRecipient);
-            }
-
-            await EmailManager.ShowComposeNewEmailAsync(emailMessage);
         }
 
         private void OnScheduleCodeKeydown(KeyRoutedEventArgs e)
@@ -229,24 +171,15 @@ namespace AvansApp.ViewModels.Pages
             if (e != null && e.KeyStatus.RepeatCount == 1)
             {
                 if (e.Key == Windows.System.VirtualKey.Enter)
-                    OnScheduleCodeButtonClick(null);
+                    OnScheduleCodeButtonClick();
                 else
                     SearchBoxChanged = true;
             }
         }
 
-        private void OnScheduleBlanksToggle()
+        private async void OnScheduleBlanksToggle()
         {
-            IsScheduleWithoutBlanksEnabled = !IsScheduleWithoutBlanksEnabled;
-            if (IsScheduleWithoutBlanksEnabled == false)
-            {
-                OAuth.GetInstance().Client.RemoveFromVault("ScheduleWithoutBlanks");
-            }
-            else
-            {
-                if (!OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks"))
-                    OAuth.GetInstance().Client.AddToVault("ScheduleWithoutBlanks", "ScheduleWithoutBlanks", "ScheduleWithoutBlanks");
-            }
+            await Service.SaveScheduleBlanks(!IsScheduleWithoutBlanksEnabled);
         }
     }
 }

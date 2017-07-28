@@ -16,15 +16,10 @@ namespace AvansApp.Services.Pages
         private static List<List<ScheduleVM>> ScheduleWithBlanks { get; set; }
         private static List<List<ScheduleVM>> ScheduleWithoutBlanks { get; set; }
         public int TodayIndex { get; private set; }
-
-        //private LocalObjectStorageHelper Helper { get; set; }
-        //private const string StorageKey = "ScheduleStorage";
-
+        
         public ScheduleService()
         {
-            //Helper = new LocalObjectStorageHelper();
         }
-
 
         /*
             INPUT:
