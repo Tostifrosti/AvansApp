@@ -129,6 +129,15 @@
   <data name="CAHeader2.Text" xml:space="preserve">
     <value>Number of seats:</value>
   </data>
+  <data name="CASearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search for a classroom</value>
+  </data>
+  <data name="Classroom_status_0" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="Classroom_status_1" xml:space="preserve">
+    <value>Occupied</value>
+  </data>
   <data name="DialogScheduleCodeSavedBody" xml:space="preserve">
     <value>Your schedule code is successfully saved!</value>
   </data>
@@ -185,6 +194,9 @@ Please try again later!</value>
   <data name="FirstTimeSchedule2.Text" xml:space="preserve">
     <value>in the settingspage. </value>
   </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
   <data name="Loading.Text" xml:space="preserve">
     <value>Loading...</value>
   </data>
@@ -220,6 +232,18 @@ Have fun!</value>
   </data>
   <data name="LogoutMessageDialogHeader" xml:space="preserve">
     <value>Logout</value>
+  </data>
+  <data name="Mark_status_0" xml:space="preserve">
+    <value>Definitive</value>
+  </data>
+  <data name="Mark_status_1" xml:space="preserve">
+    <value>Concept</value>
+  </data>
+  <data name="Mark_status_2" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
   </data>
   <data name="MyProfileRow1.Text" xml:space="preserve">
     <value>Student no.</value>
@@ -271,6 +295,9 @@ Have fun!</value>
   </data>
   <data name="ResultsPageRow7.Text" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
   </data>
   <data name="SaveButtonText.Content" xml:space="preserve">
     <value>Save</value>
@@ -360,10 +387,25 @@ Because the verification of your account is via the in-app browser, the App can 
   <data name="SplashPageProgressionTextError" xml:space="preserve">
     <value>Cannot connect to server!</value>
   </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
   <data name="ToastNotificationButton1" xml:space="preserve">
     <value>View</value>
   </data>
   <data name="TryAgainButton.Content" xml:space="preserve">
     <value>Try again!</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
   </data>
 </root>

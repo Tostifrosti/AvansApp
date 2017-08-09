@@ -44,7 +44,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="SearchBox" Grid.Column="0" Grid.Row="0" BorderThickness="1" Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                <TextBox x:Uid="CASearchBox" x:Name="SearchBox" Grid.Column="0" Grid.Row="0" BorderThickness="1" Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          Style="{ThemeResource MyTextBox}"
                          PlaceholderText="Zoek naar een Lokaal" FontSize="18" Width="Auto" Height="35" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <i:Interaction.Behaviors>

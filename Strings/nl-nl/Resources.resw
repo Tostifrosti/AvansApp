@@ -129,6 +129,15 @@
   <data name="CAHeader2.Text" xml:space="preserve">
     <value>Aantal Plaatsen: </value>
   </data>
+  <data name="CASearchBox.PlaceholderText" xml:space="preserve">
+    <value>Zoek naar een Lokaal</value>
+  </data>
+  <data name="Classroom_status_0" xml:space="preserve">
+    <value>Vrij</value>
+  </data>
+  <data name="Classroom_status_1" xml:space="preserve">
+    <value>Bezet</value>
+  </data>
   <data name="DialogScheduleCodeSavedBody" xml:space="preserve">
     <value>Je rooster code is succesvol opgeslagen!</value>
   </data>
@@ -185,6 +194,9 @@ Probeer het later opnieuw!</value>
   <data name="FirstTimeSchedule2.Text" xml:space="preserve">
     <value>in de instellingen pagina.</value>
   </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vrijdag</value>
+  </data>
   <data name="Loading.Text" xml:space="preserve">
     <value>Laden...</value>
   </data>
@@ -220,6 +232,18 @@ Veel plezier met de App!</value>
   </data>
   <data name="LogoutMessageDialogHeader" xml:space="preserve">
     <value>Uitloggen</value>
+  </data>
+  <data name="Mark_status_0" xml:space="preserve">
+    <value>Difinitief</value>
+  </data>
+  <data name="Mark_status_1" xml:space="preserve">
+    <value>Concept</value>
+  </data>
+  <data name="Mark_status_2" xml:space="preserve">
+    <value>Onbekend</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maandag</value>
   </data>
   <data name="MyProfileRow1.Text" xml:space="preserve">
     <value>Studentnr.</value>
@@ -271,6 +295,9 @@ Veel plezier met de App!</value>
   </data>
   <data name="ResultsPageRow7.Text" xml:space="preserve">
     <value>Omschrijving</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Zaterdag</value>
   </data>
   <data name="SaveButtonText.Content" xml:space="preserve">
     <value>Opslaan</value>
@@ -360,10 +387,25 @@ Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus n
   <data name="SplashPageProgressionTextError" xml:space="preserve">
     <value>Er kan geen connectie gemaakt worden met server!</value>
   </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Zondag</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Donderdag</value>
+  </data>
   <data name="ToastNotificationButton1" xml:space="preserve">
     <value>Bekijken</value>
   </data>
   <data name="TryAgainButton.Content" xml:space="preserve">
     <value>Probeer opnieuw!</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Dinsdag</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Niet bekend</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Woensdag</value>
   </data>
 </root>
