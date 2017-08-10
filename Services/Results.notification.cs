@@ -1,15 +1,15 @@
-﻿using AvansApp.Helpers;
-using Microsoft.Toolkit.Uwp.Notifications;
-using System;
+﻿using System;
+using AvansApp.Helpers;
 using Windows.UI.Notifications;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace AvansApp.Services
 {
     internal partial class ToastNotificationsService
     {
-        public void Show()
+        public void Show(int count)
         {
-            const string logo = "ms-appdata:///Assets/StoreLogo.png";
+            const string logo = @"ms-appx:///Assets/StoreLogo.png";
             
             // Create the toast content
             var content = new ToastContent()
@@ -25,16 +25,14 @@ namespace AvansApp.Services
                         {
                             new AdaptiveText()
                             {
-                                Text = "Je hebt een nieuw resultaat!"
+                                Text = (count > 1) ? 
+                                    ("ToastNewResultHeader_0".GetLocalized() + " " + count + " " + "ToastNewResultHeader_1".GetLocalized())
+                                    : ("ToastNewResultHeader".GetLocalized()),
+                                HintMaxLines = 1
                             },
-
                             new AdaptiveText()
                             {
-                                 Text = @"Er staat een nieuw resultaat voor je klaar!"
-                            },
-                            new AdaptiveImage()
-                            {
-                                Source = logo
+                                Text = "ToastNewResultText".GetLocalized(),
                             }
                         },
                         AppLogoOverride = new ToastGenericAppLogo()
@@ -42,10 +40,9 @@ namespace AvansApp.Services
                             Source = logo,
                             HintCrop = ToastGenericAppLogoCrop.Circle
                         }
-
                     }
                 },
-
+                DisplayTimestamp = DateTime.Now,
                 Actions = new ToastActionsCustom()
                 {
                     Buttons =

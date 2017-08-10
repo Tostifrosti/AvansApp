@@ -6,44 +6,60 @@ using Windows.Data.Xml.Dom;
 using AvansApp.Models;
 using AvansApp.Models.ServerModels;
 using AvansApp.ViewModels;
+using AvansApp.Helpers;
+using Windows.Storage;
 
 namespace AvansApp.Services.Pages
 {
     public class ResultService
     {
         private const string base_url = "https://publicapi.avans.nl/oauth";
-        private static List<ResultVM> _results;
-        //private LocalObjectStorageHelper Helper { get; set; }
+        private static List<ResultVM> Results { get; set; }
         private const string StorageKey = "ResultStorage";
+        private DateTime refreshTime;
         
         public ResultService()
         {
-            //Helper = new LocalObjectStorageHelper();
+            refreshTime = DateTime.Now;
+            Results = null;
         }
 
         public async Task<List<ResultVM>> GetResults()
         {
-            if (_results == null) {
-                _results = new List<ResultVM>();
+            if (Results == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+                refreshTime = DateTime.Now;
 
-                /*List<ResultVM> result = await GetFromStorage();
-                if (result == null) { // First time scenario
-                    result = await Request();
-                    SaveToStorage(result); // async
+                Results = new List<ResultVM>();
+
+                List<Result> storage = await GetFromStorage();
+                List<Result> newResults = await RequestResults();
+
+                if (await CompareNewResultsAsync(newResults) <= 0)
+                {
+                    foreach (Result r in storage)
+                        Results.Add(new ResultVM(r));
+
+                    return Results;
                 }
-                _results = result;*/
-                _results = await RequestResults();
+                else
+                {
+                    // New results!
+                    storage = await GetFromStorage();
+
+                    foreach (Result r in storage)
+                        Results.Add(new ResultVM(r));
+
+                    return Results;
+                }
             }
-            return _results;
+            return Results;
         }
 
-        public async Task<List<ResultVM>> RequestResults()
+        public async Task<List<Result>> RequestResults()
         {
-            List<ResultVM> results = new List<ResultVM>();
+            List<Result> results = new List<Result>();
             XmlDocument doc = await OAuth.GetInstance().RequestXML(base_url + "/resultaten/v2/", new List<string>(), Models.Enums.HttpMethod.GET);
-
-           // List<Result> data = await OAuth.GetInstance().RequestJSON<List<Result>>(base_url + "/resultaten/v2/", new List<string>(), Models.Enums.HttpMethod.GET);
-
+            
             if (doc != null)
             {
                 var envelope = doc.DocumentElement;
@@ -127,11 +143,8 @@ namespace AvansApp.Services.Pages
                                     break;
                             }
                         }
-                        results.Add(new ResultVM(r));
+                        results.Add(r);
                     }
-
-                    //results = new List<ResultVM>(results.OrderByDescending(d => d.ToetsDatum));
-                    
                 }
                 else
                 {
@@ -147,46 +160,93 @@ namespace AvansApp.Services.Pages
             return results;
         }
 
-        public bool CompareNewResults(List<ResultVM> newResults)
+        public async Task<int> CompareNewResultsAsync(List<Result> newResults)
         {
-            return false;
-        }
-        /*private async Task<List<ResultVM>> GetFromStorage()
-        {
-            if (await Helper.FileExistsAsync(StorageKey))
+            if (newResults == null || newResults.Count <= 0)
+                return 0;
+
+            List<Result> storage = await GetFromStorage();
+            int foundNewResults = 0;
+
+            if (storage == null || storage.Count <= 0)
             {
-                List<ResultVM> storage = await Helper.ReadFileAsync<List<ResultVM>>(StorageKey, null); // default: null
-                return storage;
+                // Storage is empty
+                foreach (Result r in newResults)
+                {
+                    storage.Add(r);
+                }
+                // No need to sort
+                await SaveToStorage(storage);
+
+                return newResults.Count;
             }
             else
             {
-                // First time 
-                return null;
+                foreach (Result nr in newResults)
+                {
+                    int temp = -1;
+                    for (int i=0; i < storage.Count; i++)
+                    {
+                        if (CompareResult(nr, storage[i]))
+                        {
+                            temp = i;
+                            break;
+                        }
+                    }
+
+                    if (temp < 0)
+                    {
+                        foundNewResults++;
+                        storage.Add(nr);
+                    } else {
+                        storage[temp] = nr; // Update result
+                    }
+                }
+
+                // No need to sort
+                await SaveToStorage(storage);
+            }
+
+            return foundNewResults;
+        }
+        private async Task<List<Result>> GetFromStorage()
+        {
+            if (ApplicationData.Current.LocalFolder.FileExists(StorageKey))
+            {
+                return await ApplicationData.Current.LocalFolder.ReadAsync<List<Result>>(StorageKey);
+            }
+            else
+            {
+                // First time scenario
+                return new List<Result>();
             }
         }
-        private async void SaveToStorage(List<ResultVM> results)
+        private async Task SaveToStorage(List<Result> results)
         {
             if (results == null || results.Count <= 0)
                 return;
 
-            if (await Helper.FileExistsAsync(StorageKey))
+            await ApplicationData.Current.LocalFolder.SaveAsync(StorageKey, results);
+        }
+
+        public bool CompareResult(Result r1, Result r2)
+        {
+            if (r1 == null || r2 == null)
+                return false;
+
+            if (r1.cursuscode == r2.cursuscode &&
+                r1.studentnummer == r2.studentnummer)
             {
-                List<ResultVM> storage = await GetFromStorage();
-                if (storage != null)
-                {
-                    // Merge the results
-                    foreach (var r in results)
-                    {
-                        storage.Add(r);
-                    }
-                    // Overwrite ?
-                    await Helper.SaveFileAsync(StorageKey, storage);
-                }
+                return true;
             }
-            else
-            {
-                await Helper.SaveFileAsync(StorageKey, results);
-            }
-        }*/
+
+            return false;
+        }
+
+        public void DeleteResultStorage()
+        {
+            ApplicationData.Current.LocalFolder.DeleteAsync(StorageKey);
+        }
+
     }
 }

@@ -393,6 +393,18 @@ Because the verification of your account is via the in-app browser, the App can 
   <data name="Thursday" xml:space="preserve">
     <value>Thursday</value>
   </data>
+  <data name="ToastNewResultHeader1" xml:space="preserve">
+    <value>You have one new result!</value>
+  </data>
+  <data name="ToastNewResultHeader_0" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="ToastNewResultHeader_1" xml:space="preserve">
+    <value>new results!</value>
+  </data>
+  <data name="ToastNewResultText1" xml:space="preserve">
+    <value>Open the Avans app to view your new result!</value>
+  </data>
   <data name="ToastNotificationButton1" xml:space="preserve">
     <value>View</value>
   </data>

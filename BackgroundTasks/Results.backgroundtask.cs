@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Windows.ApplicationModel.Background;
 
 using AvansApp.Helpers;
 using AvansApp.Services;
 using AvansApp.Services.Pages;
-using AvansApp.ViewModels;
+using AvansApp.Models.ServerModels;
 
 namespace AvansApp.BackgroundTasks
 {
@@ -53,13 +52,13 @@ namespace AvansApp.BackgroundTasks
                 
 
                 ResultService service = Singleton<ResultService>.Instance;
-                List<ResultVM> results = await service.RequestResults();
+                List<Result> results = await service.RequestResults();
 
-                bool hasNewResults = service.CompareNewResults(results);
+                int countNewResults = await service.CompareNewResultsAsync(results);
 
-                if (hasNewResults)
+                if (countNewResults > 0)
                 {
-                    Singleton<ToastNotificationsService>.Instance.Show();
+                    Singleton<ToastNotificationsService>.Instance.Show(countNewResults);
                 }
 
                 _deferral.Complete();

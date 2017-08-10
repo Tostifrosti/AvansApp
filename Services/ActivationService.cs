@@ -86,7 +86,7 @@ namespace AvansApp.Services
 
         private async Task InitializeAsync()
         {
-            //Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasks();
+            Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasks();
             await ThemeSelectorService.InitializeAsync();
             await Task.CompletedTask;
         }
@@ -100,7 +100,7 @@ namespace AvansApp.Services
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
             yield return Singleton<ToastNotificationsService>.Instance;
-            //yield return Singleton<BackgroundTaskService>.Instance;
+            yield return Singleton<BackgroundTaskService>.Instance;
 
             yield break;
         }

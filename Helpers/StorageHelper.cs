@@ -35,6 +35,20 @@ namespace AvansApp.Helpers
             return await Json.ToObjectAsync<T>(fileContent);
         }
 
+        public static bool FileExists(this StorageFolder folder, string name)
+        {
+            return File.Exists(Path.Combine(folder.Path, GetFileName(name)));
+        }
+
+        public static void DeleteAsync(this StorageFolder folder, string name)
+        {
+            string path = Path.Combine(folder.Path, GetFileName(name));
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
+
         public static async Task SaveAsync<T>(this ApplicationDataContainer settings, string key, T value)
         {
             settings.Values[key] = await Json.StringifyAsync(value);

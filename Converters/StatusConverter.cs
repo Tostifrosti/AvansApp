@@ -8,6 +8,9 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (value == null)
+                return "Mark_status_2".GetLocalized();
+
             string status = string.Empty;
             switch(value.ToString().ToUpper())
             {
