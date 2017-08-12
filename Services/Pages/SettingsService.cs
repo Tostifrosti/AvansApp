@@ -91,7 +91,9 @@ namespace AvansApp.Services.Pages
             RemoveKey(IsScheduleWithoutBlanksKey);
 
             // Delete Local storage
-            Singleton<ResultService>.Instance.DeleteResultStorage();
+            Singleton<ResultService>.Instance.DeleteStorage();
+            Singleton<AnnouncementService>.Instance.DeleteStorage();
+            Singleton<DisruptionService>.Instance.DeleteStorage();
         }
     }
 }

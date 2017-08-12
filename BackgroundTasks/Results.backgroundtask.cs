@@ -52,7 +52,7 @@ namespace AvansApp.BackgroundTasks
                 
 
                 ResultService service = Singleton<ResultService>.Instance;
-                List<Result> results = await service.RequestResults();
+                List<Result> results = await service.Request();
 
                 int countNewResults = await service.CompareNewResultsAsync(results);
 

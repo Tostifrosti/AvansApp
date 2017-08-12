@@ -40,7 +40,7 @@ namespace AvansApp.Helpers
             return File.Exists(Path.Combine(folder.Path, GetFileName(name)));
         }
 
-        public static void DeleteAsync(this StorageFolder folder, string name)
+        public static void DeleteFile(this StorageFolder folder, string name)
         {
             string path = Path.Combine(folder.Path, GetFileName(name));
             if (File.Exists(path))

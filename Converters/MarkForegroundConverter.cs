@@ -15,6 +15,7 @@ namespace AvansApp.Converters
         {
             SolidColorBrush color;
             string resultaat = value.ToString();
+            resultaat = resultaat.Replace(",", ".");
             double result = 0;
 
             if (double.TryParse(resultaat, out result))

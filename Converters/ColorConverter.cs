@@ -6,14 +6,11 @@ namespace AvansApp.Converters
 {
     public class ColorConverter : IValueConverter
     {
-        private Color Red;
-        private Color Green;
+        private Color Red = Colors.Red;
+        private Color Green = Colors.Green;
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            Red = Colors.Red;
-            Green = Colors.Green;
-
             Color color;
             string resultaat = value.ToString();
             resultaat = resultaat.Replace(",", ".");
@@ -28,7 +25,7 @@ namespace AvansApp.Converters
             }
             else
             {
-                if (resultaat.ToUpper().Equals("NVD") || resultaat.ToUpper().Equals("O"))
+                if (resultaat.ToUpper().Equals("NV") || resultaat.ToUpper().Equals("NVD") || resultaat.ToUpper().Equals("O") || resultaat.ToUpper().Equals("NC")) // NV = Niet Voldaan, NC = Niet Compensabel
                     color = Red;
                 else if (resultaat.ToUpper().Equals("VR") || resultaat.ToUpper().Equals("NA"))
                     color = Green;

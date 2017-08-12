@@ -1,45 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Data.Xml.Dom;
 
 using AvansApp.Models;
-using AvansApp.Models.ServerModels;
-using AvansApp.ViewModels;
 using AvansApp.Helpers;
-using Windows.Storage;
+using AvansApp.ViewModels;
+using AvansApp.Models.ServerModels;
 
 namespace AvansApp.Services.Pages
 {
     public class ResultService
     {
         private const string base_url = "https://publicapi.avans.nl/oauth";
-        private static List<ResultVM> Results { get; set; }
+        private static List<ResultVM> Items { get; set; }
         private const string StorageKey = "ResultStorage";
         private DateTime refreshTime;
         
         public ResultService()
         {
             refreshTime = DateTime.Now;
-            Results = null;
+            Items = null;
         }
 
         public async Task<List<ResultVM>> GetResults()
         {
-            if (Results == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
                 refreshTime = DateTime.Now;
 
-                Results = new List<ResultVM>();
+                Items = new List<ResultVM>();
 
                 List<Result> storage = await GetFromStorage();
-                List<Result> newResults = await RequestResults();
+                List<Result> newResults = await Request();
 
                 if (await CompareNewResultsAsync(newResults) <= 0)
                 {
                     foreach (Result r in storage)
-                        Results.Add(new ResultVM(r));
+                        Items.Add(new ResultVM(r));
 
-                    return Results;
+                    return Items;
                 }
                 else
                 {
@@ -47,15 +47,15 @@ namespace AvansApp.Services.Pages
                     storage = await GetFromStorage();
 
                     foreach (Result r in storage)
-                        Results.Add(new ResultVM(r));
+                        Items.Add(new ResultVM(r));
 
-                    return Results;
+                    return Items;
                 }
             }
-            return Results;
+            return Items;
         }
 
-        public async Task<List<Result>> RequestResults()
+        public async Task<List<Result>> Request()
         {
             List<Result> results = new List<Result>();
             XmlDocument doc = await OAuth.GetInstance().RequestXML(base_url + "/resultaten/v2/", new List<string>(), Models.Enums.HttpMethod.GET);
@@ -159,10 +159,9 @@ namespace AvansApp.Services.Pages
             }
             return results;
         }
-
-        public async Task<int> CompareNewResultsAsync(List<Result> newResults)
+        public async Task<int> CompareNewResultsAsync(List<Result> newItems)
         {
-            if (newResults == null || newResults.Count <= 0)
+            if (newItems == null || newItems.Count <= 0)
                 return 0;
 
             List<Result> storage = await GetFromStorage();
@@ -171,23 +170,23 @@ namespace AvansApp.Services.Pages
             if (storage == null || storage.Count <= 0)
             {
                 // Storage is empty
-                foreach (Result r in newResults)
+                foreach (Result item in newItems)
                 {
-                    storage.Add(r);
+                    storage.Add(item);
                 }
                 // No need to sort
                 await SaveToStorage(storage);
 
-                return newResults.Count;
+                return newItems.Count;
             }
             else
             {
-                foreach (Result nr in newResults)
+                foreach (Result item in newItems)
                 {
                     int temp = -1;
-                    for (int i=0; i < storage.Count; i++)
+                    for (int i = 0; i < storage.Count; i++)
                     {
-                        if (CompareResult(nr, storage[i]))
+                        if (Compare(item, storage[i]))
                         {
                             temp = i;
                             break;
@@ -197,9 +196,9 @@ namespace AvansApp.Services.Pages
                     if (temp < 0)
                     {
                         foundNewResults++;
-                        storage.Add(nr);
+                        storage.Add(item);
                     } else {
-                        storage[temp] = nr; // Update result
+                        storage[temp] = item; // Update result
                     }
                 }
 
@@ -221,31 +220,29 @@ namespace AvansApp.Services.Pages
                 return new List<Result>();
             }
         }
-        private async Task SaveToStorage(List<Result> results)
+        private async Task SaveToStorage(List<Result> items)
         {
-            if (results == null || results.Count <= 0)
+            if (items == null || items.Count <= 0)
                 return;
 
-            await ApplicationData.Current.LocalFolder.SaveAsync(StorageKey, results);
+            await ApplicationData.Current.LocalFolder.SaveAsync(StorageKey, items);
         }
-
-        public bool CompareResult(Result r1, Result r2)
+        public bool Compare(Result a, Result b)
         {
-            if (r1 == null || r2 == null)
+            if (a == null || b == null)
                 return false;
 
-            if (r1.cursuscode == r2.cursuscode &&
-                r1.studentnummer == r2.studentnummer)
+            if (a.cursuscode == b.cursuscode &&
+                a.studentnummer == b.studentnummer)
             {
                 return true;
             }
 
             return false;
         }
-
-        public void DeleteResultStorage()
+        public void DeleteStorage()
         {
-            ApplicationData.Current.LocalFolder.DeleteAsync(StorageKey);
+            ApplicationData.Current.LocalFolder.DeleteFile(StorageKey);
         }
 
     }
