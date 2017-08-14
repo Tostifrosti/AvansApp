@@ -23,7 +23,7 @@
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
             <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
-            
+
             <DataTemplate x:Key="MasterListViewItemTemplate" x:DataType="vm:AnnouncementVM">
                 <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
                     <Grid.RowDefinitions>
@@ -48,7 +48,7 @@
                         Grid.Column="0"
                         Text="{x:Bind Course}"
                         Foreground="{ThemeResource MyTextForegroundBrush}"
-                        FontSize="16" FontWeight="Normal" Opacity="0.6" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                        FontSize="14" FontWeight="Normal" Opacity="0.6" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
 
                     <TextBlock
                         Grid.Row="0" Grid.RowSpan="2"
@@ -63,8 +63,8 @@
                 <ResourceDictionary Source="../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </Page.Resources>
+    
     <Grid x:Name="ContentArea" Padding="0">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="Auto"/>

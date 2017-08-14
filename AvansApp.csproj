@@ -126,6 +126,7 @@
     <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Helpers\DeviceTypeHelper.cs" />
     <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Helpers\LanguageHelper.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\ResourceExtensions.cs" />

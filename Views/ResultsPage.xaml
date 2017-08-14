@@ -38,7 +38,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind CursusNaam, Mode=OneWay}" TextWrapping="WrapWholeWords" Margin="0,0,5,0" FontWeight="Bold" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind CursusNaam, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="16" Margin="0,0,5,0" FontWeight="Bold" VerticalAlignment="Top" />
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind ToetsOmschrijving, Mode=OneWay}" FontSize="14" FontStyle="Italic" 
                                Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Bottom"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Resultaat, Mode=OneWay}" FontSize="18" 
