@@ -56,7 +56,7 @@ namespace AvansApp.Services.Pages
             return Items;
         }
 
-        private async Task<List<DisruptionItem>> Request()
+        public async Task<List<DisruptionItem>> Request()
         {
             List<DisruptionItem> result = new List<DisruptionItem>();
             XmlDocument doc = await OAuth.GetInstance().RequestXML("https://storing.avans.nl/rss.php", new List<string>() { "lang=nl" }, Models.Enums.HttpMethod.GET); // XML only

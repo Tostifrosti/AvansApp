@@ -10,9 +10,9 @@ using AvansApp.Models.ServerModels;
 
 namespace AvansApp.BackgroundTasks
 {
-    public sealed class ResultsBackgroundTask : BackgroundTask
+    public sealed class DisruptionsBackgroundTask : BackgroundTask
     {
-        private const string Name = "ResultBackgroundTask";
+        private const string Name = "DisruptionBackgroundTask";
         private BackgroundTaskDeferral _deferral;
 
         public override void Register()
@@ -25,7 +25,7 @@ namespace AvansApp.BackgroundTasks
                 {
                     Name = taskName
                 };
-                
+
                 builder.SetTrigger(new TimeTrigger(30, false)); // 30 minutes cycle
                 builder.AddCondition(new SystemCondition(SystemConditionType.FreeNetworkAvailable));
 
@@ -39,29 +39,28 @@ namespace AvansApp.BackgroundTasks
                 return null;
 
             _deferral = taskInstance.GetDeferral();
-            
+
             return Task.Run(async () =>
             {
                 // Documentation: 
                 //      * General: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/support-your-app-with-background-tasks
                 //      * Debug: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/debug-a-background-task 
                 //      * Monitoring: https://docs.microsoft.com/windows/uwp/launch-resume/monitor-background-task-progress-and-completion
-                
 
-                ResultService service = Singleton<ResultService>.Instance;
-                List<Result> results = await service.Request();
 
-                int countNewResults = await service.CompareNewResultsAsync(results);
+                DisruptionService service = Singleton<DisruptionService>.Instance;
+                List<DisruptionItem> items = await service.Request();
 
-                if (countNewResults > 0)
+                int countNewItems = await service.CompareNewDisruptionsAsync(items);
+
+                if (countNewItems > 0)
                 {
-                    Singleton<ToastNotificationsService>.Instance.Show(countNewResults, ToastNotificationsService.NotificationType.Results);
+                    Singleton<ToastNotificationsService>.Instance.Show(countNewItems, ToastNotificationsService.NotificationType.Disruptions);
                 }
 
                 _deferral.Complete();
             });
         }
-
         public override void OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
             // TODO UWPTemplates: Insert code to handle the cancelation request here. 

@@ -393,6 +393,18 @@ Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus n
   <data name="Thursday" xml:space="preserve">
     <value>Donderdag</value>
   </data>
+  <data name="ToastNewDisruptionHeader" xml:space="preserve">
+    <value>Je hebt één nieuw storing melding!</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
+    <value>Je hebt</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
+    <value>nieuwe storing meldingen!</value>
+  </data>
+  <data name="ToastNewDisruptionText" xml:space="preserve">
+    <value>Open de Avans app om de meldingen te bekijken!</value>
+  </data>
   <data name="ToastNewResultHeader" xml:space="preserve">
     <value>Je hebt één nieuw resultaat!</value>
   </data>

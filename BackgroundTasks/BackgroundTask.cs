@@ -13,7 +13,7 @@ namespace AvansApp.BackgroundTasks
 
         public bool Match(string name)
         {
-            return (name == GetType().Name);
+            return (name == GetName());
         }
 
         public Task RunAsync(IBackgroundTaskInstance taskInstance)
@@ -27,5 +27,6 @@ namespace AvansApp.BackgroundTasks
         {
             taskInstance.Canceled += new BackgroundTaskCanceledEventHandler(OnCanceled);
         }
+        public abstract string GetName();
     }
 }

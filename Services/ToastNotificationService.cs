@@ -34,6 +34,11 @@ namespace AvansApp.Services
                     // Navigate to Results Page
                     NavigationService.NavigateToFrame(typeof(ResultPageViewModel).FullName, new Views.MainPage());
                 }
+                else if (args.Argument.Contains("DisruptionsNotification"))
+                {
+                    // Navigate to Disruptions Page
+                    NavigationService.NavigateToFrame(typeof(DisruptionPageViewModel).FullName, new Views.MainPage());
+                }
                 else if (args.Argument.Contains("ExamsNotification"))
                 {
                     // Navigate to Exams Page

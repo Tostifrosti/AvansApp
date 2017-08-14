@@ -42,7 +42,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
-                        <Image x:Name="ProfileImage" Source="{x:Bind ViewModel.UserProfileImage, Mode=OneWay}" Width="100" Height="100" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Image x:Name="ProfileImage" Source="{x:Bind ViewModel.UserProfileImage, Mode=OneWay}" Width="150" Height="150" Stretch="Uniform" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Margin="0,5" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" Foreground="{ThemeResource MyTextForegroundBrush}"

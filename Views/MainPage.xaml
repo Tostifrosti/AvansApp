@@ -96,8 +96,12 @@
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                                 
-                                <StackPanel>
-                                    <Image x:Name="ProfileImage" Source="{x:Bind ViewModel.ProfileImage, Mode=OneWay}" Width="50" Height="50" Margin="0,20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="0,20">
+                                    <Ellipse x:Name="ProfileImage" Height="75" Width="75" ManipulationMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{x:Bind ViewModel.ProfileImage, Mode=OneWay}" Stretch="UniformToFill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
                                 </StackPanel>
                                 <StackPanel Margin="10,0" VerticalAlignment="Center">
                                     <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" 
@@ -108,7 +112,7 @@
                             </StackPanel>
                             <ItemsControl
                                 VerticalAlignment="Top"
-                                Margin="0,90,0,0"
+                                Margin="0,120,0,0"
                                 IsTabStop="False"
                                 ItemTemplate="{StaticResource NavigationMenuItemDataTemplate}"
                                 ItemsSource="{x:Bind ViewModel.PrimaryItems, Mode=OneWay}" />

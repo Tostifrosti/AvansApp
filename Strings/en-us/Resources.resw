@@ -393,6 +393,18 @@ Because the verification of your account is via the in-app browser, the App can 
   <data name="Thursday" xml:space="preserve">
     <value>Thursday</value>
   </data>
+  <data name="ToastNewDisruptionHeader" xml:space="preserve">
+    <value>You have one new disruption message!</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
+    <value>new disruption messages!</value>
+  </data>
+  <data name="ToastNewDisruptionText" xml:space="preserve">
+    <value>Open the Avans app to view the new disruption messages!</value>
+  </data>
   <data name="ToastNewResultHeader" xml:space="preserve">
     <value>You have one new result!</value>
   </data>
