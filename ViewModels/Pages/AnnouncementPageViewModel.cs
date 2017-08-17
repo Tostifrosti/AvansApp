@@ -86,7 +86,7 @@ namespace AvansApp.ViewModels.Pages
         private void OnItemClick(ItemClickEventArgs args)
         {
             AnnouncementVM item = args?.ClickedItem as AnnouncementVM;
-            if (item != null)
+            if (item != null && item.Message != null)
             {
                 if (_currentState.Name == "NarrowState")
                 {

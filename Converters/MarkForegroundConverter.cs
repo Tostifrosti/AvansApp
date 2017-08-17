@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -18,7 +19,7 @@ namespace AvansApp.Converters
             resultaat = resultaat.Replace(",", ".");
             double result = 0;
 
-            if (double.TryParse(resultaat, out result))
+            if (double.TryParse(resultaat, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
                 if (result >= 5.5)
                     color = Green;

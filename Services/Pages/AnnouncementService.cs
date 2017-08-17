@@ -130,9 +130,21 @@ namespace AvansApp.Services.Pages
             }
             else
             {
+                // Delete old items
+                for (int i = 0; i < storage.Count; i++)
+                {
+                    if (storage[i].datetime <= DateTime.Now.AddMonths(-3))
+                    {
+                        storage.RemoveAt(i);
+                        i--;
+                    }
+                }
+                int temp = -1;
+
+                // Comprare & add/update new items
                 foreach (Announcement item in newItems)
                 {
-                    int temp = -1;
+                    temp = -1;
                     for (int i = 0; i < storage.Count; i++)
                     {
                         if (Compare(item, storage[i]))

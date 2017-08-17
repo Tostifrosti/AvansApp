@@ -181,29 +181,38 @@ namespace AvansApp.Services.Pages
             }
             else
             {
-                foreach (Result item in newItems)
+                List<Result> items = new List<Result>();
+                int temp = -1;
+
+                // Compare old & new results
+                for (int i = (newItems.Count-1); i >= 0; i--)
                 {
-                    int temp = -1;
-                    for (int i = 0; i < storage.Count; i++)
+                    temp = -1;
+                    for (int j = (storage.Count-1); j >= 0; j--)
                     {
-                        if (Compare(item, storage[i]))
+                        if (Compare(newItems[i], storage[j]))
                         {
-                            temp = i;
+                            temp = j;
                             break;
                         }
                     }
 
-                    if (temp < 0)
+                    if (temp >= 0)
                     {
-                        foundNewResults++;
-                        storage.Add(item);
-                    } else {
-                        storage[temp] = item; // Update result
+                        items.Add(newItems[i]);
+                        newItems.RemoveAt(i);
                     }
                 }
 
+                // Add new results
+                foreach (Result item in newItems)
+                {
+                    foundNewResults++;
+                    items.Add(item);
+                }
+
                 // No need to sort
-                await SaveToStorage(storage);
+                await SaveToStorage(items);
             }
 
             return foundNewResults;
@@ -233,7 +242,8 @@ namespace AvansApp.Services.Pages
                 return false;
 
             if (a.cursuscode == b.cursuscode &&
-                a.studentnummer == b.studentnummer)
+                a.studentnummer == b.studentnummer &&
+                a.toetsdatum == b.toetsdatum)
             {
                 return true;
             }

@@ -141,31 +141,56 @@ namespace AvansApp.Services.Pages
             }
             else
             {
-                foreach (DisruptionItem item in newItems)
+                // Delete old items
+                for (int i = 0; i < storage.Count; i++)
                 {
-                    int temp = -1;
-                    for (int i = 0; i < storage.Count; i++)
+                    if (storage[i].PublicationDate <= DateTime.Now.AddMonths(-1))
                     {
-                        if (Compare(item, storage[i]))
+                        storage.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+                List<DisruptionItem> items = new List<DisruptionItem>();
+                int temp = -1;
+
+                // Comprare old & new disruptions
+                for (int i = (newItems.Count - 1); i >= 0; i--)
+                {
+                    temp = -1;
+                    for (int j = (storage.Count - 1); j >= 0; j--)
+                    {
+                        if (Compare(newItems[i], storage[j]))
                         {
-                            temp = i;
+                            temp = j;
                             break;
                         }
                     }
 
-                    if (temp < 0)
+                    if (temp >= 0)
                     {
-                        foundNewItems++;
-                        storage.Add(item);
-                    }
-                    else
-                    {
-                        storage[temp] = item; // Update disruption
+                        items.Add(newItems[i]);
+                        storage.RemoveAt(temp);
+                        newItems.RemoveAt(i);
                     }
                 }
 
+                // Add new disruptions
+                foreach (DisruptionItem item in newItems)
+                {
+                    foundNewItems++;
+                    items.Add(item);
+                }
+
+                // Add (not-that-)old disruptions
+                foreach (DisruptionItem item in storage)
+                {
+                    item.Type = 2; // Disruption is resolved
+                    items.Add(item);
+                }
+
                 // No need to sort
-                await SaveToStorage(storage);
+                await SaveToStorage(items);
             }
 
             return foundNewItems;

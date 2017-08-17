@@ -76,7 +76,7 @@ namespace AvansApp.ViewModels.Pages
         private void OnItemClick(ItemClickEventArgs args)
         {
             DisruptionItemVM item = args?.ClickedItem as DisruptionItemVM;
-            if (item != null)
+            if (item != null && item.Description != null)
             {
                 NavigationService.Navigate(typeof(DisruptionSinglePageViewModel).FullName, item);
             }
