@@ -37,6 +37,8 @@ namespace AvansApp.Services.Pages
 
                 if (await CompareNewDisruptionsAsync(newItems) <= 0)
                 {
+                    storage = await GetFromStorage();
+
                     foreach (DisruptionItem d in storage)
                         Items.Add(new DisruptionItemVM(d));
 
@@ -141,16 +143,6 @@ namespace AvansApp.Services.Pages
             }
             else
             {
-                // Delete old items
-                for (int i = 0; i < storage.Count; i++)
-                {
-                    if (storage[i].PublicationDate <= DateTime.Now.AddMonths(-1))
-                    {
-                        storage.RemoveAt(i);
-                        i--;
-                    }
-                }
-
                 List<DisruptionItem> items = new List<DisruptionItem>();
                 int temp = -1;
 
@@ -170,7 +162,6 @@ namespace AvansApp.Services.Pages
                     if (temp >= 0)
                     {
                         items.Add(newItems[i]);
-                        storage.RemoveAt(temp);
                         newItems.RemoveAt(i);
                     }
                 }
@@ -179,13 +170,6 @@ namespace AvansApp.Services.Pages
                 foreach (DisruptionItem item in newItems)
                 {
                     foundNewItems++;
-                    items.Add(item);
-                }
-
-                // Add (not-that-)old disruptions
-                foreach (DisruptionItem item in storage)
-                {
-                    item.Type = 2; // Disruption is resolved
                     items.Add(item);
                 }
 

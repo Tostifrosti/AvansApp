@@ -36,6 +36,8 @@ namespace AvansApp.Services.Pages
 
                 if (await CompareNewAnnouncementsAsync(newAnnouncements) <= 0)
                 {
+                    storage = await GetFromStorage();
+
                     foreach (Announcement a in storage)
                         Items.Add(new AnnouncementVM(a));
 

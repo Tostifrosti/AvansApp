@@ -36,6 +36,8 @@ namespace AvansApp.Services.Pages
 
                 if (await CompareNewResultsAsync(newResults) <= 0)
                 {
+                    storage = await GetFromStorage();
+
                     foreach (Result r in storage)
                         Items.Add(new ResultVM(r));
 
