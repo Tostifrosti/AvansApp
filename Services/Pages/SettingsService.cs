@@ -87,6 +87,7 @@ namespace AvansApp.Services.Pages
 
         public void ClearAllSettings()
         {
+            // Remove Setting Keys
             RemoveKey(ScheduleCodeKey);
             RemoveKey(IsScheduleWithoutBlanksKey);
 
@@ -94,6 +95,9 @@ namespace AvansApp.Services.Pages
             Singleton<ResultService>.Instance.DeleteStorage();
             Singleton<AnnouncementService>.Instance.DeleteStorage();
             Singleton<DisruptionService>.Instance.DeleteStorage();
+
+            // Empty vault
+            Models.OAuth.GetInstance().Client.EmptyVault();
         }
     }
 }

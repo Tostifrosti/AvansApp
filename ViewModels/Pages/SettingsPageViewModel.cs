@@ -108,6 +108,10 @@ namespace AvansApp.ViewModels.Pages
                         Service.RemoveKey(SettingsService.ScheduleCodeKey);
                     }
                 }
+                else if (string.IsNullOrWhiteSpace(ScheduleCodeInputText))
+                {
+                    Service.RemoveKey(SettingsService.ScheduleCodeKey);
+                }
 
             }
         }

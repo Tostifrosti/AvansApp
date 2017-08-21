@@ -15,6 +15,7 @@
             <converter:LesuurBackgroundColor x:Key="LesuurBackgroundColor" />
             <converter:LesuurDisabledConverter x:Key="LesuurDisabledConverter" />
             <converter:LesuurVisibilityConverter x:Key="LesuurVisibilityConverter" />
+            <converter:EmptyStringConverter x:Key="EmptyStringConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
                 <ResourceDictionary Source="../Styles/Themes.xaml" />
@@ -53,13 +54,13 @@
                             <!-- Soort Lokaal -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock x:Uid="CAHeader1" TextAlignment="Center" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" Margin="0,0,5,0" />
-                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomType, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
+                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomType, Mode=OneWay, Converter={StaticResource EmptyStringConverter}}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
                             </StackPanel>
                             
                             <!-- Aantal plaatsen-->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock x:Uid="CAHeader2" TextAlignment="Center" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" Margin="0,0,5,0" />
-                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomSpace, Mode=OneWay}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
+                                <TextBlock Text="{x:Bind ViewModel.Item.ClassroomSpace, Mode=OneWay, Converter={StaticResource EmptyStringConverter}}" TextWrapping="WrapWholeWords" TextAlignment="Center" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

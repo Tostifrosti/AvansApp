@@ -37,6 +37,12 @@ namespace AvansApp.ViewModels.Pages
             get { return _hasNoResult; }
             set { Set(ref _hasNoResult, value); }
         }
+        private bool _notSearched;
+        public bool NotSearched
+        {
+            get { return _notSearched; }
+            set { Set(ref _notSearched, value); }
+        }
         private bool SearchBoxChanged;
         //private Flyout SearchFlyout { get; set; } // TODO
         private string _searchBoxText;
@@ -53,6 +59,10 @@ namespace AvansApp.ViewModels.Pages
         private EmployeeService Service { get; set; }
         public EmployeePageViewModel()
         {
+            IsLoading = false;
+            HasNoResult = false;
+            NotSearched = true;
+
             Items = new ObservableCollection<EmployeeVM>();
 
             OnSearchButtonClickCommand = new RelayCommand<ItemClickEventArgs>(OnSearchButtonClick);
@@ -78,12 +88,13 @@ namespace AvansApp.ViewModels.Pages
             if (SearchBoxChanged)
             {
                 SearchBoxChanged = false;
-                if (!string.IsNullOrEmpty(SearchBoxText) && !string.IsNullOrWhiteSpace(SearchBoxText))
+                if (!string.IsNullOrWhiteSpace(SearchBoxText))
                 {
                     if (SearchBoxText.Length >= 3)
                     {
                         IsLoading = true;
                         HasNoResult = false;
+                        NotSearched = false;
                         Items.Clear();
 
                         List<EmployeeVM> data = await Service.GetEmployees(SearchBoxText);
@@ -106,8 +117,19 @@ namespace AvansApp.ViewModels.Pages
                 {
                     // Empty List
                     Items.Clear();
+                    IsLoading = false;
+                    HasNoResult = false;
+                    NotSearched = true;
                     //SearchFlyout.Hide();
                 }
+            }
+            else if (string.IsNullOrWhiteSpace(SearchBoxText))
+            {
+                // Empty List
+                Items.Clear();
+                IsLoading = false;
+                HasNoResult = false;
+                NotSearched = true;
             }
         }
 

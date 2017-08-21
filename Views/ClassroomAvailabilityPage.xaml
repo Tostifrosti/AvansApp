@@ -71,6 +71,14 @@
               Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
                 <TextBlock x:Uid="NoResultCA" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" />
             </Grid>
+            
+            <!-- Info -->
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.NotSearched, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xE71E;" FontSize="60" Opacity="0.5" Margin="0,-75,0,0" FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock x:Uid="NotSearchedCA" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+            </Grid>
 
             <ListView Grid.Column="0" Grid.Row="1" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}"
                       ScrollViewer.BringIntoViewOnFocusChange="True" 

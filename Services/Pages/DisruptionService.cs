@@ -134,12 +134,16 @@ namespace AvansApp.Services.Pages
                 // Storage is empty
                 foreach (DisruptionItem d in newItems)
                 {
-                    storage.Add(d);
+                    if (!string.IsNullOrWhiteSpace(d.Description))
+                    {
+                        foundNewItems++;
+                        storage.Add(d);
+                    }
                 }
                 // No need to sort
                 await SaveToStorage(storage);
 
-                return newItems.Count;
+                return foundNewItems;
             }
             else
             {
@@ -159,7 +163,7 @@ namespace AvansApp.Services.Pages
                         }
                     }
 
-                    if (temp >= 0)
+                    if (temp >= 0 && !string.IsNullOrWhiteSpace(newItems[i].Description))
                     {
                         items.Add(newItems[i]);
                         newItems.RemoveAt(i);
@@ -169,8 +173,11 @@ namespace AvansApp.Services.Pages
                 // Add new disruptions
                 foreach (DisruptionItem item in newItems)
                 {
-                    foundNewItems++;
-                    items.Add(item);
+                    if (!string.IsNullOrWhiteSpace(item.Description))
+                    {
+                        foundNewItems++;
+                        items.Add(item);
+                    }
                 }
 
                 // No need to sort

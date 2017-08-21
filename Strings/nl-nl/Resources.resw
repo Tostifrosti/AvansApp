@@ -130,7 +130,7 @@
     <value>Aantal Plaatsen: </value>
   </data>
   <data name="CASearchBox.PlaceholderText" xml:space="preserve">
-    <value>Zoek naar een Lokaal</value>
+    <value>Zoek naar een lokaal</value>
   </data>
   <data name="Classroom_status_0" xml:space="preserve">
     <value>Vrij</value>
@@ -166,7 +166,7 @@
     <value>Academie</value>
   </data>
   <data name="EmployeePageTextbox.PlaceholderText" xml:space="preserve">
-    <value>Zoek naar een Medewerker</value>
+    <value>Zoek naar een medewerker</value>
   </data>
   <data name="ErrorMsgAuthDialog" xml:space="preserve">
     <value>Er ging iets fout tijdens het verifiëren van uw account.
@@ -188,11 +188,9 @@ Probeer het later opnieuw!</value>
   <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
     <value>Rooster aanvullen met lege dagen?</value>
   </data>
-  <data name="FirstTimeSchedule1.Text" xml:space="preserve">
-    <value>Je kan je roostercode invoeren</value>
-  </data>
-  <data name="FirstTimeSchedule2.Text" xml:space="preserve">
-    <value>in de instellingen pagina.</value>
+  <data name="FirstTimeSchedule.Text" xml:space="preserve">
+    <value>Je kan je roostercode invoeren
+in de instellingen.</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Vrijdag</value>
@@ -274,6 +272,14 @@ Veel plezier met de App!</value>
   </data>
   <data name="NoResultSchedule.Text" xml:space="preserve">
     <value>Geen lessen!</value>
+  </data>
+  <data name="NotSearchedCA.Text" xml:space="preserve">
+    <value>Zoek naar een lokaal 
+om te zien of deze bezet is.</value>
+  </data>
+  <data name="NotSearchedEmployees.Text" xml:space="preserve">
+    <value>Zoek naar een medewerker van Avans 
+om meer informatie te zien.</value>
   </data>
   <data name="ResultsPageRow1.Text" xml:space="preserve">
     <value>Coördinator</value>
@@ -393,14 +399,23 @@ Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus n
   <data name="Thursday" xml:space="preserve">
     <value>Donderdag</value>
   </data>
+  <data name="ToastNewAnnouncementHeader" xml:space="preserve">
+    <value>Er staat één nieuwe mededeling van Blackboard voor je klaar!</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_0" xml:space="preserve">
+    <value>Er staan</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_1" xml:space="preserve">
+    <value>nieuwe mededelingen van Blackboard voor je klaar!</value>
+  </data>
   <data name="ToastNewDisruptionHeader" xml:space="preserve">
-    <value>Je hebt één nieuw storing melding!</value>
+    <value>Je hebt één nieuw storingsbericht!</value>
   </data>
   <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
     <value>Je hebt</value>
   </data>
   <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
-    <value>nieuwe storing meldingen!</value>
+    <value>nieuwe storingsberichten!</value>
   </data>
   <data name="ToastNewDisruptionText" xml:space="preserve">
     <value>Open de Avans app om de meldingen te bekijken!</value>

@@ -41,6 +41,12 @@ namespace AvansApp.ViewModels.Pages
             get { return _isLoading; }
             set { Set(ref _isLoading, value); }
         }
+        private bool _notSearched;
+        public bool NotSearched
+        {
+            get { return _notSearched; }
+            set { Set(ref _notSearched, value); }
+        }
         private ClassroomAvailabilityService Service { get; set; }
         public ICommand OnSearchButtonClickCommand { get; private set; }
         public ICommand OnItemClickCommand { get; private set; }
@@ -51,6 +57,10 @@ namespace AvansApp.ViewModels.Pages
 
         public ClassroomAvailabilityPageViewModel()
         {
+            IsLoading = false;
+            HasNoResult = false;
+            NotSearched = true;
+
             Service = Singleton<ClassroomAvailabilityService>.Instance;
             Items = new ObservableCollection<ClassroomAvailabilityVM>();
             Classrooms = new ObservableCollection<ClassroomVM>();
@@ -76,6 +86,7 @@ namespace AvansApp.ViewModels.Pages
                 {
                     IsLoading = true;
                     HasNoResult = false;
+                    NotSearched = false;
                     Classrooms.Clear();
                     Items.Clear();
 
@@ -108,7 +119,17 @@ namespace AvansApp.ViewModels.Pages
                     Items.Clear();
                     IsLoading = false;
                     HasNoResult = false;
+                    NotSearched = true;
                 }
+            }
+            else if (string.IsNullOrWhiteSpace(SearchBoxText))
+            {
+                // Empty List
+                Classrooms.Clear();
+                Items.Clear();
+                IsLoading = false;
+                HasNoResult = false;
+                NotSearched = true;
             }
         }
         

@@ -166,7 +166,7 @@
     <value>Academy</value>
   </data>
   <data name="EmployeePageTextbox.PlaceholderText" xml:space="preserve">
-    <value>Search an employee</value>
+    <value>Search for an employee</value>
   </data>
   <data name="ErrorMsgAuthDialog" xml:space="preserve">
     <value>Something went wrong during the verification of your account.
@@ -188,11 +188,9 @@ Please try again later!</value>
   <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
     <value>Fill schedule with blank days?</value>
   </data>
-  <data name="FirstTimeSchedule1.Text" xml:space="preserve">
-    <value>You can enter your schedulecode</value>
-  </data>
-  <data name="FirstTimeSchedule2.Text" xml:space="preserve">
-    <value>in the settingspage. </value>
+  <data name="FirstTimeSchedule.Text" xml:space="preserve">
+    <value>You can enter your schedulecode
+in the settings.</value>
   </data>
   <data name="Friday" xml:space="preserve">
     <value>Friday</value>
@@ -264,7 +262,7 @@ Have fun!</value>
     <value>The school is closed or we couldn't find the classroom!</value>
   </data>
   <data name="NoResultDisruptions.Text" xml:space="preserve">
-    <value>No disruptions found!</value>
+    <value>No malfunction messages found!</value>
   </data>
   <data name="NoResultEmployees.Text" xml:space="preserve">
     <value>No employees found!</value>
@@ -274,6 +272,14 @@ Have fun!</value>
   </data>
   <data name="NoResultSchedule.Text" xml:space="preserve">
     <value>No lessons!</value>
+  </data>
+  <data name="NotSearchedCA.Text" xml:space="preserve">
+    <value>Search for a classroom 
+to see if it's occupied.</value>
+  </data>
+  <data name="NotSearchedEmployees.Text" xml:space="preserve">
+    <value>Search for an employee of Avans 
+to see more infomation.</value>
   </data>
   <data name="ResultsPageRow1.Text" xml:space="preserve">
     <value>Coordinator</value>
@@ -355,7 +361,7 @@ Because the verification of your account is via the in-app browser, the App can 
     <value>Classroom Availability</value>
   </data>
   <data name="Shell_DisruptionsPage" xml:space="preserve">
-    <value>Disruptions</value>
+    <value>Malfunctions</value>
   </data>
   <data name="Shell_EmployeesPage" xml:space="preserve">
     <value>Employees</value>
@@ -393,14 +399,23 @@ Because the verification of your account is via the in-app browser, the App can 
   <data name="Thursday" xml:space="preserve">
     <value>Thursday</value>
   </data>
+  <data name="ToastNewAnnouncementHeader" xml:space="preserve">
+    <value>You have one new Blackboard announcement ready!</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_0" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_1" xml:space="preserve">
+    <value>new Blackboard announcements ready!</value>
+  </data>
   <data name="ToastNewDisruptionHeader" xml:space="preserve">
-    <value>You have one new disruption message!</value>
+    <value>You have one new malfunction message!</value>
   </data>
   <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
     <value>You have</value>
   </data>
   <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
-    <value>new disruption messages!</value>
+    <value>new malfunction messages!</value>
   </data>
   <data name="ToastNewDisruptionText" xml:space="preserve">
     <value>Open the Avans app to view the new disruption messages!</value>

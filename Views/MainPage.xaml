@@ -151,9 +151,9 @@
             </Button>
 
             <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                          VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Auto" VerticalScrollMode="Disabled">
+                          VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Enabled" VerticalScrollMode="Disabled">
                 <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{ThemeResource TagLineTextStyle}" Foreground="{ThemeResource MyNavigationTextBrush}"
-                           Height="27" MaxLines="1" TextWrapping="Wrap" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="-50,0,0,0"/>
+                           Height="27" MaxLines="1" TextWrapping="NoWrap" TextAlignment="Center" TextTrimming="None" HorizontalAlignment="Stretch" Margin="0,0,0,0" Padding="0,0,50,0"/>
             </ScrollViewer>
         </Grid>
 

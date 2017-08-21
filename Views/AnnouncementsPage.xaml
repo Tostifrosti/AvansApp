@@ -56,7 +56,7 @@
                         VerticalAlignment="Center" HorizontalAlignment="Right"
                         Text="{x:Bind DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}"
                         Foreground="{ThemeResource MyTextForegroundBrush}"
-                        FontSize="16" FontWeight="Normal" Opacity="1.0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                        FontSize="14" FontWeight="Normal" Opacity="1.0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
                 </Grid>
             </DataTemplate>
             <ResourceDictionary.MergedDictionaries>

@@ -61,11 +61,9 @@
                 <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
                       Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
                       Visibility="{x:Bind ViewModel.HasNoScheduleCode, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-                    <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Opacity="0.5" Margin="0,-50,0,0" 
-                              FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
-                    <TextBlock x:Uid="FirstTimeSchedule1" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" 
-                               TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
-                    <TextBlock x:Uid="FirstTimeSchedule2" Width="Auto" Margin="0,100,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" 
+                    <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xE787;" FontSize="60" Opacity="0.5" Margin="0,-75,0,0" 
+                              FontWeight="Normal" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock x:Uid="FirstTimeSchedule" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" 
                                TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
                 </Grid>
                 

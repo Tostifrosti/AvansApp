@@ -81,6 +81,14 @@
                            HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
             </Grid>
 
+            <!-- Info -->
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.NotSearched, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xE71E;" FontSize="60" Opacity="0.5" Margin="0,-75,0,0" FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock x:Uid="NotSearchedEmployees" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+            </Grid>
+
             <!-- List View -->
             <ListView Grid.Column="0" Grid.Row="1" IsItemClickEnabled="True"
                       ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
