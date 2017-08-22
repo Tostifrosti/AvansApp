@@ -51,13 +51,7 @@
                     <StackPanel Margin="5,0" Orientation="Vertical" HorizontalAlignment="Left">
                         <TextBlock x:Uid="FillScheduleWithBlanks" TextWrapping="WrapWholeWords"
                                    Foreground="{ThemeResource MyTextForegroundBrush}" />
-                        <ToggleSwitch x:Uid="SettingsPage_ScheduleBlanksToggle" IsOn="{x:Bind ViewModel.IsScheduleWithoutBlanksEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}">
-                            <i:Interaction.Behaviors>
-                                <ic:EventTriggerBehavior EventName="Toggled">
-                                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnScheduleBlanksToggleCommand, Mode=OneWay}" />
-                                </ic:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </ToggleSwitch>
+                        <ToggleSwitch x:Uid="SettingsPage_ScheduleBlanksToggle" IsOn="{x:Bind ViewModel.IsScheduleWithoutBlanksEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
                     </StackPanel>
                 </StackPanel>
                 
@@ -76,10 +70,35 @@
                         </ToggleSwitch>
                     </StackPanel>
                 </StackPanel>
+                
+                <!-- Notification Toggles -->
+                <StackPanel Margin="10,0,10,20">
+                    <TextBlock x:Uid="SettingsHeader3" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
+
+                    <!-- Announcement -->
+                    <!--<StackPanel Margin="5,0">
+                        <TextBlock x:Uid="SettingsPage_NotificationHeader1" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsAnnouncementNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
+                    </StackPanel>-->
+
+                    <!-- Disruption -->
+                    <StackPanel Margin="5,0">
+                        <TextBlock x:Uid="SettingsPage_NotificationHeader2" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsDisruptionNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
+                    </StackPanel>
+
+                    <!-- Result -->
+                    <StackPanel Margin="5,0">
+                        <TextBlock x:Uid="SettingsPage_NotificationHeader3" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsResultNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
+                    </StackPanel>
+
+                </StackPanel>
 
                 <!-- Profiel -->
                 <StackPanel Margin="10,0,10,20">
-                    <TextBlock x:Uid="SettingsHeader3" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <TextBlock x:Uid="SettingsHeader4" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
                     <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <TextBlock x:Uid="LoggedInString" Margin="0,0,5,0" Foreground="{ThemeResource MyTextForegroundBrush}"/>
@@ -91,7 +110,7 @@
                 
                 <!-- Overige -->
                 <StackPanel Margin="10,0,10,10">
-                    <TextBlock x:Uid="SettingsHeader4" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <TextBlock x:Uid="SettingsHeader5" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
                     <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
                     <Button x:Uid="FeedbackButton" Command="{x:Bind ViewModel.OnFeedbackButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
                             Style="{ThemeResource MyButton}" />

@@ -327,9 +327,12 @@ om meer informatie te zien.</value>
     <value>Thema</value>
   </data>
   <data name="SettingsHeader3.Text" xml:space="preserve">
-    <value>Profiel</value>
+    <value>Notificaties</value>
   </data>
   <data name="SettingsHeader4.Text" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="SettingsHeader5.Text" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
@@ -341,6 +344,21 @@ Doordat deze App alleen data ophaalt, kan er geen controle worden uitgevoerd op 
   <data name="SettingsPageInfo.Text" xml:space="preserve">
     <value>Deze App gebruikt alleen de Avans Hogeschool services voor verificatie van het ingevulde account en het ophalen van data.
 Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus niet bij enige gevoelige data komen.</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader1.Text" xml:space="preserve">
+    <value>Mededeling notificaties</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader2.Text" xml:space="preserve">
+    <value>Storing notificaties</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader3.Text" xml:space="preserve">
+    <value>Resultaat notificaties</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OffContent" xml:space="preserve">
+    <value>Uit</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OnContent" xml:space="preserve">
+    <value>Aan</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>Nee</value>

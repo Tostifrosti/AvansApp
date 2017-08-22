@@ -28,6 +28,32 @@ namespace AvansApp.ViewModels.Pages
             get { return _isLightThemeEnabled; }
             set { Set(ref _isLightThemeEnabled, value); }
         }
+        private bool _isDisruptionNotificationEnabled;
+        private bool _isScheduleWithoutBlanksEnabled;
+        public bool IsScheduleWithoutBlanksEnabled
+        {
+            get { return _isScheduleWithoutBlanksEnabled; }
+            set {
+                Set(ref _isScheduleWithoutBlanksEnabled, value);
+                Service.SaveScheduleBlanks(IsScheduleWithoutBlanksEnabled);
+            }
+        }
+        public bool IsDisruptionNotificationEnabled {
+            get { return _isDisruptionNotificationEnabled; }
+            set {
+                Set(ref _isDisruptionNotificationEnabled, value);
+                Service.SaveNotificationSetting(IsDisruptionNotificationEnabled, NotificationSettingType.Disruption);
+            }
+        }
+        private bool _isResultNotificationEnabled;
+        public bool IsResultNotificationEnabled
+        {
+            get { return _isResultNotificationEnabled; }
+            set {
+                Set(ref _isResultNotificationEnabled, value);
+                Service.SaveNotificationSetting(IsResultNotificationEnabled, NotificationSettingType.Result);
+            }
+        }
 
         private string _appDescription;
         public string AppDescription
@@ -41,19 +67,12 @@ namespace AvansApp.ViewModels.Pages
             get { return _scheduleCodeInputText; }
             set { Set(ref _scheduleCodeInputText, value); }
         }
-        private bool _isScheduleWithoutBlanksEnabled;
-        public bool IsScheduleWithoutBlanksEnabled
-        {
-            get { return _isScheduleWithoutBlanksEnabled; }
-            set { Set(ref _isScheduleWithoutBlanksEnabled, value); }
-        }
 
         public ICommand SwitchThemeCommand { get; private set; }
         public ICommand OnFeedbackButtonClickCommand { get; private set; }
         public ICommand OnLogoutButtonClickCommand { get; private set; }
         public ICommand OnScheduleCodeKeydownCommand { get; private set; }
         public ICommand OnScheduleCodeButtonClickCommand { get; private set; }
-        public ICommand OnScheduleBlanksToggleCommand { get; private set; }
         private ProfileVM _user;
         public ProfileVM User {
             get { return _user; }
@@ -68,12 +87,13 @@ namespace AvansApp.ViewModels.Pages
             Service = Singleton<SettingsService>.Instance;
 
             User = new ProfileVM();
-            SwitchThemeCommand = new RelayCommand(async () => { await ThemeSelectorService.SwitchThemeAsync(); });
+            SwitchThemeCommand = new RelayCommand(async () => {
+                await ThemeSelectorService.SwitchThemeAsync();
+            });
             OnFeedbackButtonClickCommand = new RelayCommand(OnFeedbackClick);
             OnLogoutButtonClickCommand = new RelayCommand(OnLogoutButtonClick);
             OnScheduleCodeKeydownCommand = new RelayCommand<KeyRoutedEventArgs>(OnScheduleCodeKeydown);
             OnScheduleCodeButtonClickCommand = new RelayCommand(OnScheduleCodeButtonClick);
-            OnScheduleBlanksToggleCommand = new RelayCommand(OnScheduleBlanksToggle);
         }
 
         public async void Initialize()
@@ -83,9 +103,13 @@ namespace AvansApp.ViewModels.Pages
             AppDescription = Service.GetAppDescription();
 
             ScheduleCodeInputText = await Service.ReadScheduleCode();
-            IsScheduleWithoutBlanksEnabled = await Service.ReadScheduleBlanks();
+            _isScheduleWithoutBlanksEnabled = await Service.ReadScheduleBlanks();
 
+            _isDisruptionNotificationEnabled = await Service.ReadKeyAsync(SettingsService.IsDisruptionNotificationEnabledKey);
+            _isResultNotificationEnabled = await Service.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
+            
             User = await Singleton<ProfileService>.Instance.GetUserAsync();
+            OnPropertyChanged(null); // Update UI
         }
         
         
@@ -179,11 +203,6 @@ namespace AvansApp.ViewModels.Pages
                 else
                     SearchBoxChanged = true;
             }
-        }
-
-        private async void OnScheduleBlanksToggle()
-        {
-            await Service.SaveScheduleBlanks(!IsScheduleWithoutBlanksEnabled);
         }
     }
 }

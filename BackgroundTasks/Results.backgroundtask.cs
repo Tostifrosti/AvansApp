@@ -14,10 +14,23 @@ namespace AvansApp.BackgroundTasks
     {
         private const string Name = "ResultBackgroundTask";
         private BackgroundTaskDeferral _deferral;
+        private SettingsService Settings = Singleton<SettingsService>.Instance;
 
-        public override void Register()
+        public override async void Register()
         {
             var taskName = Name;
+
+            bool IsNotificationEnabled = await Settings.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
+
+            if (!IsNotificationEnabled)
+            {
+                BackgroundTaskRegistration task = BackgroundTaskService.GetBackgroundTasksRegistration<ResultsBackgroundTask>();
+                if (task != null)
+                {
+                    task.Unregister(true);
+                }
+                return;
+            }
 
             if (!BackgroundTaskRegistration.AllTasks.Any(t => t.Value.Name == taskName))
             {
@@ -27,7 +40,8 @@ namespace AvansApp.BackgroundTasks
                 };
                 
                 builder.SetTrigger(new TimeTrigger(30, false)); // 30 minutes cycle
-                builder.AddCondition(new SystemCondition(SystemConditionType.FreeNetworkAvailable));
+                //builder.AddCondition(new SystemCondition(SystemConditionType.FreeNetworkAvailable));
+                builder.AddCondition(new SystemCondition(SystemConditionType.UserNotPresent));
 
                 builder.Register();
             }
@@ -46,7 +60,14 @@ namespace AvansApp.BackgroundTasks
                 //      * General: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/support-your-app-with-background-tasks
                 //      * Debug: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/debug-a-background-task 
                 //      * Monitoring: https://docs.microsoft.com/windows/uwp/launch-resume/monitor-background-task-progress-and-completion
-                
+
+                bool IsNotificationEnabled = await Settings.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
+
+                if (!IsNotificationEnabled)
+                {
+                    taskInstance.Task.Unregister(true);
+                    return;
+                }
 
                 ResultService service = Singleton<ResultService>.Instance;
                 List<Result> results = await service.Request();

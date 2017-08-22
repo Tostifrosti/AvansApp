@@ -262,7 +262,7 @@ Have fun!</value>
     <value>The school is closed or we couldn't find the classroom!</value>
   </data>
   <data name="NoResultDisruptions.Text" xml:space="preserve">
-    <value>No malfunction messages found!</value>
+    <value>No disruption messages found!</value>
   </data>
   <data name="NoResultEmployees.Text" xml:space="preserve">
     <value>No employees found!</value>
@@ -327,9 +327,12 @@ to see more infomation.</value>
     <value>Theme</value>
   </data>
   <data name="SettingsHeader3.Text" xml:space="preserve">
-    <value>Profile</value>
+    <value>Notifications</value>
   </data>
   <data name="SettingsHeader4.Text" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="SettingsHeader5.Text" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
@@ -341,6 +344,21 @@ Due to the fact that this app only retrieves data, it has no control on the data
   <data name="SettingsPageInfo.Text" xml:space="preserve">
     <value>This App only uses the Avans University services for verification of the account that is signed in, and data retrieval.
 Because the verification of your account is via the in-app browser, the App can not retrieve any sensitive data.</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader1.Text" xml:space="preserve">
+    <value>Announcement notifications</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader2.Text" xml:space="preserve">
+    <value>Disruption notifications</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader3.Text" xml:space="preserve">
+    <value>Result notifications</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OnContent" xml:space="preserve">
+    <value>On</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>No</value>
@@ -361,7 +379,7 @@ Because the verification of your account is via the in-app browser, the App can 
     <value>Classroom Availability</value>
   </data>
   <data name="Shell_DisruptionsPage" xml:space="preserve">
-    <value>Malfunctions</value>
+    <value>Disruptions</value>
   </data>
   <data name="Shell_EmployeesPage" xml:space="preserve">
     <value>Employees</value>
@@ -409,13 +427,13 @@ Because the verification of your account is via the in-app browser, the App can 
     <value>new Blackboard announcements ready!</value>
   </data>
   <data name="ToastNewDisruptionHeader" xml:space="preserve">
-    <value>You have one new malfunction message!</value>
+    <value>You have one new disruption message!</value>
   </data>
   <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
     <value>You have</value>
   </data>
   <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
-    <value>new malfunction messages!</value>
+    <value>new disruption messages!</value>
   </data>
   <data name="ToastNewDisruptionText" xml:space="preserve">
     <value>Open the Avans app to view the new disruption messages!</value>

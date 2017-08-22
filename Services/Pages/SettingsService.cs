@@ -10,12 +10,22 @@ using AvansApp.Helpers;
 
 namespace AvansApp.Services.Pages
 {
+    public enum NotificationSettingType
+    {
+        Announcement,
+        Disruption,
+        Result
+    }
+
     public class SettingsService
     {
         public const string ScheduleCodeKey = "ScheduleCode";
         public const string IsScheduleWithoutBlanksKey = "ScheduleWithoutBlanks";
+        public const string IsAnnouncementNotificationEnabledKey = "AnnouncementNotificationKey";
+        public const string IsDisruptionNotificationEnabledKey = "DisruptionNotificationKey";
+        public const string IsResultNotificationEnabledKey = "ResultNotificationKey";
         //public readonly List<string> SettlementOptions { get; set; }
-        
+
 
         public SettingsService()
         {
@@ -44,6 +54,22 @@ namespace AvansApp.Services.Pages
         {
             await ApplicationData.Current.LocalSettings.SaveAsync(IsScheduleWithoutBlanksKey, isWithoutBlanks);
         }
+        public async Task SaveNotificationSetting(bool isEnabled, NotificationSettingType type)
+        {
+            switch(type)
+            {
+                case NotificationSettingType.Announcement:
+                    await ApplicationData.Current.LocalSettings.SaveAsync(IsAnnouncementNotificationEnabledKey, isEnabled);
+                    break;
+                case NotificationSettingType.Disruption:
+                    await ApplicationData.Current.LocalSettings.SaveAsync(IsDisruptionNotificationEnabledKey, isEnabled);
+                    break;
+                case NotificationSettingType.Result:
+                    await ApplicationData.Current.LocalSettings.SaveAsync(IsResultNotificationEnabledKey, isEnabled);
+                    break;
+            }
+            Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasks();
+        }
         public async Task<bool> ReadScheduleBlanks()
         {
             return await ApplicationData.Current.LocalSettings.ReadAsync<bool>(IsScheduleWithoutBlanksKey);
@@ -55,6 +81,10 @@ namespace AvansApp.Services.Pages
         public bool KeyExists(string key)
         {
             return ApplicationData.Current.LocalSettings.KeyExists(key);
+        }
+        public async Task<bool> ReadKeyAsync(string key)
+        {
+            return await ApplicationData.Current.LocalSettings.ReadAsync<bool>(key);
         }
 
         public async Task ComposeEmail(Contact recipient, string subject, string messageBody, StorageFile attachmentFile = null)
@@ -90,6 +120,9 @@ namespace AvansApp.Services.Pages
             // Remove Setting Keys
             RemoveKey(ScheduleCodeKey);
             RemoveKey(IsScheduleWithoutBlanksKey);
+            RemoveKey(IsAnnouncementNotificationEnabledKey);
+            RemoveKey(IsDisruptionNotificationEnabledKey);
+            RemoveKey(IsResultNotificationEnabledKey);
 
             // Delete Local storage
             Singleton<ResultService>.Instance.DeleteStorage();
