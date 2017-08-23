@@ -252,6 +252,15 @@ Have fun!</value>
   <data name="MyProfileRow3.Text" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="MyProfileRow4.Text" xml:space="preserve">
+    <value>Passing grades</value>
+  </data>
+  <data name="MyProfileRow5.Text" xml:space="preserve">
+    <value>Failing grades</value>
+  </data>
+  <data name="MyProfileRow6.Text" xml:space="preserve">
+    <value>Average grade</value>
+  </data>
   <data name="NoResult.Text" xml:space="preserve">
     <value>No results</value>
   </data>

@@ -252,6 +252,15 @@ Veel plezier met de App!</value>
   <data name="MyProfileRow3.Text" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="MyProfileRow4.Text" xml:space="preserve">
+    <value>Voldoendes</value>
+  </data>
+  <data name="MyProfileRow5.Text" xml:space="preserve">
+    <value>Onvoldoendes</value>
+  </data>
+  <data name="MyProfileRow6.Text" xml:space="preserve">
+    <value>Gemiddelde</value>
+  </data>
   <data name="NoResult.Text" xml:space="preserve">
     <value>Geen resultaten</value>
   </data>

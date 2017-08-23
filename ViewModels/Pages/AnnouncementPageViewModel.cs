@@ -44,7 +44,7 @@ namespace AvansApp.ViewModels.Pages
         public ICommand StateChangedCommand { get; private set; }
 
         public ObservableCollection<AnnouncementVM> Items { get; private set; }
-        public AnnouncementService Service { get; set; }
+        public AnnouncementService Service { get; private set; }
 
         public AnnouncementPageViewModel()
         {

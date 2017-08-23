@@ -145,7 +145,7 @@ namespace AvansApp.Services.Pages
 
         private string GetScheduleType(ScheduleType t)
         {
-            string type;
+            string type = string.Empty;
             switch (t)
             {
                 case ScheduleType.Classroom:
@@ -162,6 +162,13 @@ namespace AvansApp.Services.Pages
                     break;
             }
             return type;
+        }
+
+        public void EmptySchedule()
+        {
+            ScheduleWithBlanks = null;
+            ScheduleWithoutBlanks = null;
+            TodayIndex = 0;
         }
 
     }

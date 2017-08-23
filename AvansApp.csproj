@@ -117,7 +117,7 @@
     <Compile Include="Converters\DataConverter.cs" />
     <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\DayOfWeekConverter.cs" />
-    <Compile Include="Converters\EmptyStringConverter.cs" />
+    <Compile Include="Converters\DigitConverter.cs" />
     <Compile Include="Converters\InverseVisibilityConverter.cs" />
     <Compile Include="Converters\LesuurBackgroundColor.cs" />
     <Compile Include="Converters\LesuurConverter.cs" />

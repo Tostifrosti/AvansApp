@@ -11,7 +11,8 @@
     <Page.Resources>
         <ResourceDictionary>
             <converter:DataConverter x:Key="DataConverter" />
-            
+            <converter:DigitConverter x:Key="DigitConverter" />
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
                 <ResourceDictionary Source="../Styles/Themes.xaml" />
@@ -52,6 +53,8 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0" HorizontalAlignment="Stretch">
+
+                    <!-- Student no. -->
                     <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
@@ -67,6 +70,8 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.User.Studentnummer, Mode=OneWay, Converter={StaticResource DataConverter}}" 
                                    TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     </Grid>
+
+                    <!-- Description -->
                     <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
@@ -82,7 +87,9 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.User.Title, Mode=OneWay, Converter={StaticResource DataConverter}}" 
                                    TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     </Grid>
-                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,0">
+                    
+                    <!-- Mail -->
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="25" />
@@ -95,6 +102,57 @@
                                    VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock x:Uid="MyProfileRow3" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.User.Emailadres, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    </Grid>
+                    
+                    <!-- Amount Passing Grades -->
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE19F;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock x:Uid="MyProfileRow4" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.AmountPassingGrades, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    </Grid>
+                    
+                    <!-- Amount Failing Grades -->
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE19E;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock x:Uid="MyProfileRow5" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.AmountFailingGrades, Mode=OneWay, Converter={StaticResource DataConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    </Grid>
+                    
+                    <!-- Average Grade -->
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE19D;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock x:Uid="MyProfileRow6" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.AverageGrade, Mode=OneWay, Converter={StaticResource DigitConverter}}" 
                                    TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     </Grid>
                     

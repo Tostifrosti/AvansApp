@@ -35,6 +35,7 @@ namespace AvansApp.Services.Pages
         public async Task SaveScheduleCode(string scheduleCode)
         {
             await ApplicationData.Current.LocalSettings.SaveAsync<string>(ScheduleCodeKey, scheduleCode);
+            Singleton<ScheduleService>.Instance.EmptySchedule();
         }
         public async Task<string> ReadScheduleCode()
         {
@@ -131,6 +132,8 @@ namespace AvansApp.Services.Pages
 
             // Empty vault
             Models.OAuth.GetInstance().Client.EmptyVault();
+
+            Singleton<SettingsService>.ClearInstances();
         }
     }
 }

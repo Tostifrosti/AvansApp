@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AvansApp.ViewModels;
 using AvansApp.Models.ServerModels;
 using AvansApp.Models;
+using AvansApp.Helpers;
+using System.Globalization;
 
 namespace AvansApp.Services.Pages
 {
@@ -79,6 +81,80 @@ namespace AvansApp.Services.Pages
             }
 
             return User;
+        }
+
+        public async Task<int> GetAmountPassingGrades()
+        {
+            List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
+            
+            int amountPassing = 0;
+
+            foreach (ResultVM r in results)
+            {
+                string result = r.Resultaat;
+                result = result.Replace(",", ".");
+
+                if (double.TryParse(result, NumberStyles.Any, CultureInfo.InvariantCulture, out double rs))
+                {
+                    if (rs >= 5.5)
+                    {
+                        amountPassing++;
+                    }
+                }
+                else if (!(result.ToUpper().Equals("NV") || result.ToUpper().Equals("NVD") || result.ToUpper().Equals("O") || result.ToUpper().Equals("NC")))
+                {
+                    amountPassing++;
+                }
+            }
+
+            return amountPassing;
+        }
+        public async Task<int> GetAmountFailingGrades()
+        {
+            List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
+
+            int amountFailing = 0;
+
+            foreach (ResultVM r in results)
+            {
+                string result = r.Resultaat;
+                result = result.Replace(",", ".");
+
+                if (double.TryParse(result, NumberStyles.Any, CultureInfo.InvariantCulture, out double rs))
+                {
+                    if (rs < 5.5)
+                    {
+                        amountFailing++;
+                    }
+                }
+                else if (result.ToUpper().Equals("NV") || result.ToUpper().Equals("NVD") || result.ToUpper().Equals("O") || result.ToUpper().Equals("NC"))
+                {
+                    amountFailing++;
+                }
+            }
+
+            return amountFailing;
+        }
+        public async Task<double> GetAverageGrade()
+        {
+            List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
+
+            double sumResult = 0.0f;
+            int amountResults = 0;
+
+            foreach (ResultVM r in results)
+            {
+                string result = r.Resultaat;
+                result = result.Replace(",", ".");
+
+                if (double.TryParse(result, NumberStyles.Any, CultureInfo.InvariantCulture, out double rs))
+                {
+                    sumResult += rs;
+                    amountResults++;
+                }
+            }
+
+            return (amountResults > 0) ? (sumResult / amountResults) : 0;
         }
     }
 }
