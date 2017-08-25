@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="23054RLSmedia.Avans" Publisher="CN=7B797B32-9450-4804-8EFF-1AD018B8A07F" Version="0.1.6.0" />
+  <Identity Name="23054RLSmedia.Avans" Publisher="CN=7B797B32-9450-4804-8EFF-1AD018B8A07F" Version="0.2.0.0" />
   <mp:PhoneIdentity PhoneProductId="d972f779-4ded-47ce-9be9-ea5a69e125cc" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Avans</DisplayName>
