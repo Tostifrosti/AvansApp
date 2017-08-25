@@ -51,6 +51,24 @@ namespace AvansApp.ViewModels.Pages
         public ICommand OnNextDayClickCommand { get; private set; }
         public ICommand OnTodayClickCommand { get; private set; }
 
+        private bool _isPreviousDayButtonEnabled;
+        public bool IsPreviousDayButtonEnabled {
+            get { return _isPreviousDayButtonEnabled; }
+            set { Set(ref _isPreviousDayButtonEnabled, value); }
+        }
+        private bool _isNextDayButtonEnabled;
+        public bool IsNextDayButtonEnabled
+        {
+            get { return _isNextDayButtonEnabled; }
+            set { Set(ref _isNextDayButtonEnabled, value); }
+        }
+        private bool _isTodayButtonEnabled;
+        public bool IsTodayButtonEnabled
+        {
+            get { return _isTodayButtonEnabled; }
+            set { Set(ref _isTodayButtonEnabled, value); }
+        }
+
         private ScheduleService Service { get; set; }
         private SettingsService Settings { get; set; }
 
@@ -64,9 +82,17 @@ namespace AvansApp.ViewModels.Pages
             todayIndex = 0;
             currentDayIndex = 0;
 
-            OnPreviousDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnPreviousDayClick, (e) => { return true; });
-            OnNextDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnNextDayClick, (e) => { return true; });
-            OnTodayClickCommand = new RelayCommand<ItemClickEventArgs>(OnTodayClick, (e) => { return true; });
+            IsPreviousDayButtonEnabled = false;
+            IsNextDayButtonEnabled = false;
+            IsTodayButtonEnabled = false;
+
+            IsLoading = false;
+            HasNoResult = false;
+            HasNoScheduleCode = false;
+
+            OnPreviousDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnPreviousDayClick);
+            OnNextDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnNextDayClick);
+            OnTodayClickCommand = new RelayCommand<ItemClickEventArgs>(OnTodayClick);
             
             SetHeader();
         }
@@ -126,6 +152,8 @@ namespace AvansApp.ViewModels.Pages
                 IsLoading = false;
                 HasNoResult = false;
                 HasNoScheduleCode = true;
+                SetCurrentDay();
+                SetHeader();
             }
             OnPropertyChanged("ScheduleEnabled");
         }
@@ -176,20 +204,18 @@ namespace AvansApp.ViewModels.Pages
         }
         private void SetCurrentDay()
         {
-            // TODO
-            if (CurrentDay.Count <= 0 || (CurrentDay.Count == 1 && CurrentDay[0].Id < 0))
+            if (HasNoScheduleCode || HasNoResult)
             {
-                //ScheduleListView.ItemsSource = new List<ScheduleVM>();
-                //ScheduleListView.Visibility = Visibility.Collapsed;
-                //NoScheduleText.Visibility = Visibility.Visible;
+                IsTodayButtonEnabled = false;
+                IsPreviousDayButtonEnabled = false;
+                IsNextDayButtonEnabled = false;
             }
             else
             {
-                //ScheduleListView.ItemsSource = CurrentDay;
-                //ScheduleListView.Visibility = Visibility.Visible;
-                //NoScheduleText.Visibility = Visibility.Collapsed;
+                IsNextDayButtonEnabled = ((Items.Count - 1) > currentDayIndex && ScheduleEnabled) ? true : false;
+                IsPreviousDayButtonEnabled = (currentDayIndex > 0 && ScheduleEnabled) ? true : false;
+                IsTodayButtonEnabled = (currentDayIndex != todayIndex && ScheduleEnabled) ? true : false;
             }
-            OnPropertyChanged("CurrentDay");
         }
 
         private void SetHeader()

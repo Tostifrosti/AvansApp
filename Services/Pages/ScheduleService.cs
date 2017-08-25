@@ -74,23 +74,20 @@ namespace AvansApp.Services.Pages
             }
              
             // Fill in the blanks
-            for (int i=0; i < scheduleList.Count; i++)
+            for (int i = 0; i < scheduleList.Count; i++)
             {
-                if (scheduleList.Count > 0)
+                if (i > 0 && scheduleList[i].Count > 0 && scheduleList[i - 1].Count > 0 && 
+                    scheduleList[i][0].Datum > scheduleList[i - 1][0].Datum)
                 {
-                    if (i > 0 && scheduleList[i].Count > 0 && scheduleList[i - 1].Count > 0 && 
-                        scheduleList[i][0].Datum > scheduleList[i - 1][0].Datum)
-                    {
-                        FillBlanks(ref scheduleList, scheduleList[i][0].Datum, scheduleList[i - 1][0].Datum, i); 
-                    }
+                    FillBlanks(ref scheduleList, scheduleList[i - 1][0].Datum, scheduleList[i][0].Datum, i); 
                 }
             }
 
-            // If the last date is still in the past
+            // Fill until enddate
             if (scheduleList.Count > 0 && scheduleList[scheduleList.Count - 1].Count > 0 &&
                 scheduleList[scheduleList.Count-1][0].Datum < enddate)
             {
-                FillBlanks(ref scheduleList, scheduleList[scheduleList.Count - 1][0].Datum, enddate, (scheduleList.Count-1));
+                FillBlanks(ref scheduleList, scheduleList[scheduleList.Count - 1][0].Datum, enddate, scheduleList.Count);
             }
             if (scheduleList.Count == 0)
             {
@@ -138,7 +135,7 @@ namespace AvansApp.Services.Pages
                 for (int i = 1; i < daysInBetween; i++) // In between, so not the first or last date
                 {
                     Schedule s = new Schedule() { id = -1, datum = start.AddDays(i) };
-                    schedule.Insert(index + i, new List<ScheduleVM> { new ScheduleVM(s) });
+                    schedule.Insert((index - 1) + i, new List<ScheduleVM> { new ScheduleVM(s) });
                 }
             }
         }

@@ -34,7 +34,7 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid Grid.Column="0" Grid.Row="0">
-                <Button Style="{ThemeResource MyButton}" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;" Width="50" Margin="10,10" IsEnabled="{x:Bind ViewModel.ScheduleEnabled, Mode=OneWay}"
+                <Button Style="{ThemeResource MyButton}" FontFamily="Segoe MDL2 Assets" Content="&#xE72B;" Width="50" Margin="10,10" IsEnabled="{x:Bind ViewModel.IsPreviousDayButtonEnabled, Mode=OneWay}"
                         Command="{x:Bind ViewModel.OnPreviousDayClickCommand, Mode=OneWay}" HorizontalAlignment="Left" />
                 <StackPanel>
                     <TextBlock Text="{x:Bind ViewModel.Header, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center" 
@@ -42,7 +42,7 @@
                     <TextBlock Text="{x:Bind ViewModel.HeaderDay, Mode=OneWay, Converter={StaticResource DayOfWeekConverter}}" Foreground="{ThemeResource MyTextForegroundBrush}"
                                VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Normal" FontSize="16" />
                 </StackPanel>
-                <Button Style="{ThemeResource MyButton}" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;" Width="50" Margin="10,10" IsEnabled="{x:Bind ViewModel.ScheduleEnabled, Mode=OneWay}"
+                <Button Style="{ThemeResource MyButton}" FontFamily="Segoe MDL2 Assets" Content="&#xE72A;" Width="50" Margin="10,10" IsEnabled="{x:Bind ViewModel.IsNextDayButtonEnabled, Mode=OneWay}"
                         Command="{x:Bind ViewModel.OnNextDayClickCommand, Mode=OneWay}" HorizontalAlignment="Right" />
             </Grid>
 
@@ -120,7 +120,7 @@
             </Grid>
             <Button x:Uid="ScheduleTodayButton" Grid.Column="0" Grid.Row="2" Style="{ThemeResource MyButton}"
                     Command="{x:Bind ViewModel.OnTodayClickCommand, Mode=OneWay}" Width="125" Margin="0,0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    IsEnabled="{x:Bind ViewModel.ScheduleEnabled, Mode=OneWay}"/>
+                    IsEnabled="{x:Bind ViewModel.IsTodayButtonEnabled, Mode=OneWay}"/>
         </Grid>
     </Grid>
 </Page>
