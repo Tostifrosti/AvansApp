@@ -72,40 +72,43 @@ namespace AvansApp.Services.Pages
             {
                 ScheduleWithoutBlanks.Add(item);
             }
-             
-            // Fill in the blanks
-            for (int i = 0; i < scheduleList.Count; i++)
+            
+            if (scheduleList.Count > 0)
             {
-                if (i > 0 && scheduleList[i].Count > 0 && scheduleList[i - 1].Count > 0 && 
-                    scheduleList[i][0].Datum > scheduleList[i - 1][0].Datum)
+                // Fill in the blanks
+                for (int i = 0; i < scheduleList.Count; i++)
                 {
-                    FillBlanks(ref scheduleList, scheduleList[i - 1][0].Datum, scheduleList[i][0].Datum, i); 
-                }
-            }
-
-            // Fill until enddate
-            if (scheduleList.Count > 0 && scheduleList[scheduleList.Count - 1].Count > 0 &&
-                scheduleList[scheduleList.Count-1][0].Datum < enddate)
-            {
-                FillBlanks(ref scheduleList, scheduleList[scheduleList.Count - 1][0].Datum, enddate, scheduleList.Count);
-            }
-            if (scheduleList.Count == 0)
-            {
-                FillBlanks(ref scheduleList, startdate, enddate, 0);
-            }
-
-            // Find index of Today
-            var today = DateTime.Now;
-            for (int i = 0; i < scheduleList.Count; i++)
-            {
-                if (scheduleList[i].Count > 0)
-                {
-                    if (scheduleList[i][0].Datum.Year == today.Year &&
-                        scheduleList[i][0].Datum.Month == today.Month &&
-                        scheduleList[i][0].Datum.Day == today.Day)
+                    if (i > 0 && scheduleList[i].Count > 0 && scheduleList[i - 1].Count > 0 &&
+                        scheduleList[i][0].Datum > scheduleList[i - 1][0].Datum)
                     {
-                        TodayIndex = i;
-                        break;
+                        FillBlanks(ref scheduleList, scheduleList[i - 1][0].Datum, scheduleList[i][0].Datum, i);
+                    }
+                }
+
+                // Fill until enddate
+                if (scheduleList.Count > 0 && scheduleList[scheduleList.Count - 1].Count > 0 &&
+                    scheduleList[scheduleList.Count - 1][0].Datum < enddate)
+                {
+                    FillBlanks(ref scheduleList, scheduleList[scheduleList.Count - 1][0].Datum, enddate, scheduleList.Count);
+                }
+                if (scheduleList.Count == 0)
+                {
+                    FillBlanks(ref scheduleList, startdate, enddate, 0);
+                }
+
+                // Find index of Today
+                var today = DateTime.Now;
+                for (int i = 0; i < scheduleList.Count; i++)
+                {
+                    if (scheduleList[i].Count > 0)
+                    {
+                        if (scheduleList[i][0].Datum.Year == today.Year &&
+                            scheduleList[i][0].Datum.Month == today.Month &&
+                            scheduleList[i][0].Datum.Day == today.Day)
+                        {
+                            TodayIndex = i;
+                            break;
+                        }
                     }
                 }
             }

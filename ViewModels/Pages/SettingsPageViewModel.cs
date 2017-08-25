@@ -83,7 +83,8 @@ namespace AvansApp.ViewModels.Pages
         public SettingsPageViewModel()
         {
             SearchBoxChanged = false;
-            
+            ScheduleCodeInputText = "";
+
             Service = Singleton<SettingsService>.Instance;
 
             User = new ProfileVM();
@@ -109,7 +110,15 @@ namespace AvansApp.ViewModels.Pages
             _isResultNotificationEnabled = await Service.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
             
             User = await Singleton<ProfileService>.Instance.GetUserAsync();
-            OnPropertyChanged(null); // Update UI
+
+            // Update UI
+            OnPropertyChanged("IsScheduleWithoutBlanksEnabled");
+            OnPropertyChanged("IsLightThemeEnabled");
+
+            OnPropertyChanged("IsAnnouncementNotificationEnabled");
+            OnPropertyChanged("IsDisruptionNotificationEnabled");
+            OnPropertyChanged("IsResultNotificationEnabled");
+
         }
         
         
@@ -130,11 +139,17 @@ namespace AvansApp.ViewModels.Pages
                     else
                     {
                         Service.RemoveKey(SettingsService.ScheduleCodeKey);
+
+                        var dialog = new MessageDialog("DialogScheduleCodeSavedBody".GetLocalized(), "DialogScheduleCodeSavedHeader".GetLocalized());
+                        await dialog.ShowAsync();
                     }
                 }
                 else if (string.IsNullOrWhiteSpace(ScheduleCodeInputText))
                 {
                     Service.RemoveKey(SettingsService.ScheduleCodeKey);
+
+                    var dialog = new MessageDialog("DialogScheduleCodeSavedBody".GetLocalized(), "DialogScheduleCodeSavedHeader".GetLocalized());
+                    await dialog.ShowAsync();
                 }
 
             }
