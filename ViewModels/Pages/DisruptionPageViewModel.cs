@@ -26,6 +26,18 @@ namespace AvansApp.ViewModels.Pages
             get { return _selected; }
             set { Set(ref _selected, value); }
         }
+        private bool _hasNoResult;
+        public bool HasNoResult
+        {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
         public DisruptionService Service { get; private set; }
         public ICommand ItemClickCommand { get; private set; }
 
@@ -44,6 +56,8 @@ namespace AvansApp.ViewModels.Pages
         {
             if(Items.Count <= 0)
             {
+                IsLoading = true;
+                HasNoResult = false;
                 var data = await Service.GetDisruptions();
                 data = data.OrderByDescending(d => d.PublicationDate).ToList();
 
@@ -52,6 +66,8 @@ namespace AvansApp.ViewModels.Pages
                     Items.Add(item);
                 }
                 Selected = Items.FirstOrDefault();
+                IsLoading = false;
+                HasNoResult = Items.Count <= 0;
             }
         }
 
@@ -60,7 +76,7 @@ namespace AvansApp.ViewModels.Pages
         private void OnItemClick(ItemClickEventArgs args)
         {
             DisruptionItemVM item = args?.ClickedItem as DisruptionItemVM;
-            if (item != null)
+            if (item != null && item.Description != null)
             {
                 NavigationService.Navigate(typeof(DisruptionSinglePageViewModel).FullName, item);
             }

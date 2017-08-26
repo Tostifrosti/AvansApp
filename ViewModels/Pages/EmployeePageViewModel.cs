@@ -27,8 +27,23 @@ namespace AvansApp.ViewModels.Pages
             get { return _selected; }
             set { Set(ref _selected, value); }
         }
-        
-        private bool SearchBoxChanged; // TODO
+        private bool _isLoading;
+        public bool IsLoading {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
+        private bool _notSearched;
+        public bool NotSearched
+        {
+            get { return _notSearched; }
+            set { Set(ref _notSearched, value); }
+        }
+        private bool SearchBoxChanged;
         //private Flyout SearchFlyout { get; set; } // TODO
         private string _searchBoxText;
         public string SearchBoxText
@@ -44,6 +59,10 @@ namespace AvansApp.ViewModels.Pages
         private EmployeeService Service { get; set; }
         public EmployeePageViewModel()
         {
+            IsLoading = false;
+            HasNoResult = false;
+            NotSearched = true;
+
             Items = new ObservableCollection<EmployeeVM>();
 
             OnSearchButtonClickCommand = new RelayCommand<ItemClickEventArgs>(OnSearchButtonClick);
@@ -51,21 +70,16 @@ namespace AvansApp.ViewModels.Pages
             OnKeyDownCommand = new RelayCommand<KeyRoutedEventArgs>(OnKeyDown);
 
             SearchBoxChanged = false;
-            Service = new EmployeeService();
-            
-            //this.Loaded += EmployeesPage_Loaded;
+            Service = Singleton<EmployeeService>.Instance;
         }
         public void Initialize()
         {
             MainPageViewModel.SetPageTitle("Shell_EmployeesPage".GetLocalized());
-        }
 
-        /*private void EmployeesPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            SearchFlyout = Resources["SearchFlyout"] as Flyout;
+            /*SearchFlyout = Resources["SearchFlyout"] as Flyout;
             SearchFlyout.Placement = Windows.UI.Xaml.Controls.Primitives.FlyoutPlacementMode.Bottom;
-            SearchFlyout.Hide();
-        }*/
+            SearchFlyout.Hide();*/
+        }
         
 
         private async void OnSearchButtonClick(ItemClickEventArgs args)
@@ -74,10 +88,13 @@ namespace AvansApp.ViewModels.Pages
             if (SearchBoxChanged)
             {
                 SearchBoxChanged = false;
-                if (!string.IsNullOrEmpty(SearchBoxText) && !string.IsNullOrWhiteSpace(SearchBoxText))
+                if (!string.IsNullOrWhiteSpace(SearchBoxText))
                 {
                     if (SearchBoxText.Length >= 3)
                     {
+                        IsLoading = true;
+                        HasNoResult = false;
+                        NotSearched = false;
                         Items.Clear();
 
                         List<EmployeeVM> data = await Service.GetEmployees(SearchBoxText);
@@ -86,6 +103,8 @@ namespace AvansApp.ViewModels.Pages
                             Items.Add(item);
                         }
                         //SearchFlyout.Hide();
+                        IsLoading = false;
+                        HasNoResult = Items.Count <= 0;
                     }
                     else
                     {
@@ -98,15 +117,25 @@ namespace AvansApp.ViewModels.Pages
                 {
                     // Empty List
                     Items.Clear();
+                    IsLoading = false;
+                    HasNoResult = false;
+                    NotSearched = true;
                     //SearchFlyout.Hide();
                 }
+            }
+            else if (string.IsNullOrWhiteSpace(SearchBoxText))
+            {
+                // Empty List
+                Items.Clear();
+                IsLoading = false;
+                HasNoResult = false;
+                NotSearched = true;
             }
         }
 
         private async void OnItemClick(ItemClickEventArgs args)
         {
             EmployeeVM item = args?.ClickedItem as EmployeeVM;
-            //main.PageTitle = SelectedEmployee.DisplayName;
 
             if (item != null)
             {

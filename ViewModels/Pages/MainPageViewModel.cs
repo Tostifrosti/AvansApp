@@ -14,7 +14,7 @@ using Windows.Foundation.Metadata;
 using AvansApp.Models;
 using AvansApp.Helpers;
 using AvansApp.Services;
-using AvansApp.Models.ServerModels;
+using AvansApp.Services.Pages;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -44,10 +44,10 @@ namespace AvansApp.ViewModels.Pages
             GetUserAsync();
             SetStatusBarColor(Color.FromArgb(255, 198, 0, 42), Colors.White); // Change color of Statusbar
 
-            if (!OAuth.GetInstance().Client.CheckTokenExists("Settlement"))
+            /*if (!OAuth.GetInstance().Client.CheckTokenExists("Settlement"))
             {
                 OAuth.GetInstance().Client.AddToVault("Settlement", "Settlement", "onderwijsboulevard");
-            }
+            }*/
         }
 
         public void Initialize(Frame frame)
@@ -59,64 +59,13 @@ namespace AvansApp.ViewModels.Pages
 
         private async void GetUserAsync()
         {
-            //Test User
-            var user = new ProfileVM {
-                Name = "John Doe",
-                Title = "Student",
-                Emailadres = "johndoe@email.nl",
-                ProfilePicture = "ms-appx:///Assets/StoreLogo.png"
-            };
-
-            Student[] s = await OAuth.GetInstance().RequestJSON<Student[]>("https://publicapi.avans.nl/oauth/studentnummer/", new List<string>(), Models.Enums.HttpMethod.GET);
-
-            if (s != null)
-            {
-                Student student = s[0];
-                People people = await OAuth.GetInstance().RequestJSON<People>("https://publicapi.avans.nl/oauth/people/" + student.inlognaam, new List<string>(), Models.Enums.HttpMethod.GET);
-                if (people != null)
-                {
-                    string userimage = await OAuth.GetInstance().RequestRaw("https://publicapi.avans.nl/oauth/medewerkersgids/image/" + student.inlognaam, new List<string>(), Models.Enums.HttpMethod.GET);
-
-                    if (!string.IsNullOrEmpty(userimage))
-                    {
-                        try
-                        {
-                            userimage = userimage.Substring(userimage.IndexOf('{')); // Server gives us a weird json object. This fixes it.
-
-                            EmployeeImage employeeImage = Newtonsoft.Json.JsonConvert.DeserializeObject<EmployeeImage>(userimage);
-                            user.EmployeeImage = employeeImage;
-
-                            if (employeeImage != null)
-                            {
-                                user.EmployeeImage.bitmap = await employeeImage.Base64StringToBitmap(employeeImage.image);
-                                ProfileImage = user.EmployeeImage.bitmap;
-                            }
-                        }
-                        catch (Exception Error)
-                        {
-                            System.Diagnostics.Debug.WriteLine(Error.Message);
-                        }
-                    }
-                    // Real User
-                    User = new ProfileVM
-                    {
-                        Firstname = people.name.givenName,
-                        Surname = people.name.familyName,
-                        Name = people.name.formatted,
-                        Login = student.inlognaam,
-                        Studentnummer = student.studentnummer,
-                        Emailadres = people.emails.FirstOrDefault(),
-                        Title = people.title,
-                        ProfilePicture = "ms-appx:///Assets/StoreLogo.png",
-                        EmployeeImage = user.EmployeeImage
-                    };
-                }
-            }
+            User = await Singleton<ProfileService>.Instance.GetUserAsync();
+            ProfileImage = User.EmployeeImage.bitmap;
         }
         private void ShowProfilePage()
         {
             IsPaneOpen = false;
-            NavigationService.Navigate(typeof(ProfilePageViewModel).FullName, User);
+            NavigationService.Navigate(typeof(ProfilePageViewModel).FullName);
         }
         private async void SetStatusBarColor(Color background, Color foreground)
         {

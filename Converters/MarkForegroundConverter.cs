@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -7,22 +8,18 @@ namespace AvansApp.Converters
 {
     public class MarkForegroundConverter : IValueConverter
     {
-        private SolidColorBrush Red;
-        private SolidColorBrush Green;
-        private SolidColorBrush Black;
+        private SolidColorBrush Red = new SolidColorBrush(Colors.Red);
+        private SolidColorBrush Green = new SolidColorBrush(Colors.Green);
+        private SolidColorBrush Black = new SolidColorBrush(Colors.Black);
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            Red = new SolidColorBrush(Colors.Red);
-            Green = new SolidColorBrush(Colors.Green);
-            Black = new SolidColorBrush(Colors.Black);
-
             SolidColorBrush color;
             string resultaat = value.ToString();
             resultaat = resultaat.Replace(",", ".");
             double result = 0;
 
-            if (double.TryParse(resultaat, out result))
+            if (double.TryParse(resultaat, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
             {
                 if (result >= 5.5)
                     color = Green;

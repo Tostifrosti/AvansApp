@@ -7,27 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:converter="using:AvansApp.Converters"
     DataContext="{Binding EmployeePageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary>
-            <Flyout x:Key="SearchFlyout">
-                <Grid Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Minimaal 3 karakters." HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Normal" FontStyle="Italic" Margin="0" Padding="0" Foreground="Black" />
-                </Grid>
-            </Flyout>
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White" Padding="0" Margin="0">
-        <Grid Background="White" MaxWidth="1000">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Padding="0" Margin="0">
+        <Grid Background="Transparent" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
                 <RowDefinition Height="1*" />
@@ -36,7 +33,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="60" BorderBrush="LightGray" BorderThickness="0,0,0,1" >
+            <Grid Grid.Column="0" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="60" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
@@ -44,20 +41,59 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="SearchBox" Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="0" BorderThickness="1" BorderBrush="LightGray" PlaceholderText="Zoek naar een Medewerker" FontSize="18" Foreground="Black" Width="Auto" Height="35" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                
+                <TextBox x:Uid="EmployeePageTextbox" Text="{Binding SearchBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="0" BorderThickness="1" 
+                         FontSize="18" Style="{ThemeResource MyTextBox}" Width="Auto" Height="35" Margin="5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                     <i:Interaction.Behaviors>
                         <ic:EventTriggerBehavior EventName="KeyDown">
                             <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnKeyDownCommand, Mode=OneWay}" />
                         </ic:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
+                    <!--<FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom">
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Uid="SearchFlyout" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Normal" FontStyle="Italic" Margin="0" Padding="0" Foreground="Black" />
+                            </Grid>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>-->
                 </TextBox>
-                <Button x:Name="SearchButton" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnSearchButtonClickCommand, Mode=OneWay}" Content="Zoeken" Style="{StaticResource DefaultButtonStyle}" Width="75" Height="35" FontSize="14" Margin="0,0,5,0" />
+                <Button x:Uid="SearchButton" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnSearchButtonClickCommand, Mode=OneWay}" Width="75" Height="35" Margin="0,0,5,0" 
+                        FontSize="14" Style="{ThemeResource MyButton}" />
             </Grid>
 
-            <TextBlock x:Name="LoadingText" Visibility="Collapsed" Grid.Column="0" Grid.Row="1" Text="Laden.." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
-            <TextBlock x:Name="NoResultText" Visibility="Collapsed" Grid.Column="0" Grid.Row="1" Text="Geen medewerkers gevonden!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
+            <!-- Loading -->
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+                  Grid.Row="1" Grid.Column="0"
+                  Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
+                <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+            </Grid>
+
+            <!-- No Result -->
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+                  Grid.Row="1" Grid.Column="0"
+                  Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock x:Uid="NoResultEmployees" Width="Auto" FontSize="18" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+            </Grid>
+
+            <!-- Info -->
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.NotSearched, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xE71E;" FontSize="60" Opacity="0.5" Margin="0,-75,0,0" FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                <TextBlock x:Uid="NotSearchedEmployees" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+            </Grid>
+
             <!-- List View -->
-            <ListView x:Name="ListEmployees" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Visibility="Visible" Grid.Column="0" Grid.Row="1" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
+            <ListView Grid.Column="0" Grid.Row="1" IsItemClickEnabled="True"
+                      ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" 
+                      Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}"
+                      Height="Auto" Width="Auto" Margin="0" Padding="0" >
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnItemClickCommand, Mode=OneWay}" />
@@ -70,14 +106,14 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0,0,0,0" />
                         <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Foreground" Value="{ThemeResource MyTextForegroundBrush}"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,0" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="vm:EmployeeVM">
-                        <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,8,5,8">
+                        <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,8,5,8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="25" />
@@ -87,9 +123,11 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind DisplayName, Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Top" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Email, Mode=OneWay}" FontSize="14" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Bottom"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Email, Mode=OneWay}" FontSize="14" FontStyle="Italic" 
+                                       Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Bottom"/>
 
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Room, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Room, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" Foreground="{ThemeResource MySubTextForegroundBrush}" 
+                                       HorizontalAlignment="Right" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

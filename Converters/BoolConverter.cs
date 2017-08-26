@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvansApp.Helpers;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace AvansApp.Converters
@@ -11,9 +12,9 @@ namespace AvansApp.Converters
             bool isBool = false;
             bool.TryParse(value.ToString(), out isBool);
             if(!isBool) {
-                returnvalue = "Vrij";
+                returnvalue = "Classroom_status_0".GetLocalized();
             } else {
-                returnvalue = "Bezet";
+                returnvalue = "Classroom_status_1".GetLocalized();
             }
             return returnvalue;
         }

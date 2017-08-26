@@ -22,8 +22,10 @@
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
             <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
+
             <DataTemplate x:Key="MasterListViewItemTemplate" x:DataType="vm:AnnouncementVM">
-                <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
+                <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="Auto" />
@@ -38,25 +40,31 @@
                         Grid.Row="0" 
                         Grid.Column="0"
                         Text="{x:Bind Title}" 
+                        Foreground="{ThemeResource MyTextForegroundBrush}"
                         FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
 
                     <TextBlock
                         Grid.Row="1" 
                         Grid.Column="0"
                         Text="{x:Bind Course}"
-                        FontSize="16" FontWeight="Normal" Opacity="0.6" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                        Foreground="{ThemeResource MyTextForegroundBrush}"
+                        FontSize="14" FontWeight="Normal" Opacity="0.6" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
 
                     <TextBlock
                         Grid.Row="0" Grid.RowSpan="2"
                         Grid.Column="1" Grid.ColumnSpan="1"
                         VerticalAlignment="Center" HorizontalAlignment="Right"
                         Text="{x:Bind DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}"
-                        FontSize="16" FontWeight="Normal" Opacity="1.0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                        Foreground="{ThemeResource MyTextForegroundBrush}"
+                        FontSize="14" FontWeight="Normal" Opacity="1.0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
                 </Grid>
             </DataTemplate>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </Page.Resources>
+    
     <Grid x:Name="ContentArea" Padding="0">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="Auto"/>
@@ -68,17 +76,28 @@
             <ColumnDefinition x:Name="DetailColumn" Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Background="White" Canvas.ZIndex="1" 
+        <!-- Loading -->
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
               Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <ProgressBar IsIndeterminate="True" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
+            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
         </Grid>
+
+        <!-- No Result -->
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Opacity="0.5" Margin="0,-50,0,0" FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+            <TextBlock x:Uid="NoResultAnnouncements" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+        </Grid>
+
         <Grid 
             x:Name="MasterArea"
             Grid.Row="1" Grid.Column="0"
-            BorderBrush="LightGray" BorderThickness="0,0,1,0">
+            BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,1,0"
+            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
 
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your master content.-->
-            <!-- {ThemeResource SystemControlPageBackgroundChromeLowBrush} -->
             <ListView
                 x:Name="MasterListView"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
@@ -86,7 +105,7 @@
                 ItemContainerTransitions="{x:Null}"
                 ItemTemplate="{StaticResource MasterListViewItemTemplate}"
                 IsItemClickEnabled="True"
-                Background="White">
+                Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
@@ -101,7 +120,7 @@
             </ListView>
         </Grid>
 
-        <Grid x:Name="DetailContentPresenter" Padding="0" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="DetailContentPresenter" Padding="0" Grid.Row="1" Grid.Column="1" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
             <views:AnnouncementsPageDetailControl x:Name="DetailControl" MasterMenuItem="{x:Bind ViewModel.Selected, Mode=OneWay}"/>
         </Grid>
 
@@ -131,7 +150,6 @@
                         <Setter Target="MasterColumn.Width" Value="*" />
                         <Setter Target="DetailColumn.Width" Value="0" />
                         <Setter Target="MasterListView.SelectionMode" Value="None" />
-                        <Setter Target="MasterArea.Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

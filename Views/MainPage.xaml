@@ -4,128 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    DataContext="{Binding MainPageViewModel, Source={StaticResource Locator}}"
     xmlns:vm="using:AvansApp.ViewModels"
     xmlns:converter="using:AvansApp.Converters"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    DataContext="{Binding MainPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
-    <!--<Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Styles/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-
-    <Grid Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Column="0" Grid.Row="0" x:Name="HeaderPanel" VerticalAlignment="Top" Background="#C6002A" BorderThickness="0" Height="48">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition  Width="50"/>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Border Background="Transparent" Grid.Column="0" Grid.Row="0" BorderThickness="0" Width="48" Height="48" VerticalAlignment="Center" HorizontalAlignment="Left">
-                <ToggleButton x:Name="MenuButton" Style="{StaticResource SymbolButton}" Click="MenuButton_Click" VerticalAlignment="Top" Foreground="White">
-                    <ToggleButton.Content>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" FontWeight="Normal" Margin="0,0,0,0"/>
-                    </ToggleButton.Content>
-                </ToggleButton>
-            </Border>
-            <ToggleButton x:Name="GoBackButton" Grid.Column="0" Grid.Row="0" Visibility="Collapsed" Style="{StaticResource SymbolButton}" Click="GoBackButton_Click" VerticalAlignment="Top" Foreground="White">
-                <ToggleButton.Content>
-                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE830;" FontWeight="Normal" Margin="0,0,0,0"/>
-                </ToggleButton.Content>
-            </ToggleButton>
-
-            <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" VerticalContentAlignment="Center" HorizontalScrollMode="Auto" VerticalScrollMode="Disabled">
-                <TextBlock x:Name="HeaderText" Text="{x:Bind PageTitle, Mode=OneWay}" TextWrapping="Wrap" Height="27" TextAlignment="Center" TextTrimming="CharacterEllipsis" Style="{StaticResource TagLineTextStyle}" MaxLines="1" HorizontalAlignment="Center" />
-            </ScrollViewer>
-        </Grid>
-
-        <SplitView x:Name="MenuBar" Grid.Column="1" Grid.Row="1" DisplayMode="CompactInline" IsPaneOpen="False" 
-                    PanePlacement="Left" CompactPaneLength="50" OpenPaneLength="260" Margin="0" PaneBackground="#C6002A">
-            <SplitView.Pane>
-
-                <Grid Margin="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Tapped="ShowMyProfile">
-                        <StackPanel>
-                            <Image x:Name="ProfileImage" Source="../Assets/StoreLogo.png" Width="50" Height="50" Margin="0,20" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel Margin="0" VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                            <TextBlock Text="{x:Bind User.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                        </StackPanel>
-                    </StackPanel>
-                    <Grid Grid.Column="0" Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <ListView Grid.Row="0" Grid.Column="0" IsItemClickEnabled="False" Height="Auto" Width="Auto" Margin="0" Padding="0" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListViewItem">
-                                                <ListViewItemPresenter
-                                                    SelectionCheckMarkVisualEnabled="False"
-                                                    CheckBrush="Transparent"
-                                                    CheckBoxBrush="Transparent"
-                                                    PlaceholderBackground="Transparent"
-                                                    PointerOverBackground="Transparent"
-                                                    PointerOverForeground="Transparent"
-                                                    SelectedBackground="White"
-                                                    SelectedForeground="White"
-                                                    SelectedPointerOverBackground="Transparent"
-                                                    PressedBackground="Transparent"
-                                                    SelectedPressedBackground="Transparent"
-                                                    CheckMode="Inline"/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            <RadioButton Tag="&#xE787;" Content="Rooster" Style="{StaticResource NavRadioButtonStyle}" Click="ShowSchedulePage" />
-                            <RadioButton Tag="&#xE8BD;" Content="Mededelingen" Style="{StaticResource NavRadioButtonStyle}" Click="ShowAnnouncementsPage"  />
-                            <RadioButton Tag="&#xE133;" Content="Resultaten" Style="{StaticResource NavRadioButtonStyle}" Click="ShowResultsPage" />
-                            <RadioButton Tag="&#xE16F;" Content="Tentamens" Style="{StaticResource NavRadioButtonStyle}" Click="ShowExamsPage" />
-                            <RadioButton Tag="&#xE121;" Content="Vrije ruimte" Style="{StaticResource NavRadioButtonStyle}" Click="ShowClassroomAvalaibilityPage" />
-                            <RadioButton Tag="&#xE716;" Content="Medewerkers" Style="{StaticResource NavRadioButtonStyle}" Click="ShowEmployeesPage" />
-                            <RadioButton Tag="&#xE7BA;" Content="Storingen" Style="{StaticResource NavRadioButtonStyle}" Click="ShowDisruptionsPage" />
-                            <RadioButton Tag="&#xE713;" Content="Instellingen" Style="{StaticResource NavRadioButtonStyle}" Click="ShowSettingsPage" />
-                        </ListView>
-                    </Grid>
-                </Grid>
-
-            </SplitView.Pane>
-            <SplitView.Content>
-                <Frame x:Name="MainFrame" Margin="0,0,0,0" Background="White" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    
-                </Frame>
-            </SplitView.Content>
-        </SplitView>
-        
-    </Grid>-->
-    
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <converter:VisibilityConverter x:Key="VisibilityConverter"/>
 
             <DataTemplate x:Key="NavigationMenuItemDataTemplate" x:DataType="vm:ShellNavigationItem">
@@ -146,12 +38,11 @@
                             <ColumnDefinition Width="48" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <!-- {ThemeResource SystemControlForegroundAccentBrush} -->
                         <Rectangle
                             Width="6"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"
-                            Fill="White"
+                            Fill="{ThemeResource MyNavigationRectangleBrush}"
                             Visibility="{x:Bind SelectedVis, Mode=OneWay}" />
                         <FontIcon
                             HorizontalAlignment="Center"
@@ -179,15 +70,15 @@
             <RowDefinition Height="*" />
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <!--  Top-level navigation menu + app content  -->
-        <!-- PaneBackground="{ThemeResource SystemControlBackgroundAltHighBrush}" -->
         <SplitView
             x:Name="NavigationMenu"
             Grid.Row="1"
             Grid.RowSpan="2"
             DisplayMode="{x:Bind ViewModel.DisplayMode, Mode=OneWay}"
-            PaneBackground="#C6002A"
-            Background="#C6002A"
+            PaneBackground="{ThemeResource MyNavigationPaneBackgroundBrush}"
+            Background="{ThemeResource MyNavigationPaneBackgroundBrush}"
             IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
             OpenPaneLength="260">
             <SplitView.Pane>
@@ -205,17 +96,23 @@
                                     </ic:EventTriggerBehavior>
                                 </i:Interaction.Behaviors>
                                 
-                                <StackPanel>
-                                    <Image x:Name="ProfileImage" Source="{x:Bind ViewModel.ProfileImage, Mode=OneWay}" Width="50" Height="50" Margin="0,20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="0,20">
+                                    <Ellipse x:Name="ProfileImage" Height="75" Width="75" ManipulationMode="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{x:Bind ViewModel.ProfileImage, Mode=OneWay}" Stretch="UniformToFill" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
                                 </StackPanel>
                                 <StackPanel Margin="10,0" VerticalAlignment="Center">
-                                    <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
-                                    <TextBlock Text="{x:Bind ViewModel.User.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White"/>
+                                    <TextBlock Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="18" 
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ThemeResource MyNavigationTextBrush}"/>
+                                    <TextBlock Text="{x:Bind ViewModel.User.Title, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="12" FontStyle="Italic" 
+                                               HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{ThemeResource MyNavigationTextBrush}"/>
                                 </StackPanel>
                             </StackPanel>
                             <ItemsControl
                                 VerticalAlignment="Top"
-                                Margin="0,90,0,0"
+                                Margin="0,120,0,0"
                                 IsTabStop="False"
                                 ItemTemplate="{StaticResource NavigationMenuItemDataTemplate}"
                                 ItemsSource="{x:Bind ViewModel.PrimaryItems, Mode=OneWay}" />
@@ -231,14 +128,15 @@
             </SplitView.Pane>
 
             <SplitView.Content>
-                <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
                     <Frame x:Name="MainFrame"/>
                 </Grid>
             </SplitView.Content>
         </SplitView>
 
         <!--  Header  -->
-        <Grid Grid.Row="0" x:Name="HeaderPanel" VerticalAlignment="Top" Background="#C6002A" BorderThickness="0" Height="48" Visibility="{x:Bind ViewModel.IsHeaderVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+        <Grid x:Name="HeaderPanel" Grid.Row="0" VerticalAlignment="Top" Background="{ThemeResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" 
+              Visibility="{x:Bind ViewModel.IsHeaderVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  Width="50"/>
                 <ColumnDefinition Width="*" />
@@ -248,13 +146,14 @@
             </Grid.RowDefinitions>
             
             <!--  Navigation menu button  -->
-            <Button Width="48" Height="48" BorderThickness="0" Background="Transparent" Foreground="White" Command="{x:Bind ViewModel.OpenPaneCommand}" Margin="0">
+            <Button Width="48" Height="48" BorderThickness="0" Background="Transparent" Foreground="{ThemeResource MyNavigationHamburgerBrush}" Command="{x:Bind ViewModel.OpenPaneCommand}" Margin="0">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" FontSize="20" FontWeight="Normal" Foreground="White"/>
             </Button>
 
-            <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Auto" VerticalScrollMode="Disabled">
-                <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{StaticResource TagLineTextStyle}"
-                           Height="27" MaxLines="1" TextWrapping="Wrap" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" Margin="-50,0,0,0"/>
+            <ScrollViewer Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" HorizontalScrollMode="Enabled" VerticalScrollMode="Disabled">
+                <TextBlock x:Name="HeaderText" Text="{x:Bind ViewModel.PageTitle, Mode=OneWay}" Style="{ThemeResource TagLineTextStyle}" Foreground="{ThemeResource MyNavigationTextBrush}"
+                           Height="27" MaxLines="1" TextWrapping="NoWrap" TextAlignment="Center" TextTrimming="None" HorizontalAlignment="Stretch" Margin="0,0,0,0" Padding="0,0,50,0"/>
             </ScrollViewer>
         </Grid>
 

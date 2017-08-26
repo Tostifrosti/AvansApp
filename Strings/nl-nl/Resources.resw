@@ -117,14 +117,263 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnswerOptionNo" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="AnswerOptionYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="CAHeader1.Text" xml:space="preserve">
+    <value>Soort Lokaal:</value>
+  </data>
+  <data name="CAHeader2.Text" xml:space="preserve">
+    <value>Aantal Plaatsen: </value>
+  </data>
+  <data name="CASearchBox.PlaceholderText" xml:space="preserve">
+    <value>Zoek naar een lokaal</value>
+  </data>
+  <data name="Classroom_status_0" xml:space="preserve">
+    <value>Vrij</value>
+  </data>
+  <data name="Classroom_status_1" xml:space="preserve">
+    <value>Bezet</value>
+  </data>
+  <data name="DialogScheduleCodeSavedBody" xml:space="preserve">
+    <value>Je rooster code is succesvol opgeslagen!</value>
+  </data>
+  <data name="DialogScheduleCodeSavedHeader" xml:space="preserve">
+    <value>Rooster code</value>
+  </data>
+  <data name="Disclaimer.Text" xml:space="preserve">
+    <value>Overige informatie &amp; Disclaimers</value>
+  </data>
+  <data name="EmployeePageRow1.Text" xml:space="preserve">
+    <value>Telefoon</value>
+  </data>
+  <data name="EmployeePageRow2.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmployeePageRow3.Text" xml:space="preserve">
+    <value>Werk</value>
+  </data>
+  <data name="EmployeePageRow4.Text" xml:space="preserve">
+    <value>Werkdagen</value>
+  </data>
+  <data name="EmployeePageRow5.Text" xml:space="preserve">
+    <value>Kamer</value>
+  </data>
+  <data name="EmployeePageRow6.Text" xml:space="preserve">
+    <value>Academie</value>
+  </data>
+  <data name="EmployeePageTextbox.PlaceholderText" xml:space="preserve">
+    <value>Zoek naar een medewerker</value>
+  </data>
+  <data name="ErrorMsgAuthDialog" xml:space="preserve">
+    <value>Er ging iets fout tijdens het verifiëren van uw account.
+Probeer het later opnieuw!</value>
+  </data>
+  <data name="ErrorMsgAuthDialogHeader" xml:space="preserve">
+    <value>Authenticatie Error</value>
+  </data>
+  <data name="ErrorMsgDialog" xml:space="preserve">
+    <value>Er is helaas iets fout gegaan...
+Probeer het later opnieuw!</value>
+  </data>
+  <data name="ErrorMsgDialogHeader" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FeedbackButton.Content" xml:space="preserve">
+    <value>Geef feedback</value>
+  </data>
+  <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
+    <value>Rooster aanvullen met lege dagen?</value>
+  </data>
+  <data name="FirstTimeSchedule.Text" xml:space="preserve">
+    <value>Je kan je roostercode invoeren
+in de instellingen.</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Vrijdag</value>
+  </data>
+  <data name="Loading.Text" xml:space="preserve">
+    <value>Laden...</value>
+  </data>
+  <data name="LoggedInString.Text" xml:space="preserve">
+    <value>Je bent ingelogd als </value>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginPageBody.Text" xml:space="preserve">
+    <value>Welkom bij de gloednieuwe Avans App!
+
+Met deze App kan je je Blackboard nieuws of mededelingen bekijken, resultaten inzien, rooster bekijken, medewerkers opzoeken, vrije ruimtes zoeken en nog veel meer! Met gebruik van de nieuwe UWP Framework, kan de App op zowel Windows Phone als Desktop gebruikt worden.
+
+Druk op de Login knop om in te loggen via de Avans Services.
+Dit inlog proces gaat via (een beveiligde verbinding van) de in-app browser.
+
+Vindt je een bug of heb je leuk idee voor de app? Stuur gerust je ideeën via de Feedback knop in je instellingen (zodra je bent ingelogd).
+
+Veel plezier met de App!</value>
+  </data>
+  <data name="LoginPageHeader.Text" xml:space="preserve">
+    <value>Avans Login</value>
+  </data>
+  <data name="LoginPageParagraph.Text" xml:space="preserve">
+    <value>Welkom bij Avans!</value>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="LogoutMessageDialogContent" xml:space="preserve">
+    <value>Weet je zeker dat je wilt uitloggen?</value>
+  </data>
+  <data name="LogoutMessageDialogHeader" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="Mark_status_0" xml:space="preserve">
+    <value>Difinitief</value>
+  </data>
+  <data name="Mark_status_1" xml:space="preserve">
+    <value>Concept</value>
+  </data>
+  <data name="Mark_status_2" xml:space="preserve">
+    <value>Onbekend</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Maandag</value>
+  </data>
+  <data name="MyProfileRow1.Text" xml:space="preserve">
+    <value>Studentnr.</value>
+  </data>
+  <data name="MyProfileRow2.Text" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="MyProfileRow3.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="MyProfileRow4.Text" xml:space="preserve">
+    <value>Voldoendes</value>
+  </data>
+  <data name="MyProfileRow5.Text" xml:space="preserve">
+    <value>Onvoldoendes</value>
+  </data>
+  <data name="MyProfileRow6.Text" xml:space="preserve">
+    <value>Gemiddelde</value>
+  </data>
+  <data name="NoResult.Text" xml:space="preserve">
+    <value>Geen resultaten</value>
+  </data>
+  <data name="NoResultAnnouncements.Text" xml:space="preserve">
+    <value>Geen mededelingen gevonden!</value>
+  </data>
+  <data name="NoResultCA.Text" xml:space="preserve">
+    <value>De school is gesloten of we hebben het lokaal niet kunnen vinden!</value>
+  </data>
+  <data name="NoResultDisruptions.Text" xml:space="preserve">
+    <value>Geen storingen gevonden!</value>
+  </data>
+  <data name="NoResultEmployees.Text" xml:space="preserve">
+    <value>Geen medewerkers gevonden!</value>
+  </data>
+  <data name="NoResultExams.Text" xml:space="preserve">
+    <value>Geen tentamens gevonden!</value>
+  </data>
+  <data name="NoResultSchedule.Text" xml:space="preserve">
+    <value>Geen lessen!</value>
+  </data>
+  <data name="NotSearchedCA.Text" xml:space="preserve">
+    <value>Zoek naar een lokaal 
+om te zien of deze bezet is.</value>
+  </data>
+  <data name="NotSearchedEmployees.Text" xml:space="preserve">
+    <value>Zoek naar een medewerker van Avans 
+om meer informatie te zien.</value>
+  </data>
+  <data name="ResultsPageRow1.Text" xml:space="preserve">
+    <value>Coördinator</value>
+  </data>
+  <data name="ResultsPageRow2.Text" xml:space="preserve">
+    <value>Aantal EC</value>
+  </data>
+  <data name="ResultsPageRow3.Text" xml:space="preserve">
+    <value>Weging</value>
+  </data>
+  <data name="ResultsPageRow4.Text" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ResultsPageRow5.Text" xml:space="preserve">
+    <value>Laatst bijgewerkt</value>
+  </data>
+  <data name="ResultsPageRow6.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ResultsPageRow7.Text" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Zaterdag</value>
+  </data>
+  <data name="SaveButtonText.Content" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ScheduleTodayButton.Content" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="SearchButton.Content" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="SearchFlyout.Text" xml:space="preserve">
+    <value>Minimaal 3 karakters.</value>
+  </data>
+  <data name="SettingsHeader1.Text" xml:space="preserve">
+    <value>Rooster</value>
+  </data>
+  <data name="SettingsHeader1Sub.Text" xml:space="preserve">
+    <value>Vul hier je Rooster code in:</value>
+  </data>
+  <data name="SettingsHeader2.Text" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="SettingsHeader3.Text" xml:space="preserve">
+    <value>Notificaties</value>
+  </data>
+  <data name="SettingsHeader4.Text" xml:space="preserve">
+    <value>Profiel</value>
+  </data>
+  <data name="SettingsHeader5.Text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
+    <value>De App is niet van, voor of door Avans Hogeschool en heeft daarvoor geen enkele aansprakelijkheid of verantwoordelijkheid over de Applicatie. 
+Er wordt alleen gebruik gemaakt van de service die Avans Hogeschool aanbied om de benodigde data van de gebruiker op te halen. 
+Doordat deze App alleen data ophaalt, kan er geen controle worden uitgevoerd op de data zelf. De maker(s) van deze App aanvaarden ook geen aansprakelijkheid voor de juistheid van de gegeven informatie.
+(Deze App houdt zich aan de richtlijnen die zijn gegeven op: https://publicapi.avans.nl/)</value>
+  </data>
+  <data name="SettingsPageInfo.Text" xml:space="preserve">
+    <value>Deze App gebruikt alleen de Avans Hogeschool services voor verificatie van het ingevulde account en het ophalen van data.
+Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus niet bij enige gevoelige data komen.</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader1.Text" xml:space="preserve">
+    <value>Mededeling notificaties</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader2.Text" xml:space="preserve">
+    <value>Storing notificaties</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader3.Text" xml:space="preserve">
+    <value>Resultaat notificaties</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OffContent" xml:space="preserve">
+    <value>Uit</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OnContent" xml:space="preserve">
+    <value>Aan</value>
+  </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>Nee</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OnContent" xml:space="preserve">
     <value>Ja</value>
-  </data>
-  <data name="SettingsPage_Theme.Text" xml:space="preserve">
-    <value>Thema</value>
   </data>
   <data name="SettingsPage_ThemeToggle.OffContent" xml:space="preserve">
     <value>Donker</value>
@@ -158,5 +407,71 @@
   </data>
   <data name="Shell_SettingsPage" xml:space="preserve">
     <value>Instellingen</value>
+  </data>
+  <data name="SplashPageProgressionText1" xml:space="preserve">
+    <value>Connectie maken met de server..</value>
+  </data>
+  <data name="SplashPageProgressionText2" xml:space="preserve">
+    <value>Account Verifiëren..</value>
+  </data>
+  <data name="SplashPageProgressionText3" xml:space="preserve">
+    <value>Welkom</value>
+  </data>
+  <data name="SplashPageProgressionTextError" xml:space="preserve">
+    <value>Er kan geen connectie gemaakt worden met server!</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Zondag</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Donderdag</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader" xml:space="preserve">
+    <value>Er staat één nieuwe mededeling van Blackboard voor je klaar!</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_0" xml:space="preserve">
+    <value>Er staan</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_1" xml:space="preserve">
+    <value>nieuwe mededelingen van Blackboard voor je klaar!</value>
+  </data>
+  <data name="ToastNewDisruptionHeader" xml:space="preserve">
+    <value>Je hebt één nieuw storingsbericht!</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
+    <value>Je hebt</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
+    <value>nieuwe storingsberichten!</value>
+  </data>
+  <data name="ToastNewDisruptionText" xml:space="preserve">
+    <value>Open de Avans app om de meldingen te bekijken!</value>
+  </data>
+  <data name="ToastNewResultHeader" xml:space="preserve">
+    <value>Je hebt één nieuw resultaat!</value>
+  </data>
+  <data name="ToastNewResultHeader_0" xml:space="preserve">
+    <value>Je hebt </value>
+  </data>
+  <data name="ToastNewResultHeader_1" xml:space="preserve">
+    <value>nieuwe resultaten!</value>
+  </data>
+  <data name="ToastNewResultText" xml:space="preserve">
+    <value>Open de Avans app om je nieuwe resultaat te bekijken!</value>
+  </data>
+  <data name="ToastNotificationButton1" xml:space="preserve">
+    <value>Bekijken</value>
+  </data>
+  <data name="TryAgainButton.Content" xml:space="preserve">
+    <value>Probeer opnieuw!</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Dinsdag</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Niet bekend</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Woensdag</value>
   </data>
 </root>

@@ -15,8 +15,6 @@ namespace AvansApp.ViewModels.Pages
                 return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<NavigationService>();
             }
         }
-        const string NarrowStateName = "NarrowState";
-        const string WideStateName = "WideState";
 
         private ResultVM _item;
         public ResultVM Item
@@ -38,7 +36,7 @@ namespace AvansApp.ViewModels.Pages
 
         private void OnStateChanged(VisualStateChangedEventArgs args)
         {
-            if (args.OldState.Name == NarrowStateName && args.NewState.Name == WideStateName)
+            if (args.OldState.Name == "NarrowState" && args.NewState.Name == "WideState")
             {
                 NavigationService.GoBack();
             }

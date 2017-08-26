@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvansApp.Helpers;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace AvansApp.Converters
@@ -36,7 +37,7 @@ namespace AvansApp.Converters
             if (lesuur >= 0 && lesuur < roostertijden.Length)
                 result = roostertijden[lesuur];
             else
-                result = "Onbekend";
+                result = "Unknown".GetLocalized();
 
             return result;
         }

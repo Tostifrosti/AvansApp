@@ -8,7 +8,7 @@ namespace AvansApp.Models.ServerModels
         public string Link { get; set; }
         public string GuId { get; set; }
         public DateTime PublicationDate { get; set; }
-        public int Type { get; set; } // 0 = Error, 1 = Maintenance, -1 = Undefined
+        public int Type { get; set; } // 0 = Error, 1 = Maintenance, 2 = Resolved, -1 = Undefined
         public string Description { get; set; }
     }
 }

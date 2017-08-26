@@ -41,13 +41,8 @@ namespace AvansApp.Services
             var task = BackgroundTasks.FirstOrDefault(b => b.Match(taskInstance?.Task?.Name));
 
             if (task == null)
-            {
-                // This condition should not be met, if so it means the background task to start was not found in the background tasks managed by this service. 
-                // Please check CreateInstances to see if the background task was properly added to the BackgroundTasks property.
                 return;
-            }
-
-            //task.RunAsync(taskInstance).FireAndForget();
+            
             task.RunAsync(taskInstance);
         }
 
@@ -63,6 +58,7 @@ namespace AvansApp.Services
             var backgroundTasks = new List<BackgroundTask>();
 
             backgroundTasks.Add(new ResultsBackgroundTask());
+            backgroundTasks.Add(new DisruptionsBackgroundTask());
 
             return backgroundTasks;
         }

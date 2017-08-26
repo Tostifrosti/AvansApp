@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.Data.Xml.Dom;
 
 using AvansApp.Models;
+using AvansApp.Helpers;
 using AvansApp.ViewModels;
 using AvansApp.Models.ServerModels;
 
@@ -12,54 +14,55 @@ namespace AvansApp.Services.Pages
     public class AnnouncementService
     {
         private const string base_url = "https://publicapi.avans.nl/oauth";
-        private static List<AnnouncementVM> _announcements;
-        //private LocalObjectStorageHelper Helper { get; set; }
+        private static List<AnnouncementVM> Items { get; set; }
         private const string StorageKey = "AnnouncementStorage";
+        private DateTime refreshTime;
 
         public AnnouncementService()
         {
-            //Helper = new LocalObjectStorageHelper();
+            refreshTime = DateTime.Now;
+            Items = null;
         }
 
         public async Task<List<AnnouncementVM>> GetAnnouncements()
         {
-            //await Task.CompletedTask;
+            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+                refreshTime = DateTime.Now;
 
-            if (_announcements == null) {
-                _announcements = new List<AnnouncementVM>();
+                Items = new List<AnnouncementVM>();
 
-                /*List<AnnouncementVM> result = await GetFromStorage();
-                if (result == null)
-                { // First time scenario
-                    result = await Request();
-                    SaveToStorage(result); // async
+                List<Announcement> storage = await GetFromStorage();
+                List<Announcement> newAnnouncements = await Request();
+
+                if (await CompareNewAnnouncementsAsync(newAnnouncements) <= 0)
+                {
+                    storage = await GetFromStorage();
+
+                    foreach (Announcement a in storage)
+                        Items.Add(new AnnouncementVM(a));
+
+                    return Items;
                 }
-                _announcements = result;*/
+                else
+                {
+                    // New announcements!
+                    storage = await GetFromStorage();
 
-                _announcements = await Request();
+                    foreach (Announcement a in storage)
+                        Items.Add(new AnnouncementVM(a));
+                }
             }
-            return _announcements;
+            return Items;
         }
 
-        private async Task<List<AnnouncementVM>> Request()
+        private async Task<List<Announcement>> Request()
         {
             XmlDocument data = await OAuth.GetInstance().RequestXML(base_url + "/bb/ann/", new List<string>(), Models.Enums.HttpMethod.GET);
-
-            // The JSON has weird symbols in their messages. 
-            //Announcements data = await OAuth.GetInstance().RequestJSON<Announcements>(base_url + "/bb/ann/", new List<string>(), Models.Enums.HttpMethod.GET);
-
-            //List<AnnouncementVM> result = new List<AnnouncementVM>();
-            //if (data != null && data.announcements != null && data.announcements.announcement != null)
-            //result = data.announcements.announcement.Select(a => new AnnouncementVM(a as Announcement)).ToList();
-            List<AnnouncementVM> result = ReadXMLDocument(data);
-
-            return result;
+            return ReadXMLDocument(data);
         }
-
-
-        private List<AnnouncementVM> ReadXMLDocument(XmlDocument doc)
+        private List<Announcement> ReadXMLDocument(XmlDocument doc)
         {
-            List<AnnouncementVM> result = new List<AnnouncementVM>();
+            List<Announcement> result = new List<Announcement>();
 
             if (doc != null && doc.DocumentElement != null && doc.DocumentElement.ChildNodes.Count > 1)
             {
@@ -101,55 +104,110 @@ namespace AvansApp.Services.Pages
                                 }
                             }
                         }
-                        result.Add(new AnnouncementVM(item));
+                        result.Add(item);
                     }
                 }
-                //result = Announcements.OrderByDescending(d => d.DateTime).ToList();
             }
             return result;
         }
-
-        /*private async Task<List<AnnouncementVM>> GetFromStorage()
+        private async Task<int> CompareNewAnnouncementsAsync(List<Announcement> newItems)
         {
-            if (await Helper.FileExistsAsync(StorageKey))
+            if (newItems == null || newItems.Count <= 0)
+                return 0;
+
+            List<Announcement> storage = await GetFromStorage();
+            int foundNewItems = 0;
+
+            if (storage == null || storage.Count <= 0)
             {
-                List<AnnouncementVM> storage = await Helper.ReadFileAsync<List<AnnouncementVM>>(StorageKey, null); // default: null
-                DeleteOldStorage(storage);
-                return storage;
+                // Storage is empty
+                foreach (Announcement item in newItems)
+                {
+                    storage.Add(item);
+                }
+                // No need to sort
+                await SaveToStorage(storage);
+
+                return newItems.Count;
+            }
+            else
+            {
+                // Delete old items
+                for (int i = 0; i < storage.Count; i++)
+                {
+                    if (storage[i].datetime <= DateTime.Now.AddMonths(-3))
+                    {
+                        storage.RemoveAt(i);
+                        i--;
+                    }
+                }
+                int temp = -1;
+
+                // Comprare & add/update new items
+                foreach (Announcement item in newItems)
+                {
+                    temp = -1;
+                    for (int i = 0; i < storage.Count; i++)
+                    {
+                        if (Compare(item, storage[i]))
+                        {
+                            temp = i;
+                            break;
+                        }
+                    }
+
+                    if (temp < 0)
+                    {
+                        foundNewItems++;
+                        storage.Add(item);
+                    }
+                    else
+                    {
+                        storage[temp] = item; // Update announcement
+                    }
+                }
+
+                // No need to sort
+                await SaveToStorage(storage);
+            }
+
+            return foundNewItems;
+        }
+        private async Task<List<Announcement>> GetFromStorage()
+        {
+            if (ApplicationData.Current.LocalFolder.FileExists(StorageKey))
+            {
+                return await ApplicationData.Current.LocalFolder.ReadAsync<List<Announcement>>(StorageKey);
             }
             else
             {
                 // First time 
-                return null;
+                return new List<Announcement>();
             }
         }
-        private async void SaveToStorage(List<AnnouncementVM> results)
+        private async Task SaveToStorage(List<Announcement> items)
         {
-            if (results == null || results.Count <= 0)
+            if (items == null || items.Count <= 0)
                 return;
 
-            if (await Helper.FileExistsAsync(StorageKey))
-            {
-                List<AnnouncementVM> storage = await GetFromStorage();
-                if (storage != null)
-                {
-                    // Merge the results
-                    foreach (var r in results)
-                    {
-                        storage.Add(r);
-                    }
-                    // Overwrite ?
-                    await Helper.SaveFileAsync(StorageKey, storage);
-                }
-            }
-            else
-            {
-                await Helper.SaveFileAsync(StorageKey, results);
-            }
+            await ApplicationData.Current.LocalFolder.SaveAsync(StorageKey, items);
         }
-        private void DeleteOldStorage(List<AnnouncementVM> storage)
+        public bool Compare(Announcement a, Announcement b)
         {
-            // TODO
-        }*/
+            if (a == null || b == null)
+                return false;
+
+            if (a.course == b.course &&
+                a.link == b.link && 
+                a.title == b.title)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void DeleteStorage()
+        {
+            ApplicationData.Current.LocalFolder.DeleteFile(StorageKey);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvansApp.Helpers;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace AvansApp.Converters
@@ -16,7 +17,7 @@ namespace AvansApp.Converters
             }
             else
             {
-                result = "(Geen informatie)";
+                result = "Unknown".GetLocalized();
             }
 
             return result;

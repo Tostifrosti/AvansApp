@@ -14,15 +14,42 @@
     <Page.Resources>
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Background="White">
-        <Grid Background="White" MaxWidth="1000">
-            <TextBlock x:Name="NoResult" Text="Geen tentamens gevonden!" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
-            <TextBlock x:Name="LoadingText" Text="Laden.." Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Foreground="Black" />
-            
-            <ListView x:Name="ListExams" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Visibility="Visible" Grid.Row="0" Grid.Column="0" IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
+
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
+
+        <!-- Loading -->
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
+            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+        </Grid>
+
+        <!-- No Result -->
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Margin="0,-50,0,0" Opacity="0.5" 
+                      FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+            <TextBlock x:Uid="NoResultExams" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" 
+                       TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+        </Grid>
+        
+        <!-- Exams -->
+        <Grid Background="Transparent" MaxWidth="1000"
+              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
+
+            <ListView Grid.Row="0" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Visibility="Visible" 
+                      IsItemClickEnabled="True" Height="Auto" Width="Auto" Margin="0" Padding="0" >
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnItemClickCommand, Mode=OneWay}" />
@@ -35,7 +62,7 @@
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
                         <Setter Property="Margin" Value="0,0,0,0" />
                         <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Foreground" Value="{ThemeResource MyTextForegroundBrush}"/>
                         <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,0" />
                     </Style>
@@ -54,7 +81,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind ExamDescription, Mode=OneWay}" TextWrapping="WrapWholeWords" Margin="0,0,75,0" FontWeight="Bold" VerticalAlignment="Top" />
                             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE121;" FontSize="16" FontWeight="Normal" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE121;" FontSize="16" FontWeight="Normal" Margin="0,0,10,0" VerticalAlignment="Center" />
                                 <TextBlock Text="{x:Bind StartTime, Mode=OneWay}" FontSize="14" FontStyle="Italic" VerticalAlignment="Center"/>
                                 <TextBlock Padding="5,0,5,0" VerticalAlignment="Center">-</TextBlock>
                                 <TextBlock Text="{x:Bind Deadline, Mode=OneWay}" FontSize="14" FontStyle="Italic" VerticalAlignment="Center"/>
@@ -64,7 +91,8 @@
                                 <TextBlock Text="{x:Bind DateTime, Converter={StaticResource DateTimeConverter}, Mode=OneWay}" FontStyle="Italic" VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Text="{x:Bind Classroom, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Text="{x:Bind Classroom, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" 
+                                       Foreground="{ThemeResource MySubTextForegroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

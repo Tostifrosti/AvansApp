@@ -20,10 +20,16 @@
     
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
             <converter:MarkForegroundConverter x:Key="MarkForeground" />
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
             
             <DataTemplate x:Key="MasterListViewItemTemplate" x:DataType="vm:ResultVM">
-                <Grid BorderBrush="LightGray" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
+                <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="Auto" />
@@ -32,16 +38,19 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind CursusNaam, Mode=OneWay}" TextWrapping="WrapWholeWords" Margin="0,0,5,0" FontWeight="Bold" VerticalAlignment="Top" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind ToetsOmschrijving, Mode=OneWay}" FontSize="14" FontStyle="Italic" Foreground="Gray" VerticalAlignment="Bottom"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Resultaat, Mode=OneWay}" FontSize="18" Foreground="{x:Bind Resultaat, Mode=OneWay, Converter={StaticResource MarkForeground}}" Margin="0,0,10,0" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind CursusNaam, Mode=OneWay}" TextWrapping="WrapWholeWords" FontSize="16" Margin="0,0,5,0" FontWeight="Bold" VerticalAlignment="Top" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind ToetsOmschrijving, Mode=OneWay}" FontSize="14" FontStyle="Italic" 
+                               Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Bottom"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Resultaat, Mode=OneWay}" FontSize="18" 
+                               Foreground="{x:Bind Resultaat, Mode=OneWay, Converter={StaticResource MarkForeground}}" Margin="0,0,10,0" FontWeight="Bold" 
+                               HorizontalAlignment="Right" VerticalAlignment="Center" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
         
     </Page.Resources>
 
-    <Grid x:Name="ContentArea" Padding="0">
+    <Grid x:Name="ContentArea" Padding="0" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TitleRow" Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -52,13 +61,33 @@
             <ColumnDefinition x:Name="DetailColumn" Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- TODO: Add result overview (with total EC). Icon: Diagnostic - E9D9 -->
+        
+        <!-- Loading -->
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
+            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+        </Grid>
+
+        <!-- No Result -->
+        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+              Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" Margin="0,-50,0,0" FontSize="60" Opacity="0.5" FontWeight="Bold" 
+                      Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+            <TextBlock x:Uid="NoResult" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" Opacity="0.75" FontWeight="Normal" TextAlignment="Center" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+        </Grid>
+        
         <Grid
             x:Name="MasterArea"
             Grid.Row="1" Grid.Column="0"
-            BorderBrush="LightGray" BorderThickness="0,0,1,0">
+            BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,1,0"
+            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
 
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your master content.-->
-            <!-- {ThemeResource SystemControlPageBackgroundChromeLowBrush} -->
             <ListView
                 x:Name="MasterListView"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
@@ -66,7 +95,7 @@
                 ItemContainerTransitions="{x:Null}"
                 ItemTemplate="{StaticResource MasterListViewItemTemplate}"
                 IsItemClickEnabled="True"
-                Background="White">
+                Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
@@ -76,13 +105,14 @@
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Foreground" Value="{ThemeResource MyTextForegroundBrush}" />
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
             
         <!-- Content -->
-        <Grid x:Name="DetailContentPresenter" Padding="0,0" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="DetailContentPresenter" Padding="0,0" Grid.Row="1" Grid.Column="1" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
             <views:ResultsPageDetailControl x:Name="DetailControl" MasterMenuItem="{x:Bind ViewModel.Selected, Mode=OneWay}"/>
         </Grid>
 
@@ -112,7 +142,6 @@
                         <Setter Target="MasterColumn.Width" Value="*" />
                         <Setter Target="DetailColumn.Width" Value="0" />
                         <Setter Target="MasterListView.SelectionMode" Value="None" />
-                        <Setter Target="MasterArea.Background" Value="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

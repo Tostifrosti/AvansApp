@@ -26,6 +26,11 @@ namespace AvansApp.ViewModels.Pages
             get { return _isLoading; }
             set { Set(ref _isLoading, value); }
         }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
         private VisualState _currentState;
 
         private AnnouncementVM _selected;
@@ -39,12 +44,12 @@ namespace AvansApp.ViewModels.Pages
         public ICommand StateChangedCommand { get; private set; }
 
         public ObservableCollection<AnnouncementVM> Items { get; private set; }
-        public AnnouncementService Service { get; set; }
+        public AnnouncementService Service { get; private set; }
 
         public AnnouncementPageViewModel()
         {
             IsLoading = true;
-            Service = new AnnouncementService();
+            Service = Singleton<AnnouncementService>.Instance;
             Items = new ObservableCollection<AnnouncementVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);
@@ -59,6 +64,7 @@ namespace AvansApp.ViewModels.Pages
             if (Items.Count <= 0)
             {
                 IsLoading = true;
+                HasNoResult = false;
                 var data = await Service.GetAnnouncements();
                 data = new List<AnnouncementVM>(data.OrderByDescending(d => d.DateTime));
 
@@ -68,6 +74,7 @@ namespace AvansApp.ViewModels.Pages
                 }
                 Selected = Items.FirstOrDefault();
                 IsLoading = false;
+                HasNoResult = Items.Count <= 0;
             }
         }
 
@@ -79,7 +86,7 @@ namespace AvansApp.ViewModels.Pages
         private void OnItemClick(ItemClickEventArgs args)
         {
             AnnouncementVM item = args?.ClickedItem as AnnouncementVM;
-            if (item != null)
+            if (item != null && item.Message != null)
             {
                 if (_currentState.Name == "NarrowState")
                 {

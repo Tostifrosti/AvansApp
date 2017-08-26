@@ -14,5 +14,9 @@ namespace AvansApp.Helpers
                 return _instances.GetOrAdd(typeof(T), (t) => new T());
             }
         }
+        public static void ClearInstances()
+        {
+            _instances.Clear();
+        }
     }
 }

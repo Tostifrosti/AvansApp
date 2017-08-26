@@ -4,15 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    DataContext="{Binding ResultPageDetailViewModel, Source={StaticResource Locator}}"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:views="using:AvansApp.Views"
+    DataContext="{Binding ResultPageDetailViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
-    <Grid x:Name="ContentArea" Background="{ThemeResource SystemControlBackgroundAltHighBrush}" Margin="0">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Styles/Themes.xml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid x:Name="ContentArea" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Margin="0">
 
-        <views:ResultsPageDetailControl MasterMenuItem="{x:Bind ViewModel.Item}"/>
+        <views:ResultsPageDetailControl MasterMenuItem="{x:Bind ViewModel.Item, Mode=OneWay}" />
 
         <!--  Adaptive triggers  -->
         <VisualStateManager.VisualStateGroups>

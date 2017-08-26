@@ -117,14 +117,263 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnswerOptionNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="AnswerOptionYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CAHeader1.Text" xml:space="preserve">
+    <value>Classroom type:</value>
+  </data>
+  <data name="CAHeader2.Text" xml:space="preserve">
+    <value>Number of seats:</value>
+  </data>
+  <data name="CASearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search for a classroom</value>
+  </data>
+  <data name="Classroom_status_0" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="Classroom_status_1" xml:space="preserve">
+    <value>Occupied</value>
+  </data>
+  <data name="DialogScheduleCodeSavedBody" xml:space="preserve">
+    <value>Your schedule code is successfully saved!</value>
+  </data>
+  <data name="DialogScheduleCodeSavedHeader" xml:space="preserve">
+    <value>Schedule code</value>
+  </data>
+  <data name="Disclaimer.Text" xml:space="preserve">
+    <value>Info &amp; Disclaimers</value>
+  </data>
+  <data name="EmployeePageRow1.Text" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="EmployeePageRow2.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmployeePageRow3.Text" xml:space="preserve">
+    <value>Work</value>
+  </data>
+  <data name="EmployeePageRow4.Text" xml:space="preserve">
+    <value>Working days</value>
+  </data>
+  <data name="EmployeePageRow5.Text" xml:space="preserve">
+    <value>Room</value>
+  </data>
+  <data name="EmployeePageRow6.Text" xml:space="preserve">
+    <value>Academy</value>
+  </data>
+  <data name="EmployeePageTextbox.PlaceholderText" xml:space="preserve">
+    <value>Search for an employee</value>
+  </data>
+  <data name="ErrorMsgAuthDialog" xml:space="preserve">
+    <value>Something went wrong during the verification of your account.
+Please try again later!</value>
+  </data>
+  <data name="ErrorMsgAuthDialogHeader" xml:space="preserve">
+    <value>Authentication Error</value>
+  </data>
+  <data name="ErrorMsgDialog" xml:space="preserve">
+    <value>Something went wrong...
+Please try again later!</value>
+  </data>
+  <data name="ErrorMsgDialogHeader" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FeedbackButton.Content" xml:space="preserve">
+    <value>Give feedback</value>
+  </data>
+  <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
+    <value>Fill schedule with blank days?</value>
+  </data>
+  <data name="FirstTimeSchedule.Text" xml:space="preserve">
+    <value>You can enter your schedulecode
+in the settings.</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="Loading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="LoggedInString.Text" xml:space="preserve">
+    <value>You're logged in as </value>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginPageBody.Text" xml:space="preserve">
+    <value>Welcome to the new Avans App!
+
+With this app you can view your Blackboard news or announcements, view your own results &amp; schedule and even search for Avans employees, classroom availability and many more! Using the new UWP Framework, the App can be used on both Windows Phone and Desktop.
+
+Press the Login button to sign in through the Avans Services.
+This login process is via (a secure connection from) the in-app browser.
+
+Do you have a bug or have a nice idea for the app? Please send your ideas via the Feedback button in your settings (as soon as you log in).
+
+Have fun!</value>
+  </data>
+  <data name="LoginPageHeader.Text" xml:space="preserve">
+    <value>Avans Login</value>
+  </data>
+  <data name="LoginPageParagraph.Text" xml:space="preserve">
+    <value>Welcome to Avans!</value>
+  </data>
+  <data name="LogoutButton.Content" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="LogoutMessageDialogContent" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data name="LogoutMessageDialogHeader" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Mark_status_0" xml:space="preserve">
+    <value>Definitive</value>
+  </data>
+  <data name="Mark_status_1" xml:space="preserve">
+    <value>Concept</value>
+  </data>
+  <data name="Mark_status_2" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="MyProfileRow1.Text" xml:space="preserve">
+    <value>Student no.</value>
+  </data>
+  <data name="MyProfileRow2.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MyProfileRow3.Text" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="MyProfileRow4.Text" xml:space="preserve">
+    <value>Passing grades</value>
+  </data>
+  <data name="MyProfileRow5.Text" xml:space="preserve">
+    <value>Failing grades</value>
+  </data>
+  <data name="MyProfileRow6.Text" xml:space="preserve">
+    <value>Average grade</value>
+  </data>
+  <data name="NoResult.Text" xml:space="preserve">
+    <value>No results</value>
+  </data>
+  <data name="NoResultAnnouncements.Text" xml:space="preserve">
+    <value>No announcements found!</value>
+  </data>
+  <data name="NoResultCA.Text" xml:space="preserve">
+    <value>The school is closed or we couldn't find the classroom!</value>
+  </data>
+  <data name="NoResultDisruptions.Text" xml:space="preserve">
+    <value>No disruption messages found!</value>
+  </data>
+  <data name="NoResultEmployees.Text" xml:space="preserve">
+    <value>No employees found!</value>
+  </data>
+  <data name="NoResultExams.Text" xml:space="preserve">
+    <value>No exams found!</value>
+  </data>
+  <data name="NoResultSchedule.Text" xml:space="preserve">
+    <value>No lessons!</value>
+  </data>
+  <data name="NotSearchedCA.Text" xml:space="preserve">
+    <value>Search for a classroom 
+to see if it's occupied.</value>
+  </data>
+  <data name="NotSearchedEmployees.Text" xml:space="preserve">
+    <value>Search for an employee of Avans 
+to see more infomation.</value>
+  </data>
+  <data name="ResultsPageRow1.Text" xml:space="preserve">
+    <value>Coordinator</value>
+  </data>
+  <data name="ResultsPageRow2.Text" xml:space="preserve">
+    <value>Amount EC</value>
+  </data>
+  <data name="ResultsPageRow3.Text" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="ResultsPageRow4.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ResultsPageRow5.Text" xml:space="preserve">
+    <value>Last updated</value>
+  </data>
+  <data name="ResultsPageRow6.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ResultsPageRow7.Text" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="SaveButtonText.Content" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ScheduleTodayButton.Content" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="SearchButton.Content" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchFlyout.Text" xml:space="preserve">
+    <value>Minimum of 3 characters.</value>
+  </data>
+  <data name="SettingsHeader1.Text" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="SettingsHeader1Sub.Text" xml:space="preserve">
+    <value>Enter here your Schedule code:</value>
+  </data>
+  <data name="SettingsHeader2.Text" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="SettingsHeader3.Text" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="SettingsHeader4.Text" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="SettingsHeader5.Text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
+    <value>The App is not made by Avans University and has no responsibility or correlation for the Application.
+Only the service offered by Avans Hogeschool is used to collect the required data from the user.
+Due to the fact that this app only retrieves data, it has no control on the data itself. The creator (s) of this App also accept no liability for the accuracy of the data.
+(This App complies with the guidelines given at https://publicapi.avans.nl/)</value>
+  </data>
+  <data name="SettingsPageInfo.Text" xml:space="preserve">
+    <value>This App only uses the Avans University services for verification of the account that is signed in, and data retrieval.
+Because the verification of your account is via the in-app browser, the App can not retrieve any sensitive data.</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader1.Text" xml:space="preserve">
+    <value>Announcement notifications</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader2.Text" xml:space="preserve">
+    <value>Disruption notifications</value>
+  </data>
+  <data name="SettingsPage_NotificationHeader3.Text" xml:space="preserve">
+    <value>Result notifications</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="SettingsPage_OnOffToggle.OnContent" xml:space="preserve">
+    <value>On</value>
+  </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OffContent" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="SettingsPage_ScheduleBlanksToggle.OnContent" xml:space="preserve">
     <value>Yes</value>
-  </data>
-  <data name="SettingsPage_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
   </data>
   <data name="SettingsPage_ThemeToggle.OffContent" xml:space="preserve">
     <value>Dark</value>
@@ -158,5 +407,71 @@
   </data>
   <data name="Shell_SettingsPage" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SplashPageProgressionText1" xml:space="preserve">
+    <value>Connecting to server..</value>
+  </data>
+  <data name="SplashPageProgressionText2" xml:space="preserve">
+    <value>Verify Account..</value>
+  </data>
+  <data name="SplashPageProgressionText3" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="SplashPageProgressionTextError" xml:space="preserve">
+    <value>Cannot connect to server!</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader" xml:space="preserve">
+    <value>You have one new Blackboard announcement ready!</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_0" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="ToastNewAnnouncementHeader_1" xml:space="preserve">
+    <value>new Blackboard announcements ready!</value>
+  </data>
+  <data name="ToastNewDisruptionHeader" xml:space="preserve">
+    <value>You have one new disruption message!</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
+    <value>new disruption messages!</value>
+  </data>
+  <data name="ToastNewDisruptionText" xml:space="preserve">
+    <value>Open the Avans app to view the new disruption messages!</value>
+  </data>
+  <data name="ToastNewResultHeader" xml:space="preserve">
+    <value>You have one new result!</value>
+  </data>
+  <data name="ToastNewResultHeader_0" xml:space="preserve">
+    <value>You have</value>
+  </data>
+  <data name="ToastNewResultHeader_1" xml:space="preserve">
+    <value>new results!</value>
+  </data>
+  <data name="ToastNewResultText" xml:space="preserve">
+    <value>Open the Avans app to view your new result!</value>
+  </data>
+  <data name="ToastNotificationButton1" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="TryAgainButton.Content" xml:space="preserve">
+    <value>Try again!</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
   </data>
 </root>

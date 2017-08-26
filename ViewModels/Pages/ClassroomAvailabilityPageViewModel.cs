@@ -30,6 +30,23 @@ namespace AvansApp.ViewModels.Pages
             get { return _searchBoxText; }
             set { Set(ref _searchBoxText, value); }
         }
+        private bool _hasNoResult;
+        public bool HasNoResult {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
+        private bool _notSearched;
+        public bool NotSearched
+        {
+            get { return _notSearched; }
+            set { Set(ref _notSearched, value); }
+        }
         private ClassroomAvailabilityService Service { get; set; }
         public ICommand OnSearchButtonClickCommand { get; private set; }
         public ICommand OnItemClickCommand { get; private set; }
@@ -40,7 +57,11 @@ namespace AvansApp.ViewModels.Pages
 
         public ClassroomAvailabilityPageViewModel()
         {
-            Service = new ClassroomAvailabilityService();
+            IsLoading = false;
+            HasNoResult = false;
+            NotSearched = true;
+
+            Service = Singleton<ClassroomAvailabilityService>.Instance;
             Items = new ObservableCollection<ClassroomAvailabilityVM>();
             Classrooms = new ObservableCollection<ClassroomVM>();
             SearchBoxChanged = false;
@@ -63,6 +84,9 @@ namespace AvansApp.ViewModels.Pages
                 SearchBoxChanged = false;
                 if (!string.IsNullOrEmpty(SearchBoxText) && !string.IsNullOrWhiteSpace(SearchBoxText))
                 {
+                    IsLoading = true;
+                    HasNoResult = false;
+                    NotSearched = false;
                     Classrooms.Clear();
                     Items.Clear();
 
@@ -82,14 +106,30 @@ namespace AvansApp.ViewModels.Pages
                         }
                     } else {
                         // Empty List
+                        Classrooms.Clear();
                         Items.Clear();
+                        HasNoResult = true;
                     }
+                    IsLoading = false;
                 }
                 else
                 {
                     // Empty List
+                    Classrooms.Clear();
                     Items.Clear();
+                    IsLoading = false;
+                    HasNoResult = false;
+                    NotSearched = true;
                 }
+            }
+            else if (string.IsNullOrWhiteSpace(SearchBoxText))
+            {
+                // Empty List
+                Classrooms.Clear();
+                Items.Clear();
+                IsLoading = false;
+                HasNoResult = false;
+                NotSearched = true;
             }
         }
         
@@ -115,8 +155,6 @@ namespace AvansApp.ViewModels.Pages
             ClassroomVM item = e?.ClickedItem as ClassroomVM;
             if (item != null)
             {
-                //main.PageTitle = SelectedClassroom.Classroom;
-
                 NavigationService.Navigate(typeof(ClassroomAvailabilityPageDetailViewModel).FullName, item);
             }
         }

@@ -50,7 +50,8 @@ namespace AvansApp.Services
                 if (frame != null)
                 {
                     Window.Current.Content = frame;
-                    Window.Current.Activate();
+                    ThemeSelectorService.SetRequestedTheme();
+                    Window.Current.Activate(); // Ensure the current window is active
 
                     Frame.BackStack.Clear();
                     Frame.NavigationFailed += (sender, e) =>
@@ -98,7 +99,6 @@ namespace AvansApp.Services
         public void RemoveHistory()
         {
             Frame.BackStack.Clear();
-            //Frame.CacheSize = 1;
         }
 
         private void OnFrameNavigated(object sender, NavigationEventArgs e)

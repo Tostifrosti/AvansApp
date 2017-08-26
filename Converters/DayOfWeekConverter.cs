@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvansApp.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,31 +18,31 @@ namespace AvansApp.Converters
             {
                 case "monday":
                 case "maandag":
-                    dayOfWeek = "Maandag";
+                    dayOfWeek = "Monday".GetLocalized();
                     break;
                 case "tuesday":
                 case "dinsdag":
-                    dayOfWeek = "Dinsdag";
+                    dayOfWeek = "Tuesday".GetLocalized();
                     break;
                 case "wednesday":
                 case "woensdag":
-                    dayOfWeek = "Woensdag";
+                    dayOfWeek = "Wednesday".GetLocalized();
                     break;
                 case "thursday":
                 case "donderdag":
-                    dayOfWeek = "Donderdag";
+                    dayOfWeek = "Thursday".GetLocalized();
                     break;
                 case "friday":
                 case "vrijdag":
-                    dayOfWeek = "Vrijdag";
+                    dayOfWeek = "Friday".GetLocalized();
                     break;
                 case "saturday":
                 case "zaterdag":
-                    dayOfWeek = "Zaterdag";
+                    dayOfWeek = "Saturday".GetLocalized();
                     break;
                 case "sunday":
                 case "zondag":
-                    dayOfWeek = "Zondag";
+                    dayOfWeek = "Sunday".GetLocalized();
                     break;
                 default:
                     break;

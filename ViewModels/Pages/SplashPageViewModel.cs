@@ -63,17 +63,22 @@ namespace AvansApp.ViewModels.Pages
 
         private async void GetUserInfoAsync()
         {
-            ProgressionText = "Connectie maken met de server..";
+            ProgressionText = "SplashPageProgressionText1".GetLocalized();
             IsProgressionRingActive = true;
             IsTryAgainButtonVisible = false;
 
-            User = new ProfileVM { Name = "John Doe", Title = "", Emailadres = "johndoe@email.nl", ProfilePicture = "/Assets/StoreLogo.png" };
+            User = new ProfileVM {
+                Name = "John Doe",
+                Title = "",
+                Emailadres = "johndoe@email.nl",
+                ProfilePicture = "/Assets/StoreLogo.png"
+            };
 
             Student[] s = await OAuth.GetInstance().RequestJSON<Student[]>("https://publicapi.avans.nl/oauth/studentnummer/", new List<string>(), Models.Enums.HttpMethod.GET);
 
             if (s != null)
             {
-                ProgressionText = "Account Verifiëren..";
+                ProgressionText = "SplashPageProgressionText2".GetLocalized();
                 Student student = s[0];
                 People people = await OAuth.GetInstance().RequestJSON<People>("https://publicapi.avans.nl/oauth/people/" + student.inlognaam, new List<string>(), Models.Enums.HttpMethod.GET);
                 if (people != null)
@@ -91,29 +96,9 @@ namespace AvansApp.ViewModels.Pages
                     };
             
 
-                    ProgressionText = "Welkom " + User.Fullname + "!";
+                    ProgressionText = "SplashPageProgressionText3".GetLocalized() + " " + User.Fullname + "!";
                     IsProgressionRingActive = false;
                     IsTryAgainButtonVisible = false;
-
-                    /*
-                    string userdetails = await OAuth.GetInstance().RequestRaw("https://publicapi.avans.nl/oauth/medewerkersgids/image/" + User.Login, new List<string>(), Models.Enums.HttpMethod.GET);
-                    if (!string.IsNullOrEmpty(userdetails))
-                    {
-                        try
-                        {
-                            userdetails = userdetails.Substring(userdetails.IndexOf('{'));
-
-                            EmployeeImage employeeImage = Newtonsoft.Json.JsonConvert.DeserializeObject<EmployeeImage>(userdetails);
-                            User.EmployeeImage = employeeImage;
-
-                            User.EmployeeImage.bitmap = await employeeImage.Base64StringToBitmap(User.EmployeeImage.image);
-                            //ProfileImage.Source = User.EmployeeImage.bitmap;
-                        }
-                        catch (Exception Error)
-                        {
-                            System.Diagnostics.Debug.WriteLine(Error.Message);
-                        }
-                    }*/
                 }
                 
                 NavigationService.NavigateToFrame(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
@@ -121,10 +106,7 @@ namespace AvansApp.ViewModels.Pages
             else
             {
                 // We cannot connect to the Server!
-                //var server_error_msg = new MessageDialog("Er kan geen connectie gemaakt worden met server!\nProbeer het later opnieuw!", "Oh oh!");
-                //await server_error_msg.ShowAsync();
-                
-                ProgressionText = "Er kan geen connectie gemaakt worden met server!";
+                ProgressionText = "SplashPageProgressionTextError".GetLocalized();
                 IsProgressionRingActive = false;
                 IsTryAgainButtonVisible = true;
             }

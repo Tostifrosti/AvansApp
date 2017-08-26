@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvansApp.Helpers;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace AvansApp.Converters
@@ -7,16 +8,9 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string data = string.Empty;
-            
-            if(value != null && !string.IsNullOrEmpty(value.ToString()) && !string.IsNullOrWhiteSpace(value.ToString()))
-            {
-                data = value.ToString();
-            } else
-            {
-                data = "Niet bekend";
-            }
-            return data;
+            string result = (value != null) ? value.ToString() : "";
+
+            return !string.IsNullOrWhiteSpace(result) ? result : "Unknown".GetLocalized();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

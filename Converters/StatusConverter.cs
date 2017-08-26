@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AvansApp.Helpers;
+using System;
 using Windows.UI.Xaml.Data;
 
 namespace AvansApp.Converters
@@ -7,17 +8,20 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (value == null)
+                return "Mark_status_2".GetLocalized();
+
             string status = string.Empty;
             switch(value.ToString().ToUpper())
             {
                 case "D":
-                    status = "Definitief";
+                    status = "Mark_status_0".GetLocalized();
                     break;
                 case "C":
-                    status = "Concept";
+                    status = "Mark_status_1".GetLocalized();
                     break;
                  default:
-                    status = "Onbekend";
+                    status = "Mark_status_2".GetLocalized();
                     break;
             }
             return status;

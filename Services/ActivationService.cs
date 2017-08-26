@@ -27,8 +27,7 @@ namespace AvansApp.Services
                 return Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<NavigationService>();
             }
         }
-
-
+        
         public ActivationService(App app, Type defaultNavItem, UIElement shell = null)
         {
             _app = app;
@@ -73,6 +72,7 @@ namespace AvansApp.Services
                 var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem);
                 if (defaultHandler.CanHandle(activationArgs))
                 {
+                    // Navigate to frame
                     await defaultHandler.HandleAsync(activationArgs);
                 }
 
@@ -110,7 +110,7 @@ namespace AvansApp.Services
             return args is IActivatedEventArgs;
         }
 
-        /*private void OnFrameNavigated(object sender, NavigationEventArgs e)
+        private void OnFrameNavigated(object sender, NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = (NavigationService.CanGoBack) ?
                 AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
@@ -123,6 +123,6 @@ namespace AvansApp.Services
                 NavigationService.GoBack();
                 e.Handled = true;
             }
-        }*/
+        }
     }
 }

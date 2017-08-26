@@ -13,18 +13,20 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
-            <StackPanel Background="White" MaxWidth="1000">
+            <StackPanel Background="Transparent" MaxWidth="1000">
+                
                 <!-- Rooster -->
                 <StackPanel Margin="10,0,10,20">
-                    <TextBlock FontSize="20" Foreground="#666" Margin="5,10,5,5" FontWeight="Normal">Rooster</TextBlock>
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="#DDD" BorderThickness="2" />
-                    <TextBlock Text="Vul hier je Rooster code in:" Margin="5,10,0,0" FontStyle="Italic" FontSize="14" />
+                    <TextBlock x:Uid="SettingsHeader1" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
+                    <TextBlock x:Uid="SettingsHeader1Sub" Margin="5,10,0,0" FontStyle="Italic" FontSize="14" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     <Grid Margin="5,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -33,74 +35,90 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="ScheduleCodeInput" Grid.Column="0" Grid.Row="0" Text="{x:Bind ViewModel.ScheduleCodeInputText, Mode=TwoWay}" PlaceholderText="Rooster code" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="1" Height="30" BorderBrush="LightGray">
+                        <TextBox Grid.Column="0" Grid.Row="0" Text="{Binding ScheduleCodeInputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="Rooster code" FontSize="16" 
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Center" BorderThickness="1" Height="30" 
+                                 Style="{ThemeResource MyTextBox}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="KeyDown">
                                     <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnScheduleCodeKeydownCommand, Mode=OneWay}" />
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </TextBox>
-                        <Button Grid.Column="1" Grid.Row="0" Content="Opslaan" Command="{x:Bind ViewModel.OnScheduleCodeButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="5,0,0,0" />
+                        <Button x:Uid="SaveButtonText" Grid.Column="1" Grid.Row="0" Command="{x:Bind ViewModel.OnScheduleCodeButtonClickCommand, Mode=OneWay}" 
+                                Style="{ThemeResource MyButton}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="5,0,0,0" />
                     </Grid>
-                    <!--<ComboBox x:Name="Settlement" FlowDirection="LeftToRight" SelectionChanged="Settlement_SelectionChanged" HorizontalAlignment="Center" MinWidth="150" VerticalAlignment="Center" />-->
+                    
                     <StackPanel Margin="5,0" Orientation="Vertical" HorizontalAlignment="Left">
-                        <TextBlock Text="Rooster aanvullen met lege dagen?" TextWrapping="WrapWholeWords" />
-                        <ToggleSwitch x:Name="ScheduleWithoutBlanksOption" x:Uid="SettingsPage_ScheduleBlanksToggle" IsOn="{x:Bind ViewModel.IsScheduleWithoutBlanksEnabled, Mode=OneWay}">
+                        <TextBlock x:Uid="FillScheduleWithBlanks" TextWrapping="WrapWholeWords"
+                                   Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_ScheduleBlanksToggle" IsOn="{x:Bind ViewModel.IsScheduleWithoutBlanksEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
+                    </StackPanel>
+                </StackPanel>
+                
+                <!-- Theme Toggle -->
+                <StackPanel Margin="10,0,10,20">
+                    <TextBlock x:Uid="SettingsHeader2" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
+
+                    <StackPanel Margin="5,0">
+                        <ToggleSwitch x:Uid="SettingsPage_ThemeToggle" IsOn="{x:Bind ViewModel.IsLightThemeEnabled, Mode=OneWay}" Style="{ThemeResource MyToggleSwitch}">
                             <i:Interaction.Behaviors>
                                 <ic:EventTriggerBehavior EventName="Toggled">
-                                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnScheduleBlanksToggleCommand, Mode=OneWay}" />
+                                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.SwitchThemeCommand}"/>
                                 </ic:EventTriggerBehavior>
                             </i:Interaction.Behaviors>
                         </ToggleSwitch>
                     </StackPanel>
                 </StackPanel>
                 
-                <!-- Style (Not Ready Yet) -->
-                <!--<StackPanel Margin="10,0,10,20">
-                    <StackPanel Grid.Row="1" Margin="0,16,0,0">
-                        <TextBlock
-                            x:Uid="SettingsPage_Theme"
-                            Style="{ThemeResource TitleTextBlockStyle}"/>
-                                <ToggleSwitch
-                                    x:Uid="SettingsPage_ThemeToggle"
-                                    IsOn="{x:Bind ViewModel.IsLightThemeEnabled, Mode=OneWay}"
-                                    Margin="0,4,0,0">
-                                    <i:Interaction.Behaviors>
-                                        <ic:EventTriggerBehavior EventName="Toggled">
-                                            <ic:InvokeCommandAction Command="{x:Bind ViewModel.SwitchThemeCommand}"/>
-                                        </ic:EventTriggerBehavior>
-                                    </i:Interaction.Behaviors>
-                                </ToggleSwitch>
+                <!-- Notification Toggles -->
+                <StackPanel Margin="10,0,10,20">
+                    <TextBlock x:Uid="SettingsHeader3" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
+
+                    <!-- Announcement -->
+                    <!--<StackPanel Margin="5,0">
+                        <TextBlock x:Uid="SettingsPage_NotificationHeader1" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsAnnouncementNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
+                    </StackPanel>-->
+
+                    <!-- Disruption -->
+                    <StackPanel Margin="5,0">
+                        <TextBlock x:Uid="SettingsPage_NotificationHeader2" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsDisruptionNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
                     </StackPanel>
-                </StackPanel>-->
-                
+
+                    <!-- Result -->
+                    <StackPanel Margin="5,0">
+                        <TextBlock x:Uid="SettingsPage_NotificationHeader3" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsResultNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
+                    </StackPanel>
+
+                </StackPanel>
+
                 <!-- Profiel -->
                 <StackPanel Margin="10,0,10,20">
-                    <TextBlock FontSize="20" Foreground="#666" Margin="5,10,5,5" FontWeight="Normal">Profiel</TextBlock>
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="#DDD" BorderThickness="2" />
+                    <TextBlock x:Uid="SettingsHeader4" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
                     <StackPanel Orientation="Horizontal" Margin="5,0">
-                        <TextBlock Text="Je bent ingelogd als " Margin="0,0,5,0"/>
-                        <TextBlock Text="{x:Bind ViewModel.User.Fullname, Mode=OneWay}" />
+                        <TextBlock x:Uid="LoggedInString" Margin="0,0,5,0" Foreground="{ThemeResource MyTextForegroundBrush}"/>
+                        <TextBlock Text="{x:Bind ViewModel.User.Fullname, Mode=OneWay}" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     </StackPanel>
-                    <Button Content="Uitloggen" Command="{x:Bind ViewModel.OnLogoutButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" HorizontalAlignment="Center" />
+                    <Button x:Uid="LogoutButton" Command="{x:Bind ViewModel.OnLogoutButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
+                            Style="{ThemeResource MyButton}" />
                 </StackPanel>
                 
                 <!-- Overige -->
                 <StackPanel Margin="10,0,10,10">
-                    <TextBlock FontSize="20" Foreground="#666" Margin="5,10,5,5" FontWeight="Normal">Overige</TextBlock>
-                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="#DDD" BorderThickness="2" />
-                    <Button Content="Geef feedback" Command="{x:Bind ViewModel.OnFeedbackButtonClickCommand, Mode=OneWay}" Style="{StaticResource DefaultButtonStyle}" HorizontalAlignment="Center" />
+                    <TextBlock x:Uid="SettingsHeader5" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
+                    <Button x:Uid="FeedbackButton" Command="{x:Bind ViewModel.OnFeedbackButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
+                            Style="{ThemeResource MyButton}" />
 
 
-                    <TextBlock Margin="0,20,0,5" FontWeight="Bold" FontSize="16" TextAlignment="Center">Overige informatie &amp; Disclaimer</TextBlock>
-                    <TextBlock Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="#333" HorizontalAlignment="Stretch" TextAlignment="Center">
-                        Deze App gebruikt alleen de Avans Hogeschool service voor verificatie van het ingevulde account en het ophalen van data.
-                        <LineBreak/>Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus niet bij enige gevoelige data komen.
-                        <LineBreak/><LineBreak/><Italic>De App is niet van, voor of door Avans Hogeschool en heeft daarvoor geen enkele aansprakelijkheid of verantwoordelijkheid over de Applicatie. 
-                        Er wordt alleen gebruik gemaakt van de service die Avans Hogeschool aanbied om de benodigde data van de gebruiker op te halen. 
-                        Doordat deze App alleen data ophaalt, kan er geen controle worden uitgevoerd op de data zelf. De maker(s) van deze App aanvaarden ook geen aansprakelijkheid voor de juistheid van de gegeven informatie. 
-                        (Deze App houdt zich aan de richtlijnen die zijn gegeven op: https://publicapi.avans.nl/)</Italic>
-                    </TextBlock>
+                    <TextBlock x:Uid="Disclaimer" Margin="0,20,0,5" FontWeight="Bold" FontSize="16" TextAlignment="Center" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    <TextBlock x:Uid="SettingsPageInfo" Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
+                    <TextBlock x:Uid="SettingsPageDisclaimer" Margin="0,10,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

@@ -7,12 +7,16 @@
     xmlns:helper="using:AvansApp.Helpers"
     xmlns:converter="using:AvansApp.Converters"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="720"
+    d:DesignWidth="1280">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
+            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -22,8 +26,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             ScrollViewer.VerticalScrollMode="Auto">
 
-            <!--The SystemControlPageBackgroundChromeLowBrush background represents where you should place your detail content.-->
-            <Grid Background="White"> <!-- {ThemeResource SystemControlPageBackgroundChromeLowBrush} -->
+            <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -31,8 +34,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
-                <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="0,0,0,1" Margin="10,0">
+
+                <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MySplitContentBorderBursh}" BorderThickness="0,0,0,1" Margin="10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -41,16 +44,17 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{x:Bind MasterMenuItem.Title, Mode=OneWay}" TextWrapping="Wrap" Padding="0,10" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="Black" />
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="{x:Bind MasterMenuItem.Title, Mode=OneWay}" TextWrapping="Wrap" Padding="0,10" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20" Foreground="{ThemeResource MyTextForegroundBrush}" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{x:Bind MasterMenuItem.Course, Mode=OneWay}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="Gray" />
-                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind MasterMenuItem.DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="Gray" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="{x:Bind MasterMenuItem.Course, Mode=OneWay}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind MasterMenuItem.DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}" TextWrapping="Wrap" Padding="5,2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Normal" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" />
                 </Grid>
                 
-                <WebView Grid.Column="0" Grid.Row="1" x:Name="Htmlview" helper:Untils.SourceString="{x:Bind MasterMenuItem.Message, Mode=OneWay}" 
-                        Width="Auto" Height="Auto" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,0"
-                        IsRightTapEnabled="False" IsDoubleTapEnabled="True" IsTapEnabled="True" CanDrag="True"
-                        ManipulationMode="System" NavigationStarting="{x:Bind MasterMenuItem.HTMLview_NavigationStarting}" />
+                <WebView Grid.Column="0" Grid.Row="1" helper:Untils.SourceString="{x:Bind MasterMenuItem.Message, Mode=OneWay}" 
+                         Style="{ThemeResource MyWebView}"
+                         Width="Auto" Height="Auto" Opacity="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,0"
+                         IsRightTapEnabled="False" IsDoubleTapEnabled="True" IsTapEnabled="True" CanDrag="True"
+                         ManipulationMode="System" NavigationStarting="{x:Bind MasterMenuItem.HTMLview_NavigationStarting}" />
             </Grid>
         </ScrollViewer>
         

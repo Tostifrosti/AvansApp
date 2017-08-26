@@ -6,7 +6,6 @@ using System.Windows.Input;
 using Windows.UI.Xaml.Controls;
 
 using AvansApp.Helpers;
-using AvansApp.Models;
 using AvansApp.Models.Enums;
 using AvansApp.Services.Pages;
 
@@ -29,31 +28,71 @@ namespace AvansApp.ViewModels.Pages
             get { return _headerDay; }
             set { Set(ref _headerDay, value); }
         }
-
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { Set(ref _isLoading, value); }
+        }
+        private bool _hasNoResult;
+        public bool HasNoResult
+        {
+            get { return _hasNoResult; }
+            set { Set(ref _hasNoResult, value); }
+        }
+        private bool _hasNoScheduleCode;
+        public bool HasNoScheduleCode
+        {
+            get { return _hasNoScheduleCode; }
+            set { Set(ref _hasNoScheduleCode, value); }
+        }
+        public bool ScheduleEnabled { get { return !_isLoading && !_hasNoResult && !_hasNoScheduleCode; } }
         public ICommand OnPreviousDayClickCommand { get; private set; }
         public ICommand OnNextDayClickCommand { get; private set; }
         public ICommand OnTodayClickCommand { get; private set; }
 
+        private bool _isPreviousDayButtonEnabled;
+        public bool IsPreviousDayButtonEnabled {
+            get { return _isPreviousDayButtonEnabled; }
+            set { Set(ref _isPreviousDayButtonEnabled, value); }
+        }
+        private bool _isNextDayButtonEnabled;
+        public bool IsNextDayButtonEnabled
+        {
+            get { return _isNextDayButtonEnabled; }
+            set { Set(ref _isNextDayButtonEnabled, value); }
+        }
+        private bool _isTodayButtonEnabled;
+        public bool IsTodayButtonEnabled
+        {
+            get { return _isTodayButtonEnabled; }
+            set { Set(ref _isTodayButtonEnabled, value); }
+        }
+
         private ScheduleService Service { get; set; }
+        private SettingsService Settings { get; set; }
 
         public SchedulePageViewModel()
         {
             Items = new List<ObservableCollection<ScheduleVM>>();
             CurrentDay = new ObservableCollection<ScheduleVM>();
-            Service = new ScheduleService();
+            Service = Singleton<ScheduleService>.Instance;
+            Settings = Singleton<SettingsService>.Instance;
 
             todayIndex = 0;
             currentDayIndex = 0;
 
-            OnPreviousDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnPreviousDayClick, (e) => { return true; });
-            OnNextDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnNextDayClick, (e) => { return true; });
-            OnTodayClickCommand = new RelayCommand<ItemClickEventArgs>(OnTodayClick, (e) => { return true; });
-            //PreviousDayButton.IsEnabled = false;
-            //NextDayButton.IsEnabled = false;
-            //TodayButton.IsEnabled = false;
+            IsPreviousDayButtonEnabled = false;
+            IsNextDayButtonEnabled = false;
+            IsTodayButtonEnabled = false;
 
-            // Remove old key (could clear a lot of storage)
-            OAuth.GetInstance().Client.RemoveFromVault("ScheduleStorage");
+            IsLoading = false;
+            HasNoResult = false;
+            HasNoScheduleCode = false;
+
+            OnPreviousDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnPreviousDayClick);
+            OnNextDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnNextDayClick);
+            OnTodayClickCommand = new RelayCommand<ItemClickEventArgs>(OnTodayClick);
             
             SetHeader();
         }
@@ -63,14 +102,21 @@ namespace AvansApp.ViewModels.Pages
         }
         public async Task LoadDataAsync()
         {
-            if (OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
+            if (Settings.KeyExists(SettingsService.ScheduleCodeKey))
             {
-                string scheduleCode = OAuth.GetInstance().Client.GetTokenFromVault("ScheduleCode");
-                bool withoutBlanks = OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks");
-                List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Classroom, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
+                IsLoading = true;
+                HasNoResult = false;
+                HasNoScheduleCode = false;
+
+                string scheduleCode = await Settings.ReadScheduleCode();
+                bool withoutBlanks = await Settings.ReadScheduleBlanks();
+                List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Group, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
 
                 todayIndex = (withoutBlanks == true) ? Service.TodayIndex : 0;
                 currentDayIndex = todayIndex;
+
+                Items.Clear();
+                CurrentDay.Clear();
 
                 if (data.Count > 0)
                 {
@@ -83,16 +129,33 @@ namespace AvansApp.ViewModels.Pages
                         }
                         Items.Add(l);
                     }
-                    CurrentDay = Items[todayIndex];
-                }
 
+                    foreach (ScheduleVM s in Items[todayIndex]) {
+                        if (s != null && s.Id != -1)
+                            CurrentDay.Add(s);
+                    }
+                }
+                IsLoading = false;
+                HasNoResult = Items.Count <= 0;
+                HasNoScheduleCode = false;
+
+                SetCurrentDay();
+                SetHeader();
             }
             else
             {
+                Items.Clear();
+                CurrentDay.Clear();
                 todayIndex = 0;
                 currentDayIndex = 0;
-            }
 
+                IsLoading = false;
+                HasNoResult = false;
+                HasNoScheduleCode = true;
+                SetCurrentDay();
+                SetHeader();
+            }
+            OnPropertyChanged("ScheduleEnabled");
         }
 
         private void OnPreviousDayClick(ItemClickEventArgs e)
@@ -100,8 +163,11 @@ namespace AvansApp.ViewModels.Pages
             if (currentDayIndex > 0)
             {
                 currentDayIndex -= 1;
-                CurrentDay = Items[currentDayIndex];
-
+                CurrentDay.Clear();
+                foreach (ScheduleVM s in Items[currentDayIndex]) {
+                    if (s != null && s.Id != -1)
+                        CurrentDay.Add(s);
+                }
                 SetCurrentDay();
                 SetHeader();
             }
@@ -112,7 +178,11 @@ namespace AvansApp.ViewModels.Pages
             if (currentDayIndex < (Items.Count - 1))
             {
                 currentDayIndex += 1;
-                CurrentDay = Items[currentDayIndex];
+                CurrentDay.Clear();
+                foreach (ScheduleVM s in Items[currentDayIndex]) {
+                    if (s != null && s.Id != -1)
+                        CurrentDay.Add(s);
+                }
 
                 SetCurrentDay();
                 SetHeader();
@@ -120,9 +190,13 @@ namespace AvansApp.ViewModels.Pages
         }
         private void OnTodayClick(ItemClickEventArgs e)
         {
-            if (CurrentDay != null && CurrentDay.Count > 0) //&& todayIndex != null
+            if (Items.Count > 0)
             {
-                CurrentDay = Items[todayIndex];
+                CurrentDay.Clear();
+                foreach (ScheduleVM s in Items[todayIndex]) {
+                    if (s != null && s.Id != -1)
+                        CurrentDay.Add(s);
+                }
                 currentDayIndex = todayIndex;
                 SetCurrentDay();
                 SetHeader();
@@ -130,26 +204,26 @@ namespace AvansApp.ViewModels.Pages
         }
         private void SetCurrentDay()
         {
-            if (CurrentDay.Count <= 0 || (CurrentDay.Count == 1 && CurrentDay[0].Id < 0))
+            if (HasNoScheduleCode || HasNoResult)
             {
-                //ScheduleListView.ItemsSource = new List<ScheduleVM>();
-                //ScheduleListView.Visibility = Visibility.Collapsed;
-                //NoScheduleText.Visibility = Visibility.Visible;
+                IsTodayButtonEnabled = false;
+                IsPreviousDayButtonEnabled = false;
+                IsNextDayButtonEnabled = false;
             }
             else
             {
-                //ScheduleListView.ItemsSource = CurrentDay;
-                //ScheduleListView.Visibility = Visibility.Visible;
-                //NoScheduleText.Visibility = Visibility.Collapsed;
+                IsNextDayButtonEnabled = ((Items.Count - 1) > currentDayIndex && ScheduleEnabled) ? true : false;
+                IsPreviousDayButtonEnabled = (currentDayIndex > 0 && ScheduleEnabled) ? true : false;
+                IsTodayButtonEnabled = (currentDayIndex != todayIndex && ScheduleEnabled) ? true : false;
             }
         }
 
         private void SetHeader()
         {
-            if (CurrentDay != null && CurrentDay.Count > 0)
+            if (Items.Count > 0 && currentDayIndex < Items.Count && Items[currentDayIndex].Count > 0)
             {
-                Header = CurrentDay[0].Datum.Day + "-" + CurrentDay[0].Datum.Month + "-" + CurrentDay[0].Datum.Year; // Pak de datum van de eerste item
-                HeaderDay = CurrentDay[0].Datum.DayOfWeek.ToString();
+                Header = Items[currentDayIndex][0].Datum.Day + "-" + Items[currentDayIndex][0].Datum.Month + "-" + Items[currentDayIndex][0].Datum.Year; // Pak de datum van het eerste item
+                HeaderDay = Items[currentDayIndex][0].Datum.DayOfWeek.ToString();
             }
             else
             {
@@ -157,43 +231,5 @@ namespace AvansApp.ViewModels.Pages
                 HeaderDay = DateTime.Now.DayOfWeek.ToString();
             }
         }
-
-        /*protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            await ViewModel.LoadDataAsync();
-            //FirstTimeText.Visibility = Visibility.Collapsed;
-            if (e != null && e.Parameter != null)
-            {
-                //main = (MainPage)e.Parameter;
-                //main.PageTitle = "Rooster";
-
-                if(OAuth.GetInstance().Client.CheckTokenExists("ScheduleCode"))
-                {
-                    string scheduleCode = OAuth.GetInstance().Client.GetTokenFromVault("ScheduleCode");
-                    DateTime date = DateTime.Now.AddMonths(-3); // If you like to look back. 
-                    string previousDate = date.Day + "-" + date.Month + "-" + date.Year;
-                    date = date.AddMonths(6);
-                    string nextDate = date.Day + "-" + date.Month + "-" + date.Year;
-                    string type = GetScheduleType(ScheduleType.Group);
-                    if(OAuth.GetInstance().Client.CheckTokenExists("ScheduleWithoutBlanks"))
-                        GetScheduleWithoutBlanks("?type=" + type + "&param=" + scheduleCode + "&start=" + previousDate + "&end=" + nextDate);
-                    else
-                        GetScheduleWithBlanks("?type=" + type + "&param=" + scheduleCode + "&start=" + previousDate + "&end=" + nextDate);
-                }
-                else
-                {
-                    todayIndex = 0;
-                    currentDayIndex = 0;
-                    PreviousDayButton.IsEnabled = false;
-                    NextDayButton.IsEnabled = false;
-                    TodayButton.IsEnabled = false;
-                    SetHeader();
-                    //ScheduleListView.Visibility = Visibility.Collapsed;
-                    //NoScheduleText.Visibility = Visibility.Collapsed;
-                    //FirstTimeText.Visibility = Visibility.Visible;
-                }
-            }
-        }*/
     }
 }
