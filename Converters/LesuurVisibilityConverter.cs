@@ -8,7 +8,7 @@ namespace AvansApp.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             bool enabled = false;
-            int lesuur = default(int);
+            int lesuur = -1;
             int duration = 45; // minutes
             DateTime startDay = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 45, 0);
 
@@ -28,7 +28,7 @@ namespace AvansApp.Converters
             
             */
 
-            if (int.TryParse(value.ToString(), out lesuur))
+            if (int.TryParse((value != null) ? value.ToString() : string.Empty, out lesuur))
             {
                 if (lesuur > 0)
                 {

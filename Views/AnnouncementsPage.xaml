@@ -41,6 +41,7 @@
                         Grid.Column="0"
                         Text="{x:Bind Title}" 
                         Foreground="{ThemeResource MyTextForegroundBrush}"
+                        Padding="0,0,0,5"
                         FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
 
                     <TextBlock
@@ -48,6 +49,7 @@
                         Grid.Column="0"
                         Text="{x:Bind Course}"
                         Foreground="{ThemeResource MyTextForegroundBrush}"
+                        Padding="0"
                         FontSize="14" FontWeight="Normal" Opacity="0.6" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
 
                     <TextBlock

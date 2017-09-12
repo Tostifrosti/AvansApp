@@ -8,7 +8,7 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string result = (value != null) ? value.ToString() : "";
+            string result = (value != null) ? value.ToString() : string.Empty;
             result = result.Replace(",", ".");
             
             if(double.TryParse(result, NumberStyles.Any, CultureInfo.InvariantCulture, out double output))

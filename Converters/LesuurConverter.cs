@@ -11,7 +11,7 @@ namespace AvansApp.Converters
             int lesuur;
             string result = string.Empty;
 
-            if (!int.TryParse(value.ToString(), out lesuur))
+            if (!int.TryParse((value != null) ? value.ToString() : string.Empty, out lesuur))
                 lesuur = -1;
 
             string[] roostertijden = {

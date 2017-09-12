@@ -8,15 +8,18 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string returnvalue;
+            string result = string.Empty;
+            if (value == null)
+                return result;
+
             bool isBool = false;
             bool.TryParse(value.ToString(), out isBool);
             if(!isBool) {
-                returnvalue = "Classroom_status_0".GetLocalized();
+                result = "Classroom_status_0".GetLocalized();
             } else {
-                returnvalue = "Classroom_status_1".GetLocalized();
+                result = "Classroom_status_1".GetLocalized();
             }
-            return returnvalue;
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

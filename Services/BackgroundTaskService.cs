@@ -62,5 +62,13 @@ namespace AvansApp.Services
 
             return backgroundTasks;
         }
+
+        public static void CancelAllBackgroundTasks()
+        {
+            foreach (var task in BackgroundTasks)
+            {
+                task.OnCanceled(null, BackgroundTaskCancellationReason.LoggingOff);
+            }
+        }
     }
 }

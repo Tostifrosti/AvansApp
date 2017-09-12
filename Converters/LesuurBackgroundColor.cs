@@ -7,18 +7,13 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string returnvalue;
+            if (value == null)
+                return string.Empty;
+
             bool isBool = false;
             bool.TryParse(value.ToString(), out isBool);
-            if (!isBool)
-            {
-                returnvalue = "Green";
-            }
-            else
-            {
-                returnvalue = "Red";
-            }
-            return returnvalue;
+
+            return (!isBool) ? "Green" : "Red";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

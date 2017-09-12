@@ -74,11 +74,14 @@ namespace AvansApp.ViewModels.Pages
             {
                 // Added Reference: Windows Desktop Extensions for the UWP
                 // Added Reference: Windows Mobile Extensions for the UWP
-                var statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                await statusbar.ShowAsync();
-                statusbar.BackgroundOpacity = 1;
-                statusbar.BackgroundColor = background;
-                statusbar.ForegroundColor = foreground;
+                Windows.UI.ViewManagement.StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                if (statusbar != null)
+                {
+                    await statusbar.ShowAsync();
+                    statusbar.BackgroundOpacity = 1;
+                    statusbar.BackgroundColor = background;
+                    statusbar.ForegroundColor = foreground;
+                }
             }
         }
         

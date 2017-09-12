@@ -28,7 +28,7 @@ namespace AvansApp.Converters
             
             */
 
-            if (int.TryParse(value.ToString(), out lesuur))
+            if (int.TryParse((value != null) ? value.ToString() : string.Empty, out lesuur))
             {
                 if (lesuur > 0)
                 {

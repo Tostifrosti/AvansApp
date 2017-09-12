@@ -124,6 +124,7 @@ namespace AvansApp.Services.Pages
             RemoveKey(IsAnnouncementNotificationEnabledKey);
             RemoveKey(IsDisruptionNotificationEnabledKey);
             RemoveKey(IsResultNotificationEnabledKey);
+            RemoveKey(ThemeSelectorService.SettingsKey);
 
             // Delete Local storage
             Singleton<ResultService>.Instance.DeleteStorage();
@@ -132,6 +133,9 @@ namespace AvansApp.Services.Pages
 
             // Empty vault
             Models.OAuth.GetInstance().Client.EmptyVault();
+
+            // Unregister all background tasks
+            BackgroundTaskService.CancelAllBackgroundTasks();
 
             Singleton<SettingsService>.ClearInstances();
         }

@@ -8,8 +8,8 @@ namespace AvansApp.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null)
-                return "";
-            string date = "";
+                return string.Empty;
+            string date = string.Empty;
             DateTime now = DateTime.Now;
             DateTime dt = DateTime.Parse(value.ToString());
 

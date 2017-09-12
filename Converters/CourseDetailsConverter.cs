@@ -8,9 +8,9 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string result = "";
+            string result = string.Empty;
 
-            if(!string.IsNullOrEmpty((string)value))
+            if(!string.IsNullOrEmpty((value != null) ? value.ToString() : string.Empty))
             {
                 result = value.ToString();
                 result = result.Replace(";", "\n");
