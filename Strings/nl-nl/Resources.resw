@@ -436,13 +436,13 @@ Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus n
     <value>nieuwe mededelingen van Blackboard voor je klaar!</value>
   </data>
   <data name="ToastNewDisruptionHeader" xml:space="preserve">
-    <value>Je hebt één nieuw storingsbericht!</value>
+    <value>Avans heeft een nieuwe storing!</value>
   </data>
   <data name="ToastNewDisruptionHeader_0" xml:space="preserve">
-    <value>Je hebt</value>
+    <value>Avans heeft</value>
   </data>
   <data name="ToastNewDisruptionHeader_1" xml:space="preserve">
-    <value>nieuwe storingsberichten!</value>
+    <value>nieuwe storingen!</value>
   </data>
   <data name="ToastNewDisruptionText" xml:space="preserve">
     <value>Open de Avans app om de meldingen te bekijken!</value>

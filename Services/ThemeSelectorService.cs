@@ -9,7 +9,7 @@ namespace AvansApp.Services
 {
     public class ThemeSelectorService
     {
-        private const string SettingsKey = "RequestedTheme";
+        public const string SettingsKey = "RequestedTheme";
 
         public static event EventHandler<ElementTheme> OnThemeChanged = delegate { };
 

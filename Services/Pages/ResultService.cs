@@ -171,6 +171,8 @@ namespace AvansApp.Services.Pages
 
             if (storage == null || storage.Count <= 0)
             {
+                storage = new List<Result>();
+
                 // Storage is empty
                 foreach (Result item in newItems)
                 {

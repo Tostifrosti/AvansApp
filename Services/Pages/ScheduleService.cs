@@ -15,10 +15,13 @@ namespace AvansApp.Services.Pages
         private const string base_url = "https://publicapi.avans.nl/oauth";
         private static List<List<ScheduleVM>> ScheduleWithBlanks { get; set; }
         private static List<List<ScheduleVM>> ScheduleWithoutBlanks { get; set; }
-        public int TodayIndex { get; private set; }
-        
+        public int TodayIndexWithoutBlanks { get; private set; }
+        public int TodayIndexWithBlanks { get; private set; }
+
         public ScheduleService()
         {
+            TodayIndexWithoutBlanks = -1;
+            TodayIndexWithBlanks = -1;
         }
 
         /*
@@ -36,6 +39,9 @@ namespace AvansApp.Services.Pages
             if (!blanks && ScheduleWithoutBlanks != null)
                 return ScheduleWithoutBlanks;
 
+            TodayIndexWithoutBlanks = -1;
+            TodayIndexWithBlanks = -1;
+
             ScheduleWithBlanks = new List<List<ScheduleVM>>();
             ScheduleWithoutBlanks = new List<List<ScheduleVM>>();
             
@@ -50,7 +56,6 @@ namespace AvansApp.Services.Pages
             if (data != null && data.Count > 0)
             {
                 List<ScheduleVM> day = new List<ScheduleVM>();
-                TodayIndex = 0;
 
                 foreach (Schedule s in data)
                 {
@@ -67,10 +72,20 @@ namespace AvansApp.Services.Pages
                 }
             }
 
-            // Set Schedule without blanks
-            foreach(var item in scheduleList)
+            // Set Schedule without blanks & find index of Today
+            for (int i = 0; i < scheduleList.Count; i++)
             {
-                ScheduleWithoutBlanks.Add(item);
+                ScheduleWithoutBlanks.Add(scheduleList[i]);
+
+                if (scheduleList[i].Count > 0 && TodayIndexWithoutBlanks < 0)
+                {
+                    if (scheduleList[i][0].Datum.Year == DateTime.Now.Year &&
+                        scheduleList[i][0].Datum.Month == DateTime.Now.Month &&
+                        scheduleList[i][0].Datum.Day >= DateTime.Now.Day)
+                    {
+                        TodayIndexWithoutBlanks = i;
+                    }
+                }
             }
             
             if (scheduleList.Count > 0)
@@ -95,28 +110,23 @@ namespace AvansApp.Services.Pages
                 {
                     FillBlanks(ref scheduleList, startdate, enddate, 0);
                 }
-
-                // Find index of Today
-                var today = DateTime.Now;
-                for (int i = 0; i < scheduleList.Count; i++)
-                {
-                    if (scheduleList[i].Count > 0)
-                    {
-                        if (scheduleList[i][0].Datum.Year == today.Year &&
-                            scheduleList[i][0].Datum.Month == today.Month &&
-                            scheduleList[i][0].Datum.Day == today.Day)
-                        {
-                            TodayIndex = i;
-                            break;
-                        }
-                    }
-                }
+                
             }
 
-            // Set Schedule with blanks
-            foreach (var item in scheduleList)
+            // Set Schedule with blanks & Find index of Today
+            for (int i = 0; i < scheduleList.Count; i++)
             {
-                ScheduleWithBlanks.Add(item);
+                ScheduleWithBlanks.Add(scheduleList[i]);
+                
+                if (scheduleList[i].Count > 0 && TodayIndexWithBlanks < 0)
+                {
+                    if (scheduleList[i][0].Datum.Year == DateTime.Now.Year &&
+                        scheduleList[i][0].Datum.Month == DateTime.Now.Month &&
+                        scheduleList[i][0].Datum.Day >= DateTime.Now.Day)
+                    {
+                        TodayIndexWithBlanks = i;
+                    }
+                }
             }
 
             return blanks ? ScheduleWithBlanks : ScheduleWithoutBlanks;
@@ -168,7 +178,8 @@ namespace AvansApp.Services.Pages
         {
             ScheduleWithBlanks = null;
             ScheduleWithoutBlanks = null;
-            TodayIndex = 0;
+            TodayIndexWithBlanks = -1;
+            TodayIndexWithoutBlanks = -1;
         }
 
     }

@@ -72,8 +72,8 @@ namespace AvansApp.Services
                         }
                     }
                 },
-                DisplayTimestamp = DateTime.Now,
-                Actions = new ToastActionsCustom()
+                DisplayTimestamp = DateTime.Now
+                /*Actions = new ToastActionsCustom()
                 {
                     Buttons =
                     {
@@ -85,7 +85,7 @@ namespace AvansApp.Services
 
                         //new ToastButtonDismiss("Cancel")
                     }
-                }
+                }*/
             };
 
             // Create the toast
@@ -135,8 +135,8 @@ namespace AvansApp.Services
                         }
                     }
                 },
-                DisplayTimestamp = DateTime.Now,
-                Actions = new ToastActionsCustom()
+                DisplayTimestamp = DateTime.Now
+                /*Actions = new ToastActionsCustom()
                 {
                     Buttons =
                     {
@@ -148,7 +148,7 @@ namespace AvansApp.Services
 
                         //new ToastButtonDismiss("Cancel")
                     }
-                }
+                }*/
             };
 
             // Create the toast

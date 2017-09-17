@@ -15,11 +15,10 @@ namespace AvansApp.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             SolidColorBrush color;
-            string resultaat = value.ToString();
+            string resultaat = (value != null) ? value.ToString() : string.Empty;
             resultaat = resultaat.Replace(",", ".");
-            double result = 0;
-
-            if (double.TryParse(resultaat, NumberStyles.Any, CultureInfo.InvariantCulture, out result))
+            
+            if (double.TryParse(resultaat, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
             {
                 if (result >= 5.5)
                     color = Green;

@@ -112,8 +112,7 @@ namespace AvansApp.ViewModels.Pages
                 bool withoutBlanks = await Settings.ReadScheduleBlanks();
                 List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Group, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
 
-                todayIndex = (withoutBlanks == true) ? Service.TodayIndex : 0;
-                currentDayIndex = todayIndex;
+                currentDayIndex = todayIndex = (withoutBlanks != true) ? Service.TodayIndexWithoutBlanks : Service.TodayIndexWithBlanks;
 
                 Items.Clear();
                 CurrentDay.Clear();

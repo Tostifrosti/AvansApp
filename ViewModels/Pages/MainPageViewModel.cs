@@ -65,6 +65,7 @@ namespace AvansApp.ViewModels.Pages
         private void ShowProfilePage()
         {
             IsPaneOpen = false;
+            ChangeSelected(_lastSelectedItem, null);
             NavigationService.Navigate(typeof(ProfilePageViewModel).FullName);
         }
         private async void SetStatusBarColor(Color background, Color foreground)
@@ -74,11 +75,14 @@ namespace AvansApp.ViewModels.Pages
             {
                 // Added Reference: Windows Desktop Extensions for the UWP
                 // Added Reference: Windows Mobile Extensions for the UWP
-                var statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                await statusbar.ShowAsync();
-                statusbar.BackgroundOpacity = 1;
-                statusbar.BackgroundColor = background;
-                statusbar.ForegroundColor = foreground;
+                Windows.UI.ViewManagement.StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                if (statusbar != null)
+                {
+                    await statusbar.ShowAsync();
+                    statusbar.BackgroundOpacity = 1;
+                    statusbar.BackgroundColor = background;
+                    statusbar.ForegroundColor = foreground;
+                }
             }
         }
         
@@ -244,7 +248,8 @@ namespace AvansApp.ViewModels.Pages
         {
             if (item is ShellNavigationItem navigationItem)
             {
-                NavigationService.Navigate(navigationItem.ViewModelName);
+                if (navigationItem != null && !navigationItem.IsSelected)
+                    NavigationService.Navigate(navigationItem.ViewModelName);
             }
         }
         public static void SetPageTitle(string title)

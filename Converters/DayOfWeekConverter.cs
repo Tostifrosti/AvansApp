@@ -12,8 +12,8 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            string day = value.ToString();
-            string dayOfWeek = "";
+            string day = (value != null) ? value.ToString() : string.Empty;
+            string dayOfWeek = string.Empty;
             switch (day.ToLower())
             {
                 case "monday":

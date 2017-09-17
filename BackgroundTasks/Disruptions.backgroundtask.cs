@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Windows.ApplicationModel.Background;
@@ -15,14 +16,17 @@ namespace AvansApp.BackgroundTasks
         private const string Name = "DisruptionBackgroundTask";
         private BackgroundTaskDeferral _deferral;
         private SettingsService Settings = Singleton<SettingsService>.Instance;
+        private bool IsCanceled { get; set; }
 
         public override async void Register()
         {
             var taskName = Name;
+            IsCanceled = false;
 
             bool IsNotificationEnabled = await Settings.ReadKeyAsync(SettingsService.IsDisruptionNotificationEnabledKey);
+            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
 
-            if (!IsNotificationEnabled)
+            if (!IsNotificationEnabled || status.HasFlag(BackgroundAccessStatus.DeniedBySystemPolicy | BackgroundAccessStatus.DeniedByUser | BackgroundAccessStatus.Unspecified))
             {
                 BackgroundTaskRegistration task = BackgroundTaskService.GetBackgroundTasksRegistration<DisruptionsBackgroundTask>();
                 if (task != null)
@@ -63,7 +67,7 @@ namespace AvansApp.BackgroundTasks
 
                 bool IsNotificationEnabled = await Settings.ReadKeyAsync(SettingsService.IsDisruptionNotificationEnabledKey);
 
-                if (!IsNotificationEnabled)
+                if (!IsNotificationEnabled || IsCanceled)
                 {
                     taskInstance.Task.Unregister(true);
                     return;
@@ -84,8 +88,7 @@ namespace AvansApp.BackgroundTasks
         }
         public override void OnCanceled(IBackgroundTaskInstance sender, BackgroundTaskCancellationReason reason)
         {
-            // TODO UWPTemplates: Insert code to handle the cancelation request here. 
-            // Documentation: https://docs.microsoft.com/windows/uwp/launch-resume/handle-a-cancelled-background-task
+            IsCanceled = true;
         }
 
         public override string GetName()

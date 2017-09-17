@@ -8,6 +8,9 @@ namespace AvansApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (value == null)
+                return Visibility.Collapsed;
+
             bool isVisible = false;
             bool.TryParse(value.ToString(), out isVisible);
 

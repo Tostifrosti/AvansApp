@@ -36,7 +36,7 @@ namespace AvansApp.Services.Pages
 
             Student[] s = await OAuth.GetInstance().RequestJSON<Student[]>("https://publicapi.avans.nl/oauth/studentnummer/", new List<string>(), Models.Enums.HttpMethod.GET);
 
-            if (s != null)
+            if (s != null && s[0] != null)
             {
                 Student student = s[0];
                 People people = await OAuth.GetInstance().RequestJSON<People>("https://publicapi.avans.nl/oauth/people/" + student.inlognaam, new List<string>(), Models.Enums.HttpMethod.GET);
@@ -139,7 +139,7 @@ namespace AvansApp.Services.Pages
         {
             List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
 
-            double sumResult = 0.0f;
+            double sumResult = 0.0;
             int amountResults = 0;
 
             foreach (ResultVM r in results)

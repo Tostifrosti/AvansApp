@@ -76,7 +76,7 @@ namespace AvansApp.ViewModels.Pages
 
             Student[] s = await OAuth.GetInstance().RequestJSON<Student[]>("https://publicapi.avans.nl/oauth/studentnummer/", new List<string>(), Models.Enums.HttpMethod.GET);
 
-            if (s != null)
+            if (s != null && s[0] != null)
             {
                 ProgressionText = "SplashPageProgressionText2".GetLocalized();
                 Student student = s[0];
