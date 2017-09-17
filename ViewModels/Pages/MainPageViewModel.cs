@@ -247,7 +247,8 @@ namespace AvansApp.ViewModels.Pages
         {
             if (item is ShellNavigationItem navigationItem)
             {
-                NavigationService.Navigate(navigationItem.ViewModelName);
+                if (navigationItem != null && !navigationItem.IsSelected)
+                    NavigationService.Navigate(navigationItem.ViewModelName);
             }
         }
         public static void SetPageTitle(string title)

@@ -120,6 +120,7 @@ namespace AvansApp.Services.Pages
 
             if (storage == null || storage.Count <= 0)
             {
+                storage = new List<Announcement>();
                 // Storage is empty
                 foreach (Announcement item in newItems)
                 {

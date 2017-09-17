@@ -131,6 +131,8 @@ namespace AvansApp.Services.Pages
 
             if (storage == null || storage.Count <= 0)
             {
+                storage = new List<DisruptionItem>();
+
                 // Storage is empty
                 foreach (DisruptionItem d in newItems)
                 {
