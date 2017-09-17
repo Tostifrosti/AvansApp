@@ -65,6 +65,7 @@ namespace AvansApp.ViewModels.Pages
         private void ShowProfilePage()
         {
             IsPaneOpen = false;
+            ChangeSelected(_lastSelectedItem, null);
             NavigationService.Navigate(typeof(ProfilePageViewModel).FullName);
         }
         private async void SetStatusBarColor(Color background, Color foreground)
