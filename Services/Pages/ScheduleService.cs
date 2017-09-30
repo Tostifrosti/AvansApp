@@ -79,7 +79,7 @@ namespace AvansApp.Services.Pages
 
                 if (scheduleList[i].Count > 0 && TodayIndexWithoutBlanks < 0)
                 {
-                    if (scheduleList[i][0].Datum >= DateTime.Now)
+                    if (scheduleList[i][0].Datum >= DateTime.Now.Date)
                     {
                         TodayIndexWithoutBlanks = i;
                     }
@@ -118,7 +118,7 @@ namespace AvansApp.Services.Pages
                 
                 if (scheduleList[i].Count > 0 && TodayIndexWithBlanks < 0)
                 {
-                    if (scheduleList[i][0].Datum >= DateTime.Now)
+                    if (scheduleList[i][0].Datum >= DateTime.Now.Date)
                     {
                         TodayIndexWithBlanks = i;
                     }
