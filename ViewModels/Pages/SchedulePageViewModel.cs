@@ -129,7 +129,8 @@ namespace AvansApp.ViewModels.Pages
                         Items.Add(l);
                     }
 
-                    foreach (ScheduleVM s in Items[todayIndex]) {
+                    foreach (ScheduleVM s in Items[todayIndex])
+                    {
                         if (s != null && s.Id != -1)
                             CurrentDay.Add(s);
                     }

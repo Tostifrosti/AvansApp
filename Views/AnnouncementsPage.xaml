@@ -56,7 +56,7 @@
                         Grid.Row="0" Grid.RowSpan="2"
                         Grid.Column="1" Grid.ColumnSpan="1"
                         VerticalAlignment="Center" HorizontalAlignment="Right"
-                        Text="{x:Bind DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}}"
+                        Text="{x:Bind DateTime, Mode=OneWay, Converter={StaticResource DateTimeConverter}, ConverterParameter=true}"
                         Foreground="{ThemeResource MyTextForegroundBrush}"
                         FontSize="14" FontWeight="Normal" Opacity="1.0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
                 </Grid>

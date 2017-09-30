@@ -79,9 +79,7 @@ namespace AvansApp.Services.Pages
 
                 if (scheduleList[i].Count > 0 && TodayIndexWithoutBlanks < 0)
                 {
-                    if (scheduleList[i][0].Datum.Year == DateTime.Now.Year &&
-                        scheduleList[i][0].Datum.Month == DateTime.Now.Month &&
-                        scheduleList[i][0].Datum.Day >= DateTime.Now.Day)
+                    if (scheduleList[i][0].Datum >= DateTime.Now)
                     {
                         TodayIndexWithoutBlanks = i;
                     }
@@ -120,9 +118,7 @@ namespace AvansApp.Services.Pages
                 
                 if (scheduleList[i].Count > 0 && TodayIndexWithBlanks < 0)
                 {
-                    if (scheduleList[i][0].Datum.Year == DateTime.Now.Year &&
-                        scheduleList[i][0].Datum.Month == DateTime.Now.Month &&
-                        scheduleList[i][0].Datum.Day >= DateTime.Now.Day)
+                    if (scheduleList[i][0].Datum >= DateTime.Now)
                     {
                         TodayIndexWithBlanks = i;
                     }

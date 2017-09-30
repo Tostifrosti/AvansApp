@@ -13,6 +13,8 @@ namespace AvansApp.Converters
             DateTime now = DateTime.Now;
             DateTime dt = DateTime.Parse(value.ToString());
 
+            bool isShortened = (parameter != null && parameter.ToString().ToLower().Equals("true")) ? true : false;
+
             // dd-MM-yyyy HH:mm:ss
             if (dt.Year == now.Year &&
                 dt.Month == now.Month &&
@@ -21,9 +23,11 @@ namespace AvansApp.Converters
                 date = dt.ToString("HH:mm");
             } else
             {
-                date = dt.ToString("dd MMMM");
+                if (isShortened)
+                    date = dt.ToString("dd MMM");
+                else
+                    date = dt.ToString("dd MMMM");
             }
-
 
             return date;
         }
