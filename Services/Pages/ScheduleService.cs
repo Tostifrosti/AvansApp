@@ -64,11 +64,17 @@ namespace AvansApp.Services.Pages
                         day = day.OrderBy(d => d.StartTijd).ToList();
                         scheduleList.Add(day);
                         day = new List<ScheduleVM>();
+                        day.Add(new ScheduleVM(s));
                     }
                     else
                     {
                         day.Add(new ScheduleVM(s));
                     }
+                }
+                if (day.Count > 0)
+                {
+                    day = day.OrderBy(d => d.StartTijd).ToList();
+                    scheduleList.Add(day);
                 }
             }
 
