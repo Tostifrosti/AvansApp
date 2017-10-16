@@ -52,7 +52,7 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0" HorizontalAlignment="Stretch">
+                <StackPanel Grid.Column="0" Grid.Row="1" Margin="10,0,10,10" HorizontalAlignment="Stretch">
 
                     <!-- Student no. -->
                     <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
@@ -140,7 +140,7 @@
                     </Grid>
                     
                     <!-- Average Grade -->
-                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,0">
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="25" />
@@ -155,7 +155,26 @@
                         <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.AverageGrade, Mode=OneWay, Converter={StaticResource DigitConverter}}" 
                                    TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     </Grid>
-                    
+
+                    <!-- Amount EC -->
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE8F1;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource MyTextForegroundBrush}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock x:Uid="MyProfileRow7" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.TotalEC, Mode=OneWay, Converter={StaticResource DigitConverter}}" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    </Grid>
+
+                    <TextBlock x:Uid="MyProfileDisclaimer" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
+
                 </StackPanel>
             </Grid>
         </ScrollViewer>

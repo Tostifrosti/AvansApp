@@ -32,6 +32,12 @@ namespace AvansApp.ViewModels.Pages
             get { return _averageGrade; }
             set { Set(ref _averageGrade, value); }
         }
+        private double _totalEC;
+        public double TotalEC
+        {
+            get { return _totalEC; }
+            set { Set(ref _totalEC, value); }
+        }
 
         public ProfileService Service { get; private set; }
 
@@ -52,6 +58,7 @@ namespace AvansApp.ViewModels.Pages
             AmountPassingGrades = await Service.GetAmountPassingGrades();
             AmountFailingGrades = await Service.GetAmountFailingGrades();
             AverageGrade = await Service.GetAverageGrade();
+            TotalEC = await Service.GetTotalEC();
         }
     }
 }

@@ -168,6 +168,12 @@
   <data name="EmployeePageTextbox.PlaceholderText" xml:space="preserve">
     <value>Search for an employee</value>
   </data>
+  <data name="EmployeeScheduleButton.Content" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="EmployeeScheduleHeader.Text" xml:space="preserve">
+    <value>Schedule of today</value>
+  </data>
   <data name="ErrorMsgAuthDialog" xml:space="preserve">
     <value>Something went wrong during the verification of your account.
 Please try again later!</value>
@@ -275,6 +281,9 @@ Have fun!</value>
   </data>
   <data name="NoResultEmployees.Text" xml:space="preserve">
     <value>No employees found!</value>
+  </data>
+  <data name="NoResultEmployeeSchedule.Text" xml:space="preserve">
+    <value>No lessons today!</value>
   </data>
   <data name="NoResultExams.Text" xml:space="preserve">
     <value>No exams found!</value>
@@ -473,5 +482,11 @@ Because the verification of your account is via the in-app browser, the App can 
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>Wednesday</value>
+  </data>
+  <data name="MyProfileRow7.Text" xml:space="preserve">
+    <value>Amount EC</value>
+  </data>
+  <data name="MyProfileDisclaimer.Text" xml:space="preserve">
+    <value>* It is possible that some results may be inaccurate due to the weighting system. Check Osiris for more information.</value>
   </data>
 </root>

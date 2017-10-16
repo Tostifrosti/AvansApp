@@ -174,6 +174,7 @@
     <Compile Include="ViewModels\DisruptionItemVM.cs" />
     <Compile Include="ViewModels\Pages\ClassroomAvailabilityPageDetailViewModel.cs" />
     <Compile Include="ViewModels\Pages\DisruptionSinglePageViewModel.cs" />
+    <Compile Include="ViewModels\Pages\EmployeeScheduleSinglePageViewModel.cs" />
     <Compile Include="ViewModels\Pages\EmployeeSinglePageViewModel.cs" />
     <Compile Include="Services\Pages\ExamService.cs" />
     <Compile Include="Services\Notifications.cs" />
@@ -232,6 +233,9 @@
     </Compile>
     <Compile Include="Views\EmployeesPage.xaml.cs">
       <DependentUpon>EmployeesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeesScheduleSinglePage.xaml.cs">
+      <DependentUpon>EmployeesScheduleSinglePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EmployeesSinglePage.xaml.cs">
       <DependentUpon>EmployeesSinglePage.xaml</DependentUpon>
@@ -330,6 +334,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EmployeesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeesScheduleSinglePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

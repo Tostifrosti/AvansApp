@@ -13,10 +13,18 @@ namespace AvansApp.Services.Pages
     public class ProfileService
     {
         private ProfileVM User { get; set; }
+        private double? AverageGrade { get; set; }
+        private double? TotalEC { get; set; }
+        private int? AmountPassingGrades { get; set; }
+        private int? AmountFailingGrades { get; set; }
 
         public ProfileService()
         {
             User = null;
+            AverageGrade = null;
+            TotalEC = null;
+            AmountPassingGrades = null;
+            AmountFailingGrades = null;
         }
 
         public async Task<ProfileVM> GetUserAsync()
@@ -83,66 +91,70 @@ namespace AvansApp.Services.Pages
             return User;
         }
 
-        public async Task<int> GetAmountPassingGrades()
+        private async Task CalculateResults()
         {
             List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
-            
+            List<ResultVM> newResults = new List<ResultVM>();
+
+            double sumResult = 0.0;
+            int amountResults = 0;
             int amountPassing = 0;
-
-            foreach (ResultVM r in results)
-            {
-                string result = r.Resultaat;
-                result = result.Replace(",", ".");
-
-                if (double.TryParse(result, NumberStyles.Any, CultureInfo.InvariantCulture, out double rs))
-                {
-                    if (rs >= 5.5)
-                    {
-                        amountPassing++;
-                    }
-                }
-                else if (!(result.ToUpper().Equals("NV") || result.ToUpper().Equals("NVD") || result.ToUpper().Equals("O") || result.ToUpper().Equals("NC")))
-                {
-                    amountPassing++;
-                }
-            }
-
-            return amountPassing;
-        }
-        public async Task<int> GetAmountFailingGrades()
-        {
-            List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
-
             int amountFailing = 0;
 
             foreach (ResultVM r in results)
             {
-                string result = r.Resultaat;
-                result = result.Replace(",", ".");
-
-                if (double.TryParse(result, NumberStyles.Any, CultureInfo.InvariantCulture, out double rs))
+                ResultVM item = InArray(r, ref newResults);
+                if (item != null)
                 {
-                    if (rs < 5.5)
+                    if (r.Voldoende.ToUpper() == "J" && item.Voldoende.ToUpper() == "J")
                     {
-                        amountFailing++;
+                        string newItemMark = r.Resultaat;
+                        newItemMark = newItemMark.Replace(",", ".");
+
+                        if (double.TryParse(newItemMark, NumberStyles.Any, CultureInfo.InvariantCulture, out double newMark))
+                        {
+                            string itemMark = item.Resultaat;
+                            itemMark = itemMark.Replace(",", ".");
+
+                            if (double.TryParse(itemMark, NumberStyles.Any, CultureInfo.InvariantCulture, out double mark))
+                            {
+                                if (newMark > mark)
+                                {
+                                    newResults.Remove(item);
+                                    newResults.Add(r);
+                                }
+                            }
+                        }
+                        else if (r.Resultaat.ToUpper() == "G" || r.Resultaat.ToUpper() == "U") // just in case
+                        {
+                            newResults.Remove(item);
+                            newResults.Add(r);
+                        }
+                    }
+                    else if (r.Voldoende == "J" && item.Voldoende != "J")
+                    {
+                        newResults.Remove(item);
+                        newResults.Add(r);
                     }
                 }
-                else if (result.ToUpper().Equals("NV") || result.ToUpper().Equals("NVD") || result.ToUpper().Equals("O") || result.ToUpper().Equals("NC"))
+                else
+                {
+                    newResults.Add(r);
+                }
+
+                if (r.Voldoende.ToUpper() == "J")
+                {
+                    amountPassing++;
+                }
+                else
                 {
                     amountFailing++;
                 }
             }
 
-            return amountFailing;
-        }
-        public async Task<double> GetAverageGrade()
-        {
-            List<ResultVM> results = await Singleton<ResultService>.Instance.GetResults();
+            double sumEC = 0.0;
 
-            double sumResult = 0.0;
-            int amountResults = 0;
-
-            foreach (ResultVM r in results)
+            foreach (ResultVM r in newResults)
             {
                 string result = r.Resultaat;
                 result = result.Replace(",", ".");
@@ -152,9 +164,61 @@ namespace AvansApp.Services.Pages
                     sumResult += rs;
                     amountResults++;
                 }
+                string ecStr = r.AantalEC;
+                ecStr = ecStr.Replace(",", ".");
+                if (double.TryParse(ecStr, NumberStyles.Any, CultureInfo.InvariantCulture, out double ec))
+                {
+                    sumEC += ec;
+                }
             }
+            
+            AverageGrade = (amountResults > 0) ? (sumResult / amountResults) : 0;
+            TotalEC = sumEC;
+            AmountPassingGrades = amountPassing;
+            AmountFailingGrades = amountFailing;
+        }
 
-            return (amountResults > 0) ? (sumResult / amountResults) : 0;
+        public async Task<int> GetAmountPassingGrades()
+        {
+            if (AmountPassingGrades == null)
+                await CalculateResults();
+
+            return AmountPassingGrades.Value;
+        }
+        public async Task<int> GetAmountFailingGrades()
+        {
+            if (AmountFailingGrades == null)
+                await CalculateResults();
+            
+            return AmountFailingGrades.Value;
+        }
+        public async Task<double> GetAverageGrade()
+        {
+            if (AverageGrade == null)
+                await CalculateResults();
+            
+            return AverageGrade.Value;
+        }
+
+        public async Task<double> GetTotalEC()
+        {
+            if (TotalEC == null)
+                await GetAverageGrade();
+
+            return TotalEC.Value;
+        }
+
+        private ResultVM InArray(ResultVM item, ref List<ResultVM> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (item.CursusCode == list[i].CursusCode && 
+                    item.ToetsOmschrijving == list[i].ToetsOmschrijving)
+                {
+                    return list[i];
+                }
+            }
+            return null;
         }
     }
 }

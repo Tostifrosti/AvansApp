@@ -31,6 +31,7 @@ namespace AvansApp.ViewModels
             Register<ClassroomAvailabilityPageDetailViewModel, ClassroomAvailabilitySinglePage>();
             Register<EmployeePageViewModel, EmployeesPage>();
             Register<EmployeeSinglePageViewModel, EmployeesSinglePage>();
+            Register<EmployeeScheduleSinglePageViewModel, EmployeesScheduleSinglePage>();
             Register<DisruptionPageViewModel, DisruptionsPage>();
             Register<DisruptionSinglePageViewModel, DisruptionsSinglePage>();
             Register<SettingsPageViewModel, SettingsPage>();
@@ -63,6 +64,7 @@ namespace AvansApp.ViewModels
         // Employees
         public EmployeePageViewModel EmployeePageViewModel => ServiceLocator.Current.GetInstance<EmployeePageViewModel>();
         public EmployeeSinglePageViewModel EmployeeSinglePageViewModel => ServiceLocator.Current.GetInstance<EmployeeSinglePageViewModel>();
+        public EmployeeScheduleSinglePageViewModel EmployeeScheduleSinglePageViewModel => ServiceLocator.Current.GetInstance<EmployeeScheduleSinglePageViewModel>();
 
         // Disruptions
         public DisruptionPageViewModel DisruptionPageViewModel => ServiceLocator.Current.GetInstance<DisruptionPageViewModel>();

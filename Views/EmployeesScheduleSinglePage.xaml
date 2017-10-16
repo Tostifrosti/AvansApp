@@ -1,0 +1,115 @@
+﻿<Page
+    x:Class="AvansApp.Views.EmployeesScheduleSinglePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="using:AvansApp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AvansApp.ViewModels"
+    DataContext="{Binding EmployeeScheduleSinglePageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converter:CourseDetailsConverter x:Key="CourseDetailsConverter" />
+            <converter:DayOfWeekConverter x:Key="DayOfWeekConverter" />
+            <converter:VisibilityConverter x:Key="VisibilityConverter" />
+            <converter:InverseVisibilityConverter x:Key="InverseVisibilityConverter" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SlideNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
+        <Grid Background="Transparent" MaxWidth="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="0">
+                <TextBlock x:Uid="EmployeeScheduleHeader" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="{ThemeResource MyTextForegroundBrush}" />
+            </Grid>
+
+            <Grid Grid.Column="0" Grid.Row="1" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,1,0,0">
+                <!-- Loading -->
+                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+                      Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                      Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                    <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" 
+                                  Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
+                    <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" 
+                               TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+                </Grid>
+
+                <!-- No Result -->
+                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+                      Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                      Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                    <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Opacity="0.5" Margin="0,-50,0,0" 
+                              FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock x:Uid="NoResultEmployeeSchedule" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" 
+                               TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+                </Grid>
+
+                <ListView ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" IsSwipeEnabled="False" Visibility="{x:Bind ViewModel.ScheduleEnabled, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"
+                          IsItemClickEnabled="False" Height="Auto" Width="Auto" Margin="0" Padding="0">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0,0,0,0" />
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Foreground" Value="{ThemeResource MyTextForegroundBrush}"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Padding" Value="10,0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ScheduleVM">
+                            <Grid BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1" Width="Auto" Margin="0" Padding="5,8,5,8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition MinHeight="25" Height="Auto" />
+                                    <RowDefinition MinHeight="25" Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="0">
+                                    <TextBlock Text="{x:Bind StartTijdString, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center" />
+                                    <TextBlock Text=" | " FontWeight="Normal" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{x:Bind EindTijdString, Mode=OneWay}" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind Vak, Converter={StaticResource CourseDetailsConverter}, Mode=OneWay}" TextWrapping="Wrap" Padding="0" Margin="0,0,0,0" FontSize="16" FontWeight="Normal" 
+                                           Foreground="{ThemeResource MyTextForegroundBrush}" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Top" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Details, Converter={StaticResource CourseDetailsConverter}, Mode=OneWay}" TextWrapping="Wrap" Padding="0" Margin="0,0,0,0" FontSize="14" FontStyle="Italic" 
+                                           Foreground="{ThemeResource MySubTextForegroundBrush}" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Bottom"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>

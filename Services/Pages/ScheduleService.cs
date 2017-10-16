@@ -134,6 +134,24 @@ namespace AvansApp.Services.Pages
             return blanks ? ScheduleWithBlanks : ScheduleWithoutBlanks;
         }
 
+        public async Task<List<ScheduleVM>> GetScheduleToday(ScheduleType type, string code)
+        {
+            List<ScheduleVM> scheduleList = new List<ScheduleVM>();
+
+            string todayString = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year;
+
+            List<Schedule> data = await OAuth.GetInstance().RequestJSON<List<Schedule>>(base_url + "/rooster/v2/", new List<string>() { "type=" + GetScheduleType(type), "param=" + code, "start=" + todayString, "end=" + todayString }, HttpMethod.GET);
+
+            if (data != null && data.Count > 0)
+            {
+                foreach (Schedule s in data)
+                {
+                    scheduleList.Add(new ScheduleVM(s));
+                }
+            }
+            return scheduleList;
+        }
+
         private void FillBlanks(ref List<List<ScheduleVM>> schedule, DateTime start, DateTime end, int index)
         {
             int daysInBetween = 0;
