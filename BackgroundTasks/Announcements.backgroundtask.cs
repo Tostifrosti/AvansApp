@@ -75,7 +75,7 @@ namespace AvansApp.BackgroundTasks
                 AnnouncementService service = Singleton<AnnouncementService>.Instance;
                 List<Announcement> results = await service.Request();
 
-                int countNewAnnouncements = 1; // await service.CompareNewAnnouncementsAsync(results);
+                int countNewAnnouncements = await service.CompareNewAnnouncementsAsync(results);
 
                 if (countNewAnnouncements > 0)
                 {
