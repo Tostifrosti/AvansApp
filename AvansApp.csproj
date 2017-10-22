@@ -108,6 +108,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BackgroundTasks\Announcements.backgroundtask.cs" />
     <Compile Include="BackgroundTasks\BackgroundTask.cs" />
     <Compile Include="BackgroundTasks\Disruptions.backgroundtask.cs" />
     <Compile Include="BackgroundTasks\Results.backgroundtask.cs" />

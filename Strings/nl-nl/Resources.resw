@@ -489,4 +489,7 @@ Omdat de verificatie van uw account via de in-app browser gaat, kan de App dus n
   <data name="MyProfileDisclaimer.Text" xml:space="preserve">
     <value>* Het is mogelijk dat sommige resultaten inaccuraat zijn door het weegsysteem. Bekijk Osiris voor meer informatie.</value>
   </data>
+  <data name="ToastNewAnnouncementText" xml:space="preserve">
+    <value>Open de Avans app om je nieuwe mededelingen te bekijken!</value>
+  </data>
 </root>

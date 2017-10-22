@@ -489,4 +489,7 @@ Because the verification of your account is via the in-app browser, the App can 
   <data name="MyProfileDisclaimer.Text" xml:space="preserve">
     <value>* It is possible that some results may be inaccurate due to the weighting system. Check Osiris for more information.</value>
   </data>
+  <data name="ToastNewAnnouncementText" xml:space="preserve">
+    <value>Open the Avans app to view the new announcements!</value>
+  </data>
 </root>
