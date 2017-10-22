@@ -29,7 +29,12 @@ namespace AvansApp.Services
 
             if (OAuth.GetInstance().Client.IsLoggedIn())
             {
-                if (args.Argument.Contains("ResultsNotification"))
+                if (args.Argument.Contains("AnnouncementsNotification"))
+                {
+                    // Navigate to Announcement Page
+                    NavigationService.NavigateToFrame(typeof(AnnouncementPageViewModel).FullName, new Views.MainPage());
+                }
+                else if (args.Argument.Contains("ResultsNotification"))
                 {
                     // Navigate to Results Page
                     NavigationService.NavigateToFrame(typeof(ResultPageViewModel).FullName, new Views.MainPage());

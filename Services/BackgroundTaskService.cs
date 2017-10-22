@@ -57,6 +57,7 @@ namespace AvansApp.Services
         {
             var backgroundTasks = new List<BackgroundTask>();
 
+            backgroundTasks.Add(new AnnouncementsBackgroundTask());
             backgroundTasks.Add(new ResultsBackgroundTask());
             backgroundTasks.Add(new DisruptionsBackgroundTask());
 

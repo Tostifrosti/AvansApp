@@ -55,13 +55,9 @@ namespace AvansApp.Services.Pages
             return Items;
         }
 
-        private async Task<List<Announcement>> Request()
+        public async Task<List<Announcement>> Request()
         {
-            XmlDocument data = await OAuth.GetInstance().RequestXML(base_url + "/bb/ann/", new List<string>(), Models.Enums.HttpMethod.GET);
-            return ReadXMLDocument(data);
-        }
-        private List<Announcement> ReadXMLDocument(XmlDocument doc)
-        {
+            XmlDocument doc = await OAuth.GetInstance().RequestXML(base_url + "/bb/ann/", new List<string>(), Models.Enums.HttpMethod.GET);
             List<Announcement> result = new List<Announcement>();
 
             if (doc != null && doc.DocumentElement != null && doc.DocumentElement.ChildNodes.Count > 1)
@@ -110,7 +106,8 @@ namespace AvansApp.Services.Pages
             }
             return result;
         }
-        private async Task<int> CompareNewAnnouncementsAsync(List<Announcement> newItems)
+
+        public async Task<int> CompareNewAnnouncementsAsync(List<Announcement> newItems)
         {
             if (newItems == null || newItems.Count <= 0)
                 return 0;
@@ -121,15 +118,17 @@ namespace AvansApp.Services.Pages
             if (storage == null || storage.Count <= 0)
             {
                 storage = new List<Announcement>();
+                
                 // Storage is empty
                 foreach (Announcement item in newItems)
                 {
                     storage.Add(item);
+                    foundNewItems++;
                 }
                 // No need to sort
                 await SaveToStorage(storage);
 
-                return newItems.Count;
+                return foundNewItems;
             }
             else
             {

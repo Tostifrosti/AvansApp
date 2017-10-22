@@ -67,8 +67,8 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE717;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource MyTextForegroundBrush}"
                                    VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock x:Uid="EmployeePageRow1" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.Item.PrivateNumber, Mode=OneWay, Converter={StaticResource DataConverter}}" 
-                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        <HyperlinkButton Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Content="{x:Bind ViewModel.Item.PrivateNumber, Mode=OneWay, Converter={StaticResource DataConverter}}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Right" Command="{x:Bind ViewModel.PhoneClickCommand, Mode=OneWay}" />
                     </Grid>
                     <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
@@ -82,8 +82,9 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE715;" FontSize="24" FontFamily="Segoe MDL2 Assets" Foreground="{ThemeResource MyTextForegroundBrush}"
                                    VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock x:Uid="EmployeePageRow2" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.Item.Email, Mode=OneWay, Converter={StaticResource DataConverter}}" 
-                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                        
+                        <HyperlinkButton Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Content="{x:Bind ViewModel.Item.Email, Mode=OneWay, Converter={StaticResource DataConverter}}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Right" Command="{x:Bind ViewModel.EmailClickCommand, Mode=OneWay}" />
                     </Grid>
                     <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,1">
                         <Grid.RowDefinitions>
@@ -144,6 +145,9 @@
                         <TextBlock x:Uid="EmployeePageRow6" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind ViewModel.Item.OU, Mode=OneWay, Converter={StaticResource DataConverter}}" 
                                    TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{ThemeResource MyTextForegroundBrush}" />
+                    </Grid>
+                    <Grid Margin="10,10" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,0,0">
+                        <Button x:Uid="EmployeeScheduleButton" Command="{x:Bind ViewModel.ViewScheduleClickCommand}"  Style="{ThemeResource MyButton}" Width="150" />
                     </Grid>
                 </StackPanel>
             </Grid>

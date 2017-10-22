@@ -21,6 +21,9 @@ namespace AvansApp.Services
 
             switch (type)
             {
+                case NotificationType.Announcements:
+                    toast = ShowAnnouncementNotification(count);
+                    break;
                 case NotificationType.Results:
                     toast = ShowResultNotification(count);
                     break;
@@ -159,6 +162,56 @@ namespace AvansApp.Services
                 Tag = "AvansDisruption", // Max length 16 characters.
                 ExpirationTime = DateTime.Now.AddMonths(1),
                 Group = "AvansDisruptions"
+            };
+            return toast;
+        }
+
+        private ToastNotification ShowAnnouncementNotification(int count)
+        {
+            const string logo = @"ms-appx:///Assets/StoreLogo.png";
+
+            // Create the toast content
+            var content = new ToastContent()
+            {
+                // Documentation: https://developer.microsoft.com/en-us/windows/uwp-community-toolkit/api/microsoft_toolkit_uwp_notifications_toastcontent
+                Launch = "AnnouncementsNotification",
+                Scenario = ToastScenario.Default,
+                Visual = new ToastVisual()
+                {
+                    BindingGeneric = new ToastBindingGeneric()
+                    {
+                        Children =
+                        {
+                            new AdaptiveText()
+                            {
+                                Text = (count > 1) ?
+                                    ("ToastNewAnnouncementHeader_0".GetLocalized() + " " + count + " " + "ToastNewAnnouncementHeader_1".GetLocalized())
+                                    : ("ToastNewAnnouncementHeader".GetLocalized()),
+                                HintMaxLines = 1
+                            },
+                            new AdaptiveText()
+                            {
+                                Text = "ToastNewAnnouncementText".GetLocalized(),
+                            }
+                        },
+                        AppLogoOverride = new ToastGenericAppLogo()
+                        {
+                            Source = logo,
+                            HintCrop = ToastGenericAppLogoCrop.Circle
+                        }
+                    }
+                },
+                DisplayTimestamp = DateTime.Now
+            };
+
+            // Create the toast
+            var toast = new ToastNotification(content.GetXml())
+            {
+                // Gets or sets the unique identifier of this notification within the notification Group. 
+                // Documentation: https://docs.microsoft.com/uwp/api/windows.ui.notifications.toastnotification
+                Tag = "AvansAnnmnt", // Max length 16 characters.
+                ExpirationTime = DateTime.Now.AddMonths(1),
+                Group = "AvansAnnGroup"
             };
             return toast;
         }

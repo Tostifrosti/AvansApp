@@ -28,7 +28,6 @@ namespace AvansApp.ViewModels.Pages
             get { return _isLightThemeEnabled; }
             set { Set(ref _isLightThemeEnabled, value); }
         }
-        private bool _isDisruptionNotificationEnabled;
         private bool _isScheduleWithoutBlanksEnabled;
         public bool IsScheduleWithoutBlanksEnabled
         {
@@ -38,6 +37,17 @@ namespace AvansApp.ViewModels.Pages
                 Service.SaveScheduleBlanks(IsScheduleWithoutBlanksEnabled);
             }
         }
+        private bool _isAnnouncementNotificationEnabled;
+        public bool IsAnnouncementNotificationEnabled
+        {
+            get { return _isAnnouncementNotificationEnabled; }
+            set
+            {
+                Set(ref _isAnnouncementNotificationEnabled, value);
+                Service.SaveNotificationSetting(IsAnnouncementNotificationEnabled, NotificationSettingType.Announcement);
+            }
+        }
+        private bool _isDisruptionNotificationEnabled;
         public bool IsDisruptionNotificationEnabled {
             get { return _isDisruptionNotificationEnabled; }
             set {
@@ -106,6 +116,7 @@ namespace AvansApp.ViewModels.Pages
             ScheduleCodeInputText = await Service.ReadScheduleCode();
             _isScheduleWithoutBlanksEnabled = await Service.ReadScheduleBlanks();
 
+            _isAnnouncementNotificationEnabled = await Service.ReadKeyAsync(SettingsService.IsAnnouncementNotificationEnabledKey);
             _isDisruptionNotificationEnabled = await Service.ReadKeyAsync(SettingsService.IsDisruptionNotificationEnabledKey);
             _isResultNotificationEnabled = await Service.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
             

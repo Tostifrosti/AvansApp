@@ -77,10 +77,10 @@
                     <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
 
                     <!-- Announcement -->
-                    <!--<StackPanel Margin="5,0">
+                    <StackPanel Margin="5,0">
                         <TextBlock x:Uid="SettingsPage_NotificationHeader1" Foreground="{ThemeResource MyTextForegroundBrush}" />
                         <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsAnnouncementNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
-                    </StackPanel>-->
+                    </StackPanel>
 
                     <!-- Disruption -->
                     <StackPanel Margin="5,0">

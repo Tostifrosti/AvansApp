@@ -123,7 +123,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind DisplayName, Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Top" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Email, Mode=OneWay}" FontSize="14" FontStyle="Italic" 
+                            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind Titel, Mode=OneWay}" FontSize="14" FontStyle="Italic" 
                                        Foreground="{ThemeResource MySubTextForegroundBrush}" VerticalAlignment="Bottom"/>
 
                             <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{x:Bind Room, Mode=OneWay}" Margin="0,0,10,0" FontWeight="Bold" Foreground="{ThemeResource MySubTextForegroundBrush}" 
