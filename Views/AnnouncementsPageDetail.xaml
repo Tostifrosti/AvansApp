@@ -9,7 +9,13 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:views="using:AvansApp.Views"
     mc:Ignorable="d">
-    
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <PaneThemeTransition Edge="Right" />
+        </TransitionCollection>
+    </Page.Transitions>
+
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

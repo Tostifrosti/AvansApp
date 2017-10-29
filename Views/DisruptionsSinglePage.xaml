@@ -9,6 +9,12 @@
     DataContext="{Binding DisruptionSinglePageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <EdgeUIThemeTransition Edge="Right" />
+        </TransitionCollection>
+    </Page.Transitions>
+
     <Page.Resources>
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />

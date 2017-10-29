@@ -14,7 +14,7 @@
 
     <Page.Transitions>
         <TransitionCollection>
-            <NavigationThemeTransition />
+            <PaneThemeTransition Edge="Left" />
         </TransitionCollection>
     </Page.Transitions>
     

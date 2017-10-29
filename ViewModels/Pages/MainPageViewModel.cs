@@ -15,6 +15,8 @@ using AvansApp.Models;
 using AvansApp.Helpers;
 using AvansApp.Services;
 using AvansApp.Services.Pages;
+using Windows.UI.ViewManagement;
+using Windows.ApplicationModel.Core;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -42,7 +44,8 @@ namespace AvansApp.ViewModels.Pages
             ProfileImage = new BitmapImage(new Uri("ms-appx:///Assets/StoreLogo.png"));
             ShowMyProfileCommand = new RelayCommand(ShowProfilePage);
             GetUserAsync();
-            SetStatusBarColor(Color.FromArgb(255, 198, 0, 42), Colors.White); // Change color of Statusbar
+            SetStatusBarColor(Color.FromArgb(255, 198, 0, 42), Colors.White, Color.FromArgb(255, 160, 40, 66), Color.FromArgb(255, 150, 40, 66)); // Change color of Statusbar
+            
 
             /*if (!OAuth.GetInstance().Client.CheckTokenExists("Settlement"))
             {
@@ -68,14 +71,14 @@ namespace AvansApp.ViewModels.Pages
             ChangeSelected(_lastSelectedItem, null);
             NavigationService.Navigate(typeof(ProfilePageViewModel).FullName);
         }
-        private async void SetStatusBarColor(Color background, Color foreground)
+        private async void SetStatusBarColor(Color background, Color foreground, Color hover, Color pressed)
         {
             // Turn on SystemTray for mobile
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
                 // Added Reference: Windows Desktop Extensions for the UWP
                 // Added Reference: Windows Mobile Extensions for the UWP
-                Windows.UI.ViewManagement.StatusBar statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                StatusBar statusbar = StatusBar.GetForCurrentView();
                 if (statusbar != null)
                 {
                     await statusbar.ShowAsync();
@@ -83,6 +86,17 @@ namespace AvansApp.ViewModels.Pages
                     statusbar.BackgroundColor = background;
                     statusbar.ForegroundColor = foreground;
                 }
+            }
+            else
+            {
+                ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                titleBar.ButtonBackgroundColor = background; //Colors.Transparent;
+                titleBar.BackgroundColor = background;
+                titleBar.ForegroundColor = foreground;
+                titleBar.ButtonHoverBackgroundColor = hover;
+                titleBar.ButtonPressedBackgroundColor = pressed;
+                CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+                coreTitleBar.ExtendViewIntoTitleBar = false;
             }
         }
         
