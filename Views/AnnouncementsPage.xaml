@@ -17,12 +17,6 @@
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>-->
 
-    <Page.Transitions>
-        <TransitionCollection>
-            <PaneThemeTransition Edge="Left" />
-        </TransitionCollection>
-    </Page.Transitions>
-
     <Page.Resources>
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />

@@ -7,7 +7,7 @@
     xmlns:converter="using:AvansApp.Converters"
     DataContext="{Binding LoginPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
-    
+
     <Page.Resources>
         <ResourceDictionary>
             <converter:VisibilityConverter x:Key="VisibilityConverter" />

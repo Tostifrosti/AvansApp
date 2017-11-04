@@ -12,7 +12,11 @@
 
     <Page.Transitions>
         <TransitionCollection>
-            <PaneThemeTransition Edge="Right" />
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SlideNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
 

@@ -23,8 +23,7 @@ namespace AvansApp.Services.Pages
         {
             List<ExamVM> result = new List<ExamVM>();
 
-            XmlDocument doc = await OAuth.GetInstance().RequestXML(base_url + "/tentamenrooster", new List<string>(), Models.Enums.HttpMethod.GET);
-
+            XmlDocument doc = await OAuth.GetInstance().RequestXML(base_url + "/tentamenrooster/", new List<string>(), Models.Enums.HttpMethod.GET);
             //List<Exam> data = await OAuth.GetInstance().RequestJSON<List<Exam>>(base_url + "/tentamenrooster", new List<string>(), Models.Enums.HttpMethod.GET); // Test when exams are available
 
             if (doc != null && doc.DocumentElement != null && doc.DocumentElement.ChildNodes.Count > 1) // Check if Result
@@ -89,7 +88,6 @@ namespace AvansApp.Services.Pages
                 }
                 //result = result.OrderByDescending(d => d.DateTime).ToList();
             }
-
             return result;
         }
     }

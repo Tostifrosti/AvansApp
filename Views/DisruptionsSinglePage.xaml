@@ -11,10 +11,14 @@
 
     <Page.Transitions>
         <TransitionCollection>
-            <EdgeUIThemeTransition Edge="Right" />
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SlideNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
-
+    
     <Page.Resources>
         <ResourceDictionary>
             <converter:DateTimeConverter x:Key="DateTimeConverter" />
@@ -24,16 +28,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <SlideNavigationTransitionInfo />
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-        </TransitionCollection>
-    </Page.Transitions>
 
     <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <Grid Background="Transparent" MaxWidth="1000">

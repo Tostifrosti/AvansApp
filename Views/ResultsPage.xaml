@@ -12,12 +12,6 @@
     DataContext="{Binding ResultPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
-    <Page.Transitions>
-        <TransitionCollection>
-            <PaneThemeTransition Edge="Left" />
-        </TransitionCollection>
-    </Page.Transitions>
-    
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
