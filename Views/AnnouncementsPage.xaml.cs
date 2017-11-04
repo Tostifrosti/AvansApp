@@ -21,6 +21,5 @@ namespace AvansApp.Views
             ViewModel.Initialize();
             await ViewModel.LoadDataAsync(WindowStates.CurrentState);
         }
-
     }
 }

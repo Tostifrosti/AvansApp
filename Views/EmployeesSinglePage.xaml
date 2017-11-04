@@ -8,17 +8,6 @@
     DataContext="{Binding EmployeeSinglePageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <converter:DataConverter x:Key="DataConverter" />
-            
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/Styles.xaml" />
-                <ResourceDictionary Source="../Styles/Themes.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition>
@@ -28,6 +17,17 @@
             </NavigationThemeTransition>
         </TransitionCollection>
     </Page.Transitions>
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <converter:DataConverter x:Key="DataConverter" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/Styles.xaml" />
+                <ResourceDictionary Source="../Styles/Themes.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <ScrollViewer MaxWidth="1000" HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 

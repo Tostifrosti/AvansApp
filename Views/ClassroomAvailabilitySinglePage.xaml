@@ -8,6 +8,16 @@
     DataContext="{Binding ClassroomAvailabilityPageDetailViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SlideNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+    
     <Page.Resources>
         <ResourceDictionary>
             <converter:BoolConverter x:Key="BoolConverter" />
@@ -22,16 +32,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <SlideNavigationTransitionInfo />
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-        </TransitionCollection>
-    </Page.Transitions>
 
     <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
         <Grid Background="Transparent" MaxWidth="1000">

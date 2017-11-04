@@ -11,12 +11,11 @@
     xmlns:converter="using:AvansApp.Converters"
     DataContext="{Binding AnnouncementPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
-
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition />
-        </TransitionCollection>
-    </Page.Transitions>
+    <!--<i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="KeyDown" >
+            <ic:InvokeCommandAction Command="{x:Bind ViewModel.OnKeyDownCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>-->
 
     <Page.Resources>
         <ResourceDictionary>

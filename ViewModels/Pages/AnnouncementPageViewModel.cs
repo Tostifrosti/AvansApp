@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls;
 using AvansApp.Helpers;
 using AvansApp.Services;
 using AvansApp.Services.Pages;
+using Windows.UI.Xaml.Input;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -98,5 +99,6 @@ namespace AvansApp.ViewModels.Pages
                 }
             }
         }
+
     }
 }
