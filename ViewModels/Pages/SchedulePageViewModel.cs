@@ -117,7 +117,7 @@ namespace AvansApp.ViewModels.Pages
                 Items.Clear();
                 CurrentDay.Clear();
 
-                if (data.Count > 0 && todayIndex > 0)
+                if (data.Count > 0 && todayIndex >= 0)
                 {
                     foreach (List<ScheduleVM> list in data)
                     {
