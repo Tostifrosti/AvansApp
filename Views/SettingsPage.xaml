@@ -93,6 +93,9 @@
                         <TextBlock x:Uid="SettingsPage_NotificationHeader3" Foreground="{ThemeResource MyTextForegroundBrush}" />
                         <ToggleSwitch x:Uid="SettingsPage_OnOffToggle" IsOn="{x:Bind ViewModel.IsResultNotificationEnabled, Mode=TwoWay}" Style="{ThemeResource MyToggleSwitch}" />
                     </StackPanel>
+                    <StackPanel Margin="5,0">
+                        <TextBlock x:Uid="NotificationDisclaimer" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
+                    </StackPanel>
 
                 </StackPanel>
 

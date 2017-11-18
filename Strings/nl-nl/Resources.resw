@@ -508,4 +508,7 @@ rooster niet worden opgehaald!</value>
   <data name="SettingsHeader6.Text" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="NotificationDisclaimer.Text" xml:space="preserve">
+    <value>* Bij gebruik van batterijbesparing zullen de achtergrond processen helaas niet werken. Hierdoor kunt u enige notificaties mislopen.</value>
+  </data>
 </root>

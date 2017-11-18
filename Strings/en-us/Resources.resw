@@ -508,4 +508,7 @@ retrieved due an error!</value>
   <data name="SettingsHeader6.Text" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="NotificationDisclaimer.Text" xml:space="preserve">
+    <value>* When using battery saving, background processes will unfortunately not work. This causes you to miss any notifications.</value>
+  </data>
 </root>
