@@ -77,6 +77,16 @@
                                TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
                 </Grid>
 
+                <!-- Error -->
+                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
+                      Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                      Visibility="{x:Bind ViewModel.HasError, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                    <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xE7BA;" FontSize="60" Opacity="0.5" Margin="0,-50,0,0" 
+                              FontWeight="Normal" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
+                    <TextBlock x:Uid="HasErrorSchedule" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" 
+                               TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
+                </Grid>
+
                 <ListView ItemsSource="{x:Bind ViewModel.CurrentDay, Mode=OneWay}" IsSwipeEnabled="False" Visibility="{x:Bind ViewModel.ScheduleEnabled, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"
                           IsItemClickEnabled="False" Height="Auto" Width="Auto" Margin="0" Padding="0">
                     <ListView.ItemContainerStyle>

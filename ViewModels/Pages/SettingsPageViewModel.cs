@@ -79,10 +79,12 @@ namespace AvansApp.ViewModels.Pages
         }
 
         public ICommand SwitchThemeCommand { get; private set; }
-        public ICommand OnFeedbackButtonClickCommand { get; private set; }
+        public ICommand OnFeedbackEmailButtonClickCommand { get; private set; }
+        public ICommand OnFeedbackAppButtonClickCommand { get; private set; }
         public ICommand OnLogoutButtonClickCommand { get; private set; }
         public ICommand OnScheduleCodeKeydownCommand { get; private set; }
         public ICommand OnScheduleCodeButtonClickCommand { get; private set; }
+        public ICommand OnReviewStoreButtonClickCommand { get; private set; }
         private ProfileVM _user;
         public ProfileVM User {
             get { return _user; }
@@ -101,10 +103,12 @@ namespace AvansApp.ViewModels.Pages
             SwitchThemeCommand = new RelayCommand(async () => {
                 await ThemeSelectorService.SwitchThemeAsync();
             });
-            OnFeedbackButtonClickCommand = new RelayCommand(OnFeedbackClick);
+            OnFeedbackEmailButtonClickCommand = new RelayCommand(OnFeedbackEmailClick);
             OnLogoutButtonClickCommand = new RelayCommand(OnLogoutButtonClick);
             OnScheduleCodeKeydownCommand = new RelayCommand<KeyRoutedEventArgs>(OnScheduleCodeKeydown);
             OnScheduleCodeButtonClickCommand = new RelayCommand(OnScheduleCodeButtonClick);
+            OnFeedbackAppButtonClickCommand = new RelayCommand(OnFeedbackAppClick);
+            OnReviewStoreButtonClickCommand = new RelayCommand(OnReviewStoreClick);
         }
 
         public async void Initialize()
@@ -165,7 +169,7 @@ namespace AvansApp.ViewModels.Pages
 
             }
         }
-        private async void OnFeedbackClick()
+        private async void OnFeedbackEmailClick()
         {
             var contact = new Contact()
             {
@@ -204,6 +208,20 @@ namespace AvansApp.ViewModels.Pages
                             device_info;
             await Service.ComposeEmail(contact, subject, body, null);
         }
+
+        private async void OnFeedbackAppClick()
+        {
+            if (Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.IsSupported())
+            {
+                var launcher = Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault();
+                await launcher.LaunchAsync();
+            }
+        }
+        private async void OnReviewStoreClick()
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9NBLGGH4S3FG"));
+        }
+
         private async void OnLogoutButtonClick()
         {
             var dialog = new MessageDialog("LogoutMessageDialogContent".GetLocalized(), "LogoutMessageDialogHeader".GetLocalized());

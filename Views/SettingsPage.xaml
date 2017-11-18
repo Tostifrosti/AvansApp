@@ -108,14 +108,27 @@
                             Style="{ThemeResource MyButton}" />
                 </StackPanel>
                 
-                <!-- Overige -->
-                <StackPanel Margin="10,0,10,10">
+                <!-- Feedback -->
+                <StackPanel Margin="10,0,10,20">
                     <TextBlock x:Uid="SettingsHeader5" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
                     <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
-                    <Button x:Uid="FeedbackButton" Command="{x:Bind ViewModel.OnFeedbackButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <TextBlock x:Uid="GiveFeedbackString" Margin="0,0,5,0" Foreground="{ThemeResource MyTextForegroundBrush}"/>
+                    </StackPanel>
+
+                    <Button x:Uid="FeedbackAppButton" Command="{x:Bind ViewModel.OnFeedbackAppButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center"
+                            Style="{ThemeResource MyButton}" />
+                    <Button x:Uid="FeedbackEmailButton" Command="{x:Bind ViewModel.OnFeedbackEmailButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
                             Style="{ThemeResource MyButton}" />
 
+                    <Button x:Uid="ReviewStoreButton" Command="{x:Bind ViewModel.OnReviewStoreButtonClickCommand, Mode=OneWay}" HorizontalAlignment="Center" 
+                            Style="{ThemeResource MyButton}" />
+                </StackPanel>
 
+                <!-- Overige -->
+                <StackPanel Margin="10,0,10,10">
+                    <TextBlock x:Uid="SettingsHeader6" FontSize="20" Foreground="{ThemeResource MyParagraphTextBrush}" Margin="5,10,5,5" FontWeight="Normal" />
+                    <Border Margin="0" Height="2" Width="Auto" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="2" />
                     <TextBlock x:Uid="Disclaimer" Margin="0,20,0,5" FontWeight="Bold" FontSize="16" TextAlignment="Center" Foreground="{ThemeResource MyTextForegroundBrush}" />
                     <TextBlock x:Uid="SettingsPageInfo" Margin="0,0,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />
                     <TextBlock x:Uid="SettingsPageDisclaimer" Margin="0,10,0,10" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" FontStyle="Italic" Foreground="{ThemeResource MyBodyTextBrush}" HorizontalAlignment="Stretch" TextAlignment="Center" />

@@ -40,6 +40,12 @@ namespace AvansApp.ViewModels.Pages
             get { return _hasNoResult; }
             set { Set(ref _hasNoResult, value); }
         }
+        private bool _hasError;
+        public bool HasError
+        {
+            get { return _hasError; }
+            set { Set(ref _hasError, value); }
+        }
         private bool _hasNoScheduleCode;
         public bool HasNoScheduleCode
         {
@@ -89,6 +95,7 @@ namespace AvansApp.ViewModels.Pages
             IsLoading = false;
             HasNoResult = false;
             HasNoScheduleCode = false;
+            HasError = false;
 
             OnPreviousDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnPreviousDayClick);
             OnNextDayClickCommand = new RelayCommand<ItemClickEventArgs>(OnNextDayClick);
@@ -107,38 +114,53 @@ namespace AvansApp.ViewModels.Pages
                 IsLoading = true;
                 HasNoResult = false;
                 HasNoScheduleCode = false;
+                HasError = false;
 
-                string scheduleCode = await Settings.ReadScheduleCode();
-                bool withoutBlanks = await Settings.ReadScheduleBlanks();
-                List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Group, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
-
-                currentDayIndex = todayIndex = (withoutBlanks != true) ? Service.TodayIndexWithoutBlanks : Service.TodayIndexWithBlanks;
-
-                Items.Clear();
-                CurrentDay.Clear();
-
-                if (data.Count > 0 && todayIndex >= 0)
+                try
                 {
-                    foreach (List<ScheduleVM> list in data)
+                    string scheduleCode = await Settings.ReadScheduleCode();
+                    bool withoutBlanks = await Settings.ReadScheduleBlanks();
+                    List<List<ScheduleVM>> data = await Service.GetSchedule(ScheduleType.Group, scheduleCode, DateTime.Now.AddMonths(-3), DateTime.Now.AddMonths(3), withoutBlanks);
+
+                    currentDayIndex = todayIndex = (withoutBlanks != true) ? Service.TodayIndexWithoutBlanks : Service.TodayIndexWithBlanks;
+
+                    Items.Clear();
+                    CurrentDay.Clear();
+
+                    if (data.Count > 0 && todayIndex >= 0)
                     {
-                        var l = new ObservableCollection<ScheduleVM>();
-                        foreach (ScheduleVM s in list)
+                        foreach (List<ScheduleVM> list in data)
                         {
-                            l.Add(s);
+                            var l = new ObservableCollection<ScheduleVM>();
+                            foreach (ScheduleVM s in list)
+                            {
+                                l.Add(s);
+                            }
+                            Items.Add(l);
                         }
-                        Items.Add(l);
+
+                        foreach (ScheduleVM s in Items[todayIndex])
+                        {
+                            if (s != null && s.Id != -1)
+                                CurrentDay.Add(s);
+                        }
                     }
 
-                    foreach (ScheduleVM s in Items[todayIndex])
-                    {
-                        if (s != null && s.Id != -1)
-                            CurrentDay.Add(s);
-                    }
+                    if (todayIndex < 0)
+                        throw new IndexOutOfRangeException("CurrentDayIndex and TodayIndex are below 0.");
+                    
+                    HasNoResult = Items.Count <= 0;
+                } catch (Exception) {
+                    Items.Clear();
+                    CurrentDay.Clear();
+                    todayIndex = 0;
+                    currentDayIndex = 0;
+
+                    HasError = true;
+                    HasNoResult = false;
                 }
                 IsLoading = false;
-                HasNoResult = Items.Count <= 0;
                 HasNoScheduleCode = false;
-
                 SetCurrentDay();
                 SetHeader();
             }
