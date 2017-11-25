@@ -92,8 +92,8 @@ namespace AvansApp.Services.Pages
         {
             var emailMessage = new EmailMessage()
             {
-                Body = messageBody,
-                Subject = subject
+                Subject = subject,
+                Body = messageBody
             };
             if (attachmentFile != null)
             {

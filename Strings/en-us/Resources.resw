@@ -351,7 +351,7 @@ to see more infomation.</value>
     <value>Profile</value>
   </data>
   <data name="SettingsHeader5.Text" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Info about the app</value>
   </data>
   <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
     <value>The App is not made by Avans University and has no responsibility or correlation for the Application.
@@ -506,9 +506,18 @@ retrieved due an error!</value>
     <value>Rate the app!</value>
   </data>
   <data name="SettingsHeader6.Text" xml:space="preserve">
-    <value>Info</value>
+    <value>Feedback</value>
   </data>
   <data name="NotificationDisclaimer.Text" xml:space="preserve">
     <value>* When using battery saving, background processes will unfortunately not work. This causes you to miss any notifications.</value>
+  </data>
+  <data name="AppDetailsHeader_name.Text" xml:space="preserve">
+    <value>Name of the app: </value>
+  </data>
+  <data name="AppDetailsHeader_version.Text" xml:space="preserve">
+    <value>App version:</value>
+  </data>
+  <data name="SettingsHeader7.Text" xml:space="preserve">
+    <value>Info</value>
   </data>
 </root>

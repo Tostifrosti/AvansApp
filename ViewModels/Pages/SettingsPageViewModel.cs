@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Input;
 using AvansApp.Services;
 using AvansApp.Helpers;
 using AvansApp.Services.Pages;
+using Windows.System.Profile;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -92,6 +93,20 @@ namespace AvansApp.ViewModels.Pages
         }
         private SettingsService Service { get; set; }
 
+        private string _appName;
+        public string AppName
+        {
+            get { return _appName; }
+            set { Set(ref _appName, value); }
+        }
+        private string _appVersion;
+        public string AppVersion
+        {
+            get { return _appVersion; }
+            set { Set(ref _appVersion, value); }
+        }
+
+
         public SettingsPageViewModel()
         {
             SearchBoxChanged = false;
@@ -109,6 +124,10 @@ namespace AvansApp.ViewModels.Pages
             OnScheduleCodeButtonClickCommand = new RelayCommand(OnScheduleCodeButtonClick);
             OnFeedbackAppButtonClickCommand = new RelayCommand(OnFeedbackAppClick);
             OnReviewStoreButtonClickCommand = new RelayCommand(OnReviewStoreClick);
+
+            AppName = "Avans";
+            AppVersion = GetAppVersion();
+            
         }
 
         public async void Initialize()
@@ -133,7 +152,6 @@ namespace AvansApp.ViewModels.Pages
             OnPropertyChanged("IsAnnouncementNotificationEnabled");
             OnPropertyChanged("IsDisruptionNotificationEnabled");
             OnPropertyChanged("IsResultNotificationEnabled");
-
         }
         
         
@@ -183,29 +201,16 @@ namespace AvansApp.ViewModels.Pages
             contact.Emails.Add(new ContactEmail() { Address = "info@rlsmedia.nl", Description = "RLSmedia", Kind = ContactEmailKind.Work });
 
             // Get the device manufacturer, model name, OS details etc.
-            string device_info = "";
-            string newline = (DeviceTypeHelper.GetDeviceFormFactorType() == DeviceFormFactorType.Phone) ? "\r\n" : "<br />";
-
-            if (ApiInformation.IsTypePresent("Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation"))
-            {
-                var clientDeviceInformation = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
-                var deviceManufacturer = clientDeviceInformation.SystemManufacturer;
-                var deviceModel = clientDeviceInformation.SystemProductName;
-                var operatingSystem = clientDeviceInformation.OperatingSystem;
-                var systemHardwareVersion = clientDeviceInformation.SystemHardwareVersion;
-                var systemFirmwareVersion = clientDeviceInformation.SystemFirmwareVersion;
-                device_info = "Fabrikant: " + deviceManufacturer.ToString() + newline + "Model: " + deviceModel.ToString() + newline + "OS: " + operatingSystem.ToString() + newline + "Hardware versie: " + systemHardwareVersion.ToString() + newline + "Firmware versie: " + systemFirmwareVersion.ToString();
-            }
             string subject = "Feedback over Avans App";
-            string body =   "Hallo, " + newline + newline +
-                            "Type hier je bericht... " + newline + newline +
-                            "Met vriendelijke groet, " + newline +
-                            "Onbekend" + newline + newline + newline +
-                            "Overige informatie: " + newline +
-                            "Mijn App Versie: " + Package.Current.Id.Version.Revision.ToString() + newline +
-                            "Mijn Build: " + Package.Current.Id.Version.Build.ToString() + newline +
-                            "Architectuur: " + Package.Current.Id.Architecture + newline +
-                            device_info;
+            string appVersion = GetAppVersion();
+            string body = "Hallo, \r\n\n" +
+                            "Type hier je bericht... \r\n\n" +
+                            "Met vriendelijke groet, \r\n" +
+                            "Onbekend \r\n\n\n" +
+                            "Overige informatie: \r\n" +
+                            "App Versie: " + appVersion + "\r\n" +
+                            "Architectuur: " + Package.Current.Id.Architecture + "\r\n" +
+                            "Apparaat: " + AnalyticsInfo.VersionInfo.DeviceFamily;
             await Service.ComposeEmail(contact, subject, body, null);
         }
 
@@ -247,6 +252,17 @@ namespace AvansApp.ViewModels.Pages
                 else
                     SearchBoxChanged = true;
             }
+        }
+
+        public static string GetAppVersion()
+        {
+
+            Package package = Package.Current;
+            PackageId packageId = package.Id;
+            PackageVersion version = packageId.Version;
+
+            return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+
         }
     }
 }

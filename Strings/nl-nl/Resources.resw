@@ -351,7 +351,7 @@ om meer informatie te zien.</value>
     <value>Profiel</value>
   </data>
   <data name="SettingsHeader5.Text" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Info over de app</value>
   </data>
   <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
     <value>De App is niet van, voor of door Avans Hogeschool en heeft daarvoor geen enkele aansprakelijkheid of verantwoordelijkheid over de Applicatie. 
@@ -506,9 +506,18 @@ rooster niet worden opgehaald!</value>
     <value>Beoordeel de app!</value>
   </data>
   <data name="SettingsHeader6.Text" xml:space="preserve">
-    <value>Info</value>
+    <value>Feedback</value>
   </data>
   <data name="NotificationDisclaimer.Text" xml:space="preserve">
     <value>* Bij gebruik van batterijbesparing zullen de achtergrond processen helaas niet werken. Hierdoor kunt u enige notificaties mislopen.</value>
+  </data>
+  <data name="AppDetailsHeader_name.Text" xml:space="preserve">
+    <value>Naam van de app:</value>
+  </data>
+  <data name="AppDetailsHeader_version.Text" xml:space="preserve">
+    <value>App versie: </value>
+  </data>
+  <data name="SettingsHeader7.Text" xml:space="preserve">
+    <value>Info</value>
   </data>
 </root>
