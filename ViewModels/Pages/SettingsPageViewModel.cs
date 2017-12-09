@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Contacts;
-using Windows.Foundation.Metadata;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Input;
 
@@ -10,6 +9,7 @@ using AvansApp.Services;
 using AvansApp.Helpers;
 using AvansApp.Services.Pages;
 using Windows.System.Profile;
+using Windows.UI.Xaml.Controls;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -245,12 +245,19 @@ namespace AvansApp.ViewModels.Pages
 
         private void OnScheduleCodeKeydown(KeyRoutedEventArgs e)
         {
-            if (e != null && e.KeyStatus.RepeatCount == 1)
+            if (e != null)
             {
-                if (e.Key == Windows.System.VirtualKey.Enter)
+                if (e.KeyStatus.RepeatCount == 0 && e.Key == Windows.System.VirtualKey.Enter)
+                {
+                    if (DeviceTypeHelper.GetDeviceFormFactorType() != DeviceFormFactorType.Desktop)
+                        LoseFocus(e.OriginalSource);
                     OnScheduleCodeButtonClick();
-                else
+                }
+                else if (e.KeyStatus.RepeatCount == 1)
+                {
                     SearchBoxChanged = true;
+                }
+                e.Handled = false;
             }
         }
 
@@ -263,6 +270,15 @@ namespace AvansApp.ViewModels.Pages
 
             return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
 
+        }
+        private void LoseFocus(object sender)
+        {
+            var control = sender as Control;
+            var isTabStop = control.IsTabStop;
+            control.IsTabStop = false;
+            control.IsEnabled = false;
+            control.IsEnabled = true;
+            control.IsTabStop = isTabStop;
         }
     }
 }
