@@ -26,7 +26,7 @@ namespace AvansApp.Services.Pages
 
         public async Task<List<DisruptionItemVM>> GetDisruptions()
         {
-            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1))
+            if (Items == null || refreshTime < DateTime.Now.AddMinutes(-1))
             {
                 refreshTime = DateTime.Now;
 
@@ -169,6 +169,7 @@ namespace AvansApp.Services.Pages
                     {
                         items.Add(newItems[i]);
                         newItems.RemoveAt(i);
+                        storage.RemoveAt(temp);
                     }
                 }
 

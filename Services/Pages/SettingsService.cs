@@ -77,7 +77,7 @@ namespace AvansApp.Services.Pages
         }
         public void RemoveKey(string key)
         {
-            ApplicationData.Current.LocalSettings.RemoveKeyAsync(key);
+            ApplicationData.Current.LocalSettings.RemoveKey(key);
         }
         public bool KeyExists(string key)
         {

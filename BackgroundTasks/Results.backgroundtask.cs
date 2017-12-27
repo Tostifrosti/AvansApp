@@ -16,7 +16,7 @@ namespace AvansApp.BackgroundTasks
         private const string Name = "ResultBackgroundTask";
         private BackgroundTaskDeferral _deferral;
         private SettingsService Settings = Singleton<SettingsService>.Instance;
-        private bool IsCanceled { get; set; }
+        private volatile bool IsCanceled = false;
 
         public override async void Register()
         {
@@ -24,9 +24,8 @@ namespace AvansApp.BackgroundTasks
             IsCanceled = false;
 
             bool IsNotificationEnabled = await Settings.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
-            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
 
-            if (!IsNotificationEnabled || status.HasFlag(BackgroundAccessStatus.DeniedBySystemPolicy | BackgroundAccessStatus.DeniedByUser | BackgroundAccessStatus.Unspecified))
+            if (!IsNotificationEnabled)
             {
                 BackgroundTaskRegistration task = BackgroundTaskService.GetBackgroundTasksRegistration<ResultsBackgroundTask>();
                 if (task != null)
@@ -43,8 +42,9 @@ namespace AvansApp.BackgroundTasks
                     Name = taskName
                 };
                 
-                builder.SetTrigger(new TimeTrigger(30, false)); // 30 minutes cycle
+                builder.SetTrigger(new TimeTrigger(30, false)); // 30 minutes cycle, Note: timer cannot be less than 15 mins
                 //builder.AddCondition(new SystemCondition(SystemConditionType.FreeNetworkAvailable));
+                builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
                 builder.AddCondition(new SystemCondition(SystemConditionType.UserNotPresent));
 
                 builder.Register();
@@ -60,11 +60,6 @@ namespace AvansApp.BackgroundTasks
             
             return Task.Run(async () =>
             {
-                // Documentation: 
-                //      * General: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/support-your-app-with-background-tasks
-                //      * Debug: https://docs.microsoft.com/en-us/windows/uwp/launch-resume/debug-a-background-task 
-                //      * Monitoring: https://docs.microsoft.com/windows/uwp/launch-resume/monitor-background-task-progress-and-completion
-
                 bool IsNotificationEnabled = await Settings.ReadKeyAsync(SettingsService.IsResultNotificationEnabledKey);
 
                 if (!IsNotificationEnabled || IsCanceled)

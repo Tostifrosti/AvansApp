@@ -26,7 +26,7 @@ namespace AvansApp.Services.Pages
 
         public async Task<List<ResultVM>> GetResults()
         {
-            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+            if (Items == null || refreshTime < DateTime.Now.AddMinutes(-1)) {
                 refreshTime = DateTime.Now;
 
                 Items = new List<ResultVM>();

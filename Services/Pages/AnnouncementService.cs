@@ -26,7 +26,7 @@ namespace AvansApp.Services.Pages
 
         public async Task<List<AnnouncementVM>> GetAnnouncements()
         {
-            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+            if (Items == null || refreshTime < DateTime.Now.AddMinutes(-1)) {
                 refreshTime = DateTime.Now;
 
                 Items = new List<AnnouncementVM>();

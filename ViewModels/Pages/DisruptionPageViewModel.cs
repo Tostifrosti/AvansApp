@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using AvansApp.Helpers;
 using AvansApp.Services;
 using AvansApp.Services.Pages;
+using System;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -40,12 +41,14 @@ namespace AvansApp.ViewModels.Pages
         }
         public DisruptionService Service { get; private set; }
         public ICommand ItemClickCommand { get; private set; }
-
+        private DateTime refreshTime;
+        
         public DisruptionPageViewModel()
         {
             Items = new ObservableCollection<DisruptionItemVM>();
             Service = new DisruptionService();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
+            refreshTime = DateTime.Now;
         }
         public void Initialize()
         {
@@ -54,8 +57,9 @@ namespace AvansApp.ViewModels.Pages
 
         public async Task LoadDataAsync()
         {
-            if(Items.Count <= 0)
+            if(Items.Count <= 0 || refreshTime <= DateTime.Now.AddMinutes(-5))
             {
+                refreshTime = DateTime.Now;
                 IsLoading = true;
                 HasNoResult = false;
                 var data = await Service.GetDisruptions();

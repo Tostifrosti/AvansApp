@@ -71,7 +71,7 @@ namespace AvansApp.Helpers
             return string.Concat(name, fileExtension);
         }
 
-        public static void RemoveKeyAsync(this ApplicationDataContainer settings, string key)
+        public static void RemoveKey(this ApplicationDataContainer settings, string key)
         {
             if (settings.Values.ContainsKey(key))
             {

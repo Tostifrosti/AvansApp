@@ -17,8 +17,15 @@ namespace AvansApp.Services
         private static readonly Lazy<IEnumerable<BackgroundTask>> backgroundTasks =
             new Lazy<IEnumerable<BackgroundTask>>(() => CreateInstances());
 
-        public void RegisterBackgroundTasks()
+        public async void RegisterBackgroundTasks()
         {
+            // To ensure that your Universal Windows app continues to run properly after you release an update, you must call RemoveAccess
+            BackgroundExecutionManager.RemoveAccess();
+            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+
+            if (!status.HasFlag(BackgroundAccessStatus.AlwaysAllowed))
+                return;
+
             foreach (var task in BackgroundTasks)
             {
                 task.Register();
@@ -68,7 +75,7 @@ namespace AvansApp.Services
         {
             foreach (var task in BackgroundTasks)
             {
-                task.OnCanceled(null, BackgroundTaskCancellationReason.LoggingOff);
+                task.OnCanceled(null, BackgroundTaskCancellationReason.Abort);
             }
         }
     }

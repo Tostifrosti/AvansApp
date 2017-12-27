@@ -10,6 +10,7 @@ using AvansApp.Helpers;
 using AvansApp.Services;
 using AvansApp.Services.Pages;
 using Windows.UI.Xaml.Input;
+using System;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -46,6 +47,7 @@ namespace AvansApp.ViewModels.Pages
 
         public ObservableCollection<AnnouncementVM> Items { get; private set; }
         public AnnouncementService Service { get; private set; }
+        private DateTime refreshTime;
 
         public AnnouncementPageViewModel()
         {
@@ -54,6 +56,7 @@ namespace AvansApp.ViewModels.Pages
             Items = new ObservableCollection<AnnouncementVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);
+            refreshTime = DateTime.Now;
         }
         public void Initialize()
         {
@@ -62,8 +65,9 @@ namespace AvansApp.ViewModels.Pages
         public async Task LoadDataAsync(VisualState currentState)
         {
             _currentState = currentState;
-            if (Items.Count <= 0)
+            if (Items.Count <= 0 || refreshTime <= DateTime.Now.AddMinutes(-5))
             {
+                refreshTime = DateTime.Now;
                 IsLoading = true;
                 HasNoResult = false;
                 var data = await Service.GetAnnouncements();

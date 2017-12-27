@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using AvansApp.Helpers;
 using AvansApp.Services.Pages;
 using AvansApp.Services;
+using System;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -40,6 +41,7 @@ namespace AvansApp.ViewModels.Pages
         }
         public ICommand StateChangedCommand { get; private set; }
         public ICommand ItemClickCommand { get; private set; }
+        private DateTime refreshTime;
 
         public ResultPageViewModel()
         {
@@ -47,6 +49,7 @@ namespace AvansApp.ViewModels.Pages
             Items = new ObservableCollection<ResultVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);
+            refreshTime = DateTime.Now;
         }
         public void Initialize()
         {
@@ -55,8 +58,9 @@ namespace AvansApp.ViewModels.Pages
         public async Task LoadDataAsync(VisualState currentState)
         {
             _currentState = currentState;
-            if (Items.Count <= 0)
+            if (Items.Count <= 0 || refreshTime <= DateTime.Now.AddMinutes(-5))
             {
+                refreshTime = DateTime.Now;
                 IsLoading = true;
                 HasNoResult = false;
                 var data = await Service.GetResults();
