@@ -9,7 +9,6 @@ using Windows.UI.Xaml.Controls;
 using AvansApp.Helpers;
 using AvansApp.Services;
 using AvansApp.Services.Pages;
-using Windows.UI.Xaml.Input;
 using System;
 
 namespace AvansApp.ViewModels.Pages
@@ -44,7 +43,7 @@ namespace AvansApp.ViewModels.Pages
 
         public ICommand ItemClickCommand { get; private set; }
         public ICommand StateChangedCommand { get; private set; }
-
+        public ICommand RefreshItemsCommand { get; private set; }
         public ObservableCollection<AnnouncementVM> Items { get; private set; }
         public AnnouncementService Service { get; private set; }
         private DateTime refreshTime;
@@ -56,6 +55,7 @@ namespace AvansApp.ViewModels.Pages
             Items = new ObservableCollection<AnnouncementVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);
+            RefreshItemsCommand = new RelayCommand(OnRefreshItems);
             refreshTime = DateTime.Now;
         }
         public void Initialize()
@@ -70,6 +70,8 @@ namespace AvansApp.ViewModels.Pages
                 refreshTime = DateTime.Now;
                 IsLoading = true;
                 HasNoResult = false;
+                Items.Clear();
+
                 var data = await Service.GetAnnouncements();
                 data = new List<AnnouncementVM>(data.OrderByDescending(d => d.DateTime));
 
@@ -101,6 +103,44 @@ namespace AvansApp.ViewModels.Pages
                 {
                     Selected = item;
                 }
+            }
+        }
+
+        private async void OnRefreshItems()
+        {
+            // Pull-to-refresh will be available every 30 secs
+            if (refreshTime <= DateTime.Now.AddSeconds(-30))
+            {
+                refreshTime = DateTime.Now;
+                
+                var data = await Service.GetAnnouncements();
+                data = new List<AnnouncementVM>(data.OrderByDescending(d => d.DateTime));
+
+                var list = new List<AnnouncementVM>();
+                
+                for (int i=0; i < data.Count; i++)
+                {
+                    bool isFound = false;
+                    for (int j = 0; j < Items.Count; j++)
+                    {
+                        if (Service.Compare(data[i], Items[j]) == true)
+                        {
+                            isFound = true;
+                        }
+                    }
+                    if (!isFound)
+                        list.Add(data[i]);
+                }
+                
+                if (list.Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        Items.Insert(0, item);
+                    }
+                    Selected = Items.FirstOrDefault();
+                }
+                HasNoResult = Items.Count <= 0;
             }
         }
 

@@ -9,6 +9,7 @@
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:converter="using:AvansApp.Converters"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     DataContext="{Binding AnnouncementPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <!--<i:Interaction.Behaviors>
@@ -77,54 +78,106 @@
             <ColumnDefinition x:Name="DetailColumn" Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Loading -->
-        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
-              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
-              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
-            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
-        </Grid>
-
-        <!-- No Result -->
-        <Grid Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}" Canvas.ZIndex="1" 
-              Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"
-              Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Opacity="0.5" Margin="0,-50,0,0" FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets" />
-            <TextBlock x:Uid="NoResultAnnouncements" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" TextWrapping="WrapWholeWords" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
-        </Grid>
-
         <Grid 
             x:Name="MasterArea"
             Grid.Row="1" Grid.Column="0"
-            BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,1,0"
-            Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
+            BorderBrush="{ThemeResource MyBorderBursh}" BorderThickness="0,0,1,0">
 
-            <ListView
+            <controls:PullToRefreshListView
                 x:Name="MasterListView"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-                ItemContainerTransitions="{x:Null}"
                 ItemTemplate="{StaticResource MasterListViewItemTemplate}"
                 IsItemClickEnabled="True"
-                Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
+                IsTabStop="False"
+                TabNavigation="Once"
+                IsSwipeEnabled="True"
+                ScrollViewer.ZoomMode="Disabled"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollMode="Disabled"
+                ScrollViewer.IsHorizontalRailEnabled="False"
+                ScrollViewer.VerticalScrollMode="Enabled"
+                ScrollViewer.IsVerticalRailEnabled="True"
+                ScrollViewer.IsDeferredScrollingEnabled="False"
+                ScrollViewer.BringIntoViewOnFocusChange="True"
+                Background="{StaticResource MyApplicationPageBackgroundThemeBrush}"
+                PullThreshold="140"
+                OverscrollLimit="0.35"
+                RefreshCommand="{x:Bind ViewModel.RefreshItemsCommand, Mode=OneWay}"
+                IsPullToRefreshWithMouseEnabled="True"
+                PullToRefreshLabel=""
+                ReleaseToRefreshLabel=""
+                Padding="0"
+                Margin="0"
+                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="ItemClick">
                         <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemClickCommand}" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
+
+                <controls:PullToRefreshListView.PullToRefreshContent>
+                    <FontIcon Foreground="{StaticResource MyProgressRingForegroundBrush}"
+                              Margin="0,0,0,15"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Bottom"
+                              FontFamily="Segoe MDL2 Assets"
+                              FontSize="20"
+                              Glyph="&#xE74B;" />
+                </controls:PullToRefreshListView.PullToRefreshContent>
+
+                <controls:PullToRefreshListView.ReleaseToRefreshContent>
+                    <Grid Height="100" Background="Transparent">
+                        <ProgressRing IsActive="True" 
+                                      Width="30" Height="30"
+                                      Foreground="{StaticResource MyProgressRingForegroundBrush}"
+                                      FontSize="18" 
+                                      Margin="0,0,0,15" 
+                                      Visibility="Visible" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Bottom" />
+                    </Grid>
+                </controls:PullToRefreshListView.ReleaseToRefreshContent>
+                <controls:PullToRefreshListView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                        <ContentThemeTransition />
+                        <ReorderThemeTransition />
+                        <EntranceThemeTransition IsStaggeringEnabled="False" />
+                    </TransitionCollection>
+                </controls:PullToRefreshListView.ItemContainerTransitions>
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Padding" Value="0"/>
                     </Style>
                 </ListView.ItemContainerStyle>
-            </ListView>
+            </controls:PullToRefreshListView>
+            
+            <!-- Loading -->
+            <ProgressRing IsActive="True" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Height="50" 
+                          Margin="0,-50,0,0" Foreground="{ThemeResource MyProgressRingForegroundBrush}"
+                          Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
+            <TextBlock x:Uid="Loading" Width="Auto" FontSize="18" Margin="0,50,0,0" TextWrapping="WrapWholeWords" FontWeight="Normal" TextAlignment="Center" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}"
+                       Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
+            
+            <!-- No Result -->
+            <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" Glyph="&#xED59;" FontSize="60" Opacity="0.5" 
+                      Margin="0,-50,0,0" FontWeight="Bold" Foreground="{ThemeResource MyProgressRingForegroundBrush}" FontFamily="Segoe MDL2 Assets"
+                      Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
+            <TextBlock x:Uid="NoResultAnnouncements" Width="Auto" Margin="0,50,0,0" FontSize="18" FontWeight="Normal" Opacity="0.75" 
+                       TextWrapping="WrapWholeWords" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}"
+                       Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
         </Grid>
 
-        <Grid x:Name="DetailContentPresenter" Padding="0" Grid.Row="1" Grid.Column="1" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}">
-            <views:AnnouncementsPageDetailControl x:Name="DetailControl" MasterMenuItem="{x:Bind ViewModel.Selected, Mode=OneWay}"/>
+        <Grid x:Name="DetailContentPresenter" Padding="0" Grid.Row="1" Grid.Column="1" Background="{ThemeResource MyApplicationPageBackgroundThemeBrush}"
+              Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}">
+            <views:AnnouncementsPageDetailControl x:Name="DetailControl" MasterMenuItem="{x:Bind ViewModel.Selected, Mode=OneWay}" 
+                                                  Visibility="{x:Bind ViewModel.HasNoResult, Mode=OneWay, Converter={StaticResource InverseVisibilityConverter}}" />
         </Grid>
-
+        
         <!--  Adaptive triggers  -->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WindowStates">

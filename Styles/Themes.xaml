@@ -316,6 +316,11 @@
             <SolidColorBrush x:Key="MyProgressRingForegroundBrush" Color="Gray" />
             <SolidColorBrush x:Key="MyLoadingTextForegroundBrush" Color="Gray" />
             
+            <!-- FontIcon -->
+            <Style TargetType="FontIcon" x:Key="MyFontIcon">
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+            
             <!-- Borders -->
             <SolidColorBrush x:Key="MyBorderBursh" Color="LightGray" />
             <SolidColorBrush x:Key="MySplitContentBorderBursh" Color="Black" />
@@ -736,7 +741,12 @@
             <!-- Loading -->
             <SolidColorBrush x:Key="MyProgressRingForegroundBrush" Color="White" />
             <SolidColorBrush x:Key="MyLoadingTextForegroundBrush" Color="White" />
-            
+
+            <!-- FontIcon -->
+            <Style TargetType="FontIcon" x:Key="MyFontIcon">
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+
             <!-- Borders -->
             <SolidColorBrush x:Key="MyBorderBursh" Color="LightGray" />
             <SolidColorBrush x:Key="MySplitContentBorderBursh" Color="White" />

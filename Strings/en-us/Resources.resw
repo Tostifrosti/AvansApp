@@ -520,4 +520,11 @@ retrieved due an error!</value>
   <data name="SettingsHeader7.Text" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="SplashPageDisruptionLink.Content" xml:space="preserve">
+    <value>View disruptions</value>
+  </data>
+  <data name="ExamPageSubscriptionNotification.Text" xml:space="preserve">
+    <value>Don't forget to enroll for 
+the incoming exams!</value>
+  </data>
 </root>

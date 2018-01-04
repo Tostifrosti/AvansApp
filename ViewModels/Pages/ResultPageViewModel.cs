@@ -9,6 +9,7 @@ using AvansApp.Helpers;
 using AvansApp.Services.Pages;
 using AvansApp.Services;
 using System;
+using System.Collections.Generic;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -41,6 +42,7 @@ namespace AvansApp.ViewModels.Pages
         }
         public ICommand StateChangedCommand { get; private set; }
         public ICommand ItemClickCommand { get; private set; }
+        public ICommand RefreshItemsCommand { get; private set; }
         private DateTime refreshTime;
 
         public ResultPageViewModel()
@@ -49,6 +51,7 @@ namespace AvansApp.ViewModels.Pages
             Items = new ObservableCollection<ResultVM>();
             ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
             StateChangedCommand = new RelayCommand<VisualStateChangedEventArgs>(OnStateChanged);
+            RefreshItemsCommand = new RelayCommand(OnRefreshItems);
             refreshTime = DateTime.Now;
         }
         public void Initialize()
@@ -63,6 +66,8 @@ namespace AvansApp.ViewModels.Pages
                 refreshTime = DateTime.Now;
                 IsLoading = true;
                 HasNoResult = false;
+                Items.Clear();
+
                 var data = await Service.GetResults();
                 data = data.OrderByDescending(d => d.MutatieDatum).ToList();
 
@@ -94,6 +99,43 @@ namespace AvansApp.ViewModels.Pages
                 {
                     Selected = item;
                 }
+            }
+        }
+        private async void OnRefreshItems()
+        {
+            // Pull-to-refresh will be available every 30 secs
+            if (refreshTime <= DateTime.Now.AddSeconds(-30))
+            {
+                refreshTime = DateTime.Now;
+
+                var data = await Service.GetResults();
+                data = new List<ResultVM>(data.OrderByDescending(d => d.MutatieDatum));
+
+                var list = new List<ResultVM>();
+
+                for (int i = 0; i < data.Count; i++)
+                {
+                    bool isFound = false;
+                    for (int j = 0; j < Items.Count; j++)
+                    {
+                        if (Service.Compare(data[i], Items[j]) == true)
+                        {
+                            isFound = true;
+                        }
+                    }
+                    if (!isFound)
+                        list.Add(data[i]);
+                }
+
+                if (list.Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        Items.Insert(0, item);
+                    }
+                    Selected = Items.FirstOrDefault();
+                }
+                HasNoResult = Items.Count <= 0;
             }
         }
     }

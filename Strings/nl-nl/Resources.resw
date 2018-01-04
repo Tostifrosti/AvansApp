@@ -520,4 +520,11 @@ rooster niet worden opgehaald!</value>
   <data name="SettingsHeader7.Text" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="SplashPageDisruptionLink.Content" xml:space="preserve">
+    <value>Storingen bekijken</value>
+  </data>
+  <data name="ExamPageSubscriptionNotification.Text" xml:space="preserve">
+    <value>Vergeet niet om in te schrijven voor 
+de aankomende tentamens!</value>
+  </data>
 </root>

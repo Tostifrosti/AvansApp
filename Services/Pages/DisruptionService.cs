@@ -220,6 +220,18 @@ namespace AvansApp.Services.Pages
 
             return false;
         }
+        public bool Compare(DisruptionItemVM a, DisruptionItemVM b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.GuId == b.GuId)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public void DeleteStorage()
         {
             ApplicationData.Current.LocalFolder.DeleteFile(StorageKey);

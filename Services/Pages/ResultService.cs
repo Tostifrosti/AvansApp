@@ -254,6 +254,20 @@ namespace AvansApp.Services.Pages
 
             return false;
         }
+        public bool Compare(ResultVM a, ResultVM b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.CursusCode == b.CursusCode &&
+                a.Studentennummer == b.Studentennummer &&
+                a.ToetsDatum == b.ToetsDatum)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public void DeleteStorage()
         {
             ApplicationData.Current.LocalFolder.DeleteFile(StorageKey);

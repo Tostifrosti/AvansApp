@@ -39,7 +39,7 @@ namespace AvansApp.Services
                 return navigationResult;
             }
         }
-        public bool NavigateToFrame(string pageKey, UIElement frame, object parameter = null, NavigationTransitionInfo infoOverride = null)
+        public bool NavigateToPage(string pageKey, UIElement frame, object parameter = null, NavigationTransitionInfo infoOverride = null)
         {
             lock (_pages)
             {

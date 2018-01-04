@@ -36,7 +36,7 @@ namespace AvansApp.ViewModels.Pages
         {
             OnTryAgainButtonClickCommand = new RelayCommand(() => { GetUserInfoAsync(); });
             OnDisruptionsButtonClickCommand = new RelayCommand(() => {
-                NavigationService.NavigateToFrame(typeof(DisruptionPageViewModel).FullName, new Views.DisruptionsPage());
+                NavigationService.NavigateToPage(typeof(DisruptionPageViewModel).FullName, new Views.DisruptionsPage(), true);
             });
         }
 
@@ -54,9 +54,7 @@ namespace AvansApp.ViewModels.Pages
             else
             {
                 // Oh oh! Looks like you need to login first!
-                NavigationService.NavigateToFrame(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
-                //NavigationService.NavigateToFrame(typeof(LoginPageViewModel).FullName, new Windows.UI.Xaml.Controls.Frame());
-                //NavigationService.Navigate(typeof(LoginPageViewModel).FullName);
+                NavigationService.NavigateToPage(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
             }
         }
         
@@ -77,6 +75,7 @@ namespace AvansApp.ViewModels.Pages
             Student[] s = await OAuth.GetInstance().RequestJSON<Student[]>("https://publicapi.avans.nl/oauth/studentnummer/", new List<string>(), Models.Enums.HttpMethod.GET);
 
             if (s != null && s[0] != null)
+            //if (false)
             {
                 ProgressionText = "SplashPageProgressionText2".GetLocalized();
                 Student student = s[0];
@@ -101,7 +100,7 @@ namespace AvansApp.ViewModels.Pages
                     IsTryAgainButtonVisible = false;
                 }
                 
-                NavigationService.NavigateToFrame(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
+                NavigationService.NavigateToPage(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
             }
             else
             {

@@ -160,7 +160,7 @@ namespace AvansApp.ViewModels.Pages
         {
             IsLoginButtonVisible = false;
 
-            NavigationService.NavigateToFrame(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
+            NavigationService.NavigateToPage(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
         }
         private void OnLoginButtonClick(ItemClickEventArgs e)
         {

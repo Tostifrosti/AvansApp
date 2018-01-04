@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converter="using:AvansApp.Converters"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     DataContext="{Binding SplashPageViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d">
 
@@ -39,7 +41,8 @@
 
             <Button x:Uid="TryAgainButton"  Grid.Row="2" Grid.Column="0" Command="{x:Bind ViewModel.OnTryAgainButtonClickCommand, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTryAgainButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
                     Style="{ThemeResource MyButton}" Width="175" Height="35" VerticalAlignment="Stretch"  />
-            <!--<Button Grid.Row="3" Grid.Column="0" Command="{x:Bind ViewModel.OnDisruptionsButtonClickCommand, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTryAgainButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" Content="Storingen bekijken" Style="{ThemeResource DefaultButtonStyle}" Width="175" Height="35" VerticalAlignment="Stretch"  />-->
+
+            <!--<HyperlinkButton x:Uid="SplashPageDisruptionLink" Grid.Row="3" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.OnDisruptionsButtonClickCommand, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTryAgainButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" />-->
         </Grid>
     </Grid>
 </Page>

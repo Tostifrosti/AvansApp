@@ -239,7 +239,7 @@ namespace AvansApp.ViewModels.Pages
             if (response != null && response.Id.ToString() == "0")
             {
                 Service.ClearAllSettings();
-                NavigationService.NavigateToFrame(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
+                NavigationService.NavigateToPage(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
             }
         }
 
