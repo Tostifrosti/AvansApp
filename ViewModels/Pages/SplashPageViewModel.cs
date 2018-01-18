@@ -34,6 +34,7 @@ namespace AvansApp.ViewModels.Pages
 
         public SplashPageViewModel()
         {
+            IsProgressionRingActive = true;
             OnTryAgainButtonClickCommand = new RelayCommand(() => { GetUserInfoAsync(); });
             OnDisruptionsButtonClickCommand = new RelayCommand(() => {
                 NavigationService.NavigateToPage(typeof(DisruptionPageViewModel).FullName, new Views.DisruptionsPage(), true);

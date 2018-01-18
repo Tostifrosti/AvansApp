@@ -85,27 +85,11 @@
 
             <controls:PullToRefreshListView
                 x:Name="MasterListView"
+                Style="{ThemeResource MyPullToRefreshList}"
                 ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                 SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
                 ItemTemplate="{StaticResource MasterListViewItemTemplate}"
-                IsItemClickEnabled="True"
-                IsTabStop="False"
-                TabNavigation="Once"
-                IsSwipeEnabled="True"
-                ScrollViewer.ZoomMode="Disabled"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ScrollViewer.HorizontalScrollMode="Disabled"
-                ScrollViewer.IsHorizontalRailEnabled="False"
-                ScrollViewer.VerticalScrollMode="Enabled"
-                ScrollViewer.IsVerticalRailEnabled="True"
-                ScrollViewer.IsDeferredScrollingEnabled="False"
-                ScrollViewer.BringIntoViewOnFocusChange="True"
-                Background="{StaticResource MyApplicationPageBackgroundThemeBrush}"
-                PullThreshold="140"
-                OverscrollLimit="0.35"
                 RefreshCommand="{x:Bind ViewModel.RefreshItemsCommand, Mode=OneWay}"
-                IsPullToRefreshWithMouseEnabled="True"
                 PullToRefreshLabel=""
                 ReleaseToRefreshLabel=""
                 Padding="0"
@@ -151,6 +135,7 @@
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Background" Value="{ThemeResource MyApplicationPageBackgroundThemeBrush}" />
                     </Style>
                 </ListView.ItemContainerStyle>
             </controls:PullToRefreshListView>
