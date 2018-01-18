@@ -278,7 +278,9 @@
   <ItemGroup>
     <Content Include="Assets\entreeOWBonderwijsboulevarddenbosch-max-620x350.jpg" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\hogeschoollaan_980x240.jpg" />
     <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\tilburg_980x240f.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -400,7 +402,7 @@
   <ItemGroup />
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.5</Version>
+      <Version>6.0.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Services.Store.SDK">
       <Version>10.1705.16001</Version>

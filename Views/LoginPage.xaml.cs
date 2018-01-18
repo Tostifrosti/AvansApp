@@ -15,12 +15,12 @@ namespace AvansApp.Views
         public LoginPage()
         {
             InitializeComponent();
+            ViewModel.Initialize(WelcomePivot);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel.Initialize();
         }
     }
 }
