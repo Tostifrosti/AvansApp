@@ -194,7 +194,7 @@ namespace AvansApp.ViewModels.Pages
             {
                 // Added Reference: Windows Desktop Extensions for the UWP
                 // Added Reference: Windows Mobile Extensions for the UWP
-                var statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                var statusbar = StatusBar.GetForCurrentView();
                 await statusbar.ShowAsync();
                 statusbar.BackgroundOpacity = 1;
                 statusbar.BackgroundColor = background;
@@ -208,7 +208,7 @@ namespace AvansApp.ViewModels.Pages
             {
                 // Added Reference: Windows Desktop Extensions for the UWP
                 // Added Reference: Windows Mobile Extensions for the UWP
-                var statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                var statusbar = StatusBar.GetForCurrentView();
                 await statusbar.HideAsync();
             }
         }
@@ -218,6 +218,8 @@ namespace AvansApp.ViewModels.Pages
             titleBar.ButtonBackgroundColor = background; //Colors.Transparent;
             titleBar.BackgroundColor = background;
             titleBar.ForegroundColor = foreground;
+            titleBar.InactiveBackgroundColor = background;
+            titleBar.InactiveForegroundColor = foreground;
             //titleBar.ButtonHoverBackgroundColor = hover;
             //titleBar.ButtonPressedBackgroundColor = pressed;
             CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
