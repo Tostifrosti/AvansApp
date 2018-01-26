@@ -91,6 +91,12 @@ namespace AvansApp.Services.Pages
                     }
                 }
             }
+
+            // Set index of today to the last day of the schedule
+            if (ScheduleWithoutBlanks.Count > 0 && TodayIndexWithoutBlanks < 0)
+            {
+                TodayIndexWithoutBlanks = ScheduleWithoutBlanks.Count - 1;
+            }
             
             if (scheduleList.Count > 0)
             {
