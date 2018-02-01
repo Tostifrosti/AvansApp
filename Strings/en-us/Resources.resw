@@ -527,4 +527,7 @@ retrieved due an error!</value>
     <value>Don't forget to enroll for 
 the incoming exams!</value>
   </data>
+  <data name="IntroText_LoginPage.Text" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
 </root>

@@ -34,13 +34,15 @@
             <PivotItem Padding="0" Margin="0,-48,0,0"
                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ScrollViewer Padding="0" Margin="0" 
+                <ScrollViewer Padding="0" Margin="0"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Disabled"
                               VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid>
                         <Image Source="../Assets/entreeOWBonderwijsboulevarddenbosch-max-620x350.jpg" Stretch="UniformToFill" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
                         <RelativePanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,25,50">
-                            <TextBlock x:Name="WelcomeText" Text="Welcome!" Foreground="White" FontSize="68" FontWeight="Bold" />
+                            <TextBlock x:Uid="IntroText_LoginPage" x:Name="WelcomeText" Foreground="White" FontSize="68" FontWeight="Bold" />
                             <Button FontFamily="Segoe MDL2 Assets" Content="&#xEBE7;" Foreground="White" Background="Transparent" FontSize="40" Opacity="1" FontWeight="Bold"
                                 RelativePanel.Below="WelcomeText" RelativePanel.AlignRightWith="WelcomeText" Margin="0,0,5,0" Width="100" Height="50" BorderThickness="0" Command="{x:Bind ViewModel.OnNextClickCommand, Mode=OneWay}" />
                         </RelativePanel>
@@ -61,7 +63,7 @@
                             <TextBlock x:Uid="LoginPageParagraph" FontSize="34" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#C6002A" />
                         </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Padding="10" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.IsHorizontalScrollChainingEnabled="True">
+                        <StackPanel Orientation="Vertical" MaxWidth="1000" Padding="10" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.VerticalScrollMode="Auto" ScrollViewer.IsHorizontalScrollChainingEnabled="True">
                             <TextBlock x:Uid="LoginPageBody" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource MyBodyTextBrush}" 
                                    HorizontalAlignment="Stretch" TextAlignment="Left" />
                             <Button x:Uid="LoginButton" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
@@ -71,40 +73,5 @@
                 </ScrollViewer>
             </PivotItem>
         </Pivot>
-
-        <!-- Header -->
-        <!--<Grid Grid.Row="0" x:Name="HeaderPanel" Background="{ThemeResource MyNavigationHeaderBackgroundBrush}" BorderThickness="0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-            <TextBlock x:Name="HeaderText" x:Uid="LoginPageHeader" HorizontalAlignment="Center" Style="{ThemeResource TagLineTextStyle}" Foreground="{ThemeResource MyHeaderTextForegroundBrush}" />
-        </Grid>-->
-        
-        <!-- Content -->
-        <!--<ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalScrollMode="Enabled" 
-                      VerticalScrollBarVisibility="Auto" HorizontalScrollMode="Disabled">
-            <Grid Background="Transparent" MaxWidth="1000">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Border Grid.Row="0" Grid.Column="0" CornerRadius="0" BorderBrush="Transparent" BorderThickness="0" Margin="10" VerticalAlignment="Top">
-                    <Grid x:Name="LayoutRoot" Height="250" VerticalAlignment="Top">
-                        <Grid.Background>
-                            <ImageBrush ImageSource ="../Assets/entreeOWBonderwijsboulevarddenbosch-max-620x350.jpg" Stretch="UniformToFill"></ImageBrush>
-                        </Grid.Background>
-                    </Grid>
-                </Border>
-                
-                <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
-                    
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10">
-                        <TextBlock x:Uid="LoginPageParagraph" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="{ThemeResource MyTextForegroundBrush}"/>
-                    </StackPanel>
-
-                    <TextBlock x:Uid="LoginPageBody" LineStackingStrategy="MaxHeight" TextWrapping="WrapWholeWords" FontSize="14" FontWeight="Normal" Foreground="{ThemeResource MyBodyTextBrush}" 
-                               HorizontalAlignment="Stretch" TextAlignment="Left" />
-                    <Button x:Uid="LoginButton" Visibility="{x:Bind ViewModel.IsLoginButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
-                            Command="{x:Bind ViewModel.OnLoginButtonClickCommand, Mode=OneWay}" Width="150" FontSize="18" Style="{ThemeResource MyButton}" />
-                </StackPanel>
-            </Grid>
-        </ScrollViewer>-->
     </Grid>
 </Page>

@@ -527,4 +527,7 @@ rooster niet worden opgehaald!</value>
     <value>Vergeet niet om in te schrijven voor 
 de aankomende tentamens!</value>
   </data>
+  <data name="IntroText_LoginPage.Text" xml:space="preserve">
+    <value>Welkom!</value>
+  </data>
 </root>
