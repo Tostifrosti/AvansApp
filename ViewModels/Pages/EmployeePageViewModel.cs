@@ -133,14 +133,12 @@ namespace AvansApp.ViewModels.Pages
             }
         }
 
-        private async void OnItemClick(ItemClickEventArgs args)
+        private void OnItemClick(ItemClickEventArgs args)
         {
             EmployeeVM item = args?.ClickedItem as EmployeeVM;
 
             if (item != null)
             {
-                await Service.GetEmployeeImage(item);
-
                 // Go To page
                 NavigationService.Navigate(typeof(EmployeeSinglePageViewModel).FullName, item);
             }
@@ -148,18 +146,29 @@ namespace AvansApp.ViewModels.Pages
 
         private void OnKeyDown(KeyRoutedEventArgs e)
         {
-            if (e != null && e.KeyStatus.RepeatCount == 1)
+            if (e != null)
             {
-                if (e.Key == Windows.System.VirtualKey.Enter)
+                if (e.KeyStatus.RepeatCount == 0 && e.Key == Windows.System.VirtualKey.Enter)
                 {
+                    if (DeviceTypeHelper.GetDeviceFormFactorType() != DeviceFormFactorType.Desktop)
+                        LoseFocus(e.OriginalSource);
                     OnSearchButtonClick(null);
                 }
-                else
+                else if (e.KeyStatus.RepeatCount == 1)
                 {
                     SearchBoxChanged = true;
                 }
                 e.Handled = false;
             }
+        }
+        private void LoseFocus(object sender)
+        {
+            var control = sender as Control;
+            var isTabStop = control.IsTabStop;
+            control.IsTabStop = false;
+            control.IsEnabled = false;
+            control.IsEnabled = true;
+            control.IsTabStop = isTabStop;
         }
     }
 }

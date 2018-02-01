@@ -11,6 +11,8 @@ using Windows.Security.Authentication.Web;
 using AvansApp.Models;
 using AvansApp.Helpers;
 using AvansApp.Services;
+using Windows.ApplicationModel.Core;
+using Windows.UI.ViewManagement;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -25,19 +27,35 @@ namespace AvansApp.ViewModels.Pages
         }
         private bool IsLoggedIn { get; set; }
         public ICommand OnLoginButtonClickCommand { get; private set; }
+        public ICommand OnNextClickCommand { get; private set; }
         public bool _isLoginButtonVisible;
         public bool IsLoginButtonVisible { get { return _isLoginButtonVisible; } private set { Set(ref _isLoginButtonVisible, value); } }
+        private int _selectedPivotIndex;
+        public int SelectedPivotIndex { get { return _selectedPivotIndex; } set { Set(ref _selectedPivotIndex, value); } }
+        private Pivot _pivot;
         public LoginPageViewModel()
         {
+            SelectedPivotIndex = 0;
             IsLoggedIn = false;
             IsLoginButtonVisible = true;
             OnLoginButtonClickCommand = new RelayCommand<ItemClickEventArgs>(OnLoginButtonClick);
+            OnNextClickCommand = new RelayCommand(() => {
+                if (_pivot != null) {
+                    if (SelectedPivotIndex < _pivot.Items.Count-1) {
+                        SelectedPivotIndex += 1;
+                    } else {
+                        SelectedPivotIndex = 0;
+                    }
+                }
+            });
             ShowStatusBar(Color.FromArgb(255, 198, 0, 42), Colors.White); // Change color of Statusbar
         }
 
-        public void Initialize()
+        public void Initialize(Pivot pivot)
         {
             IsLoginButtonVisible = true;
+            _pivot = pivot;
+            SelectedPivotIndex = 0;
         }
         
         private string GetAccessToken(string webAuthResponsedata)
@@ -160,7 +178,7 @@ namespace AvansApp.ViewModels.Pages
         {
             IsLoginButtonVisible = false;
 
-            NavigationService.NavigateToFrame(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
+            NavigationService.NavigateToPage(typeof(SchedulePageViewModel).FullName, new Views.MainPage());
         }
         private void OnLoginButtonClick(ItemClickEventArgs e)
         {
@@ -176,7 +194,7 @@ namespace AvansApp.ViewModels.Pages
             {
                 // Added Reference: Windows Desktop Extensions for the UWP
                 // Added Reference: Windows Mobile Extensions for the UWP
-                var statusbar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                var statusbar = StatusBar.GetForCurrentView();
                 await statusbar.ShowAsync();
                 statusbar.BackgroundOpacity = 1;
                 statusbar.BackgroundColor = background;
@@ -184,6 +202,28 @@ namespace AvansApp.ViewModels.Pages
             }
         }
 
-
+        private async void HideStatusBar()
+        {
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                // Added Reference: Windows Desktop Extensions for the UWP
+                // Added Reference: Windows Mobile Extensions for the UWP
+                var statusbar = StatusBar.GetForCurrentView();
+                await statusbar.HideAsync();
+            }
+        }
+        private void ExtendViewStatusBar(Color background, Color foreground)
+        {
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = background; //Colors.Transparent;
+            titleBar.BackgroundColor = background;
+            titleBar.ForegroundColor = foreground;
+            titleBar.InactiveBackgroundColor = background;
+            titleBar.InactiveForegroundColor = foreground;
+            //titleBar.ButtonHoverBackgroundColor = hover;
+            //titleBar.ButtonPressedBackgroundColor = pressed;
+            CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace AvansApp.Services.Pages
 
         public async Task<List<ResultVM>> GetResults()
         {
-            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+            if (Items == null || refreshTime < DateTime.Now.AddMinutes(-1)) {
                 refreshTime = DateTime.Now;
 
                 Items = new List<ResultVM>();
@@ -248,6 +248,20 @@ namespace AvansApp.Services.Pages
             if (a.cursuscode == b.cursuscode &&
                 a.studentnummer == b.studentnummer &&
                 a.toetsdatum == b.toetsdatum)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool Compare(ResultVM a, ResultVM b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.CursusCode == b.CursusCode &&
+                a.Studentennummer == b.Studentennummer &&
+                a.ToetsDatum == b.ToetsDatum)
             {
                 return true;
             }

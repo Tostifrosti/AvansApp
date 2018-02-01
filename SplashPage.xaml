@@ -34,12 +34,13 @@
             <Image Grid.Row="0" Grid.Column="0" Source="./Assets/SplashScreen.scale-200.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" MaxWidth="700" MaxHeight="500" Height="Auto" />
             <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind ViewModel.ProgressionText, Mode=OneWay}" TextWrapping="Wrap" Margin="40,0" 
                        FontSize="18" TextAlignment="Center" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyLoadingTextForegroundBrush}" />
-            <ProgressRing IsActive="{x:Bind ViewModel.IsProgressionRingActive, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Width="60" Height="60"
+            <ProgressRing IsActive="{x:Bind ViewModel.IsProgressionRingActive, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Width="60" Height="60" Visibility="Visible"
                           HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource MyProgressRingForegroundBrush}" />
 
             <Button x:Uid="TryAgainButton"  Grid.Row="2" Grid.Column="0" Command="{x:Bind ViewModel.OnTryAgainButtonClickCommand, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTryAgainButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
                     Style="{ThemeResource MyButton}" Width="175" Height="35" VerticalAlignment="Stretch"  />
-            <!--<Button Grid.Row="3" Grid.Column="0" Command="{x:Bind ViewModel.OnDisruptionsButtonClickCommand, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTryAgainButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" Content="Storingen bekijken" Style="{ThemeResource DefaultButtonStyle}" Width="175" Height="35" VerticalAlignment="Stretch"  />-->
+
+            <!--<HyperlinkButton x:Uid="SplashPageDisruptionLink" Grid.Row="3" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.OnDisruptionsButtonClickCommand, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsTryAgainButtonVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" />-->
         </Grid>
     </Grid>
 </Page>

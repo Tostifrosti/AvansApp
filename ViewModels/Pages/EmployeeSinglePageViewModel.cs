@@ -1,5 +1,6 @@
 ﻿using AvansApp.Helpers;
 using AvansApp.Services;
+using AvansApp.Services.Pages;
 using System;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,12 +27,14 @@ namespace AvansApp.ViewModels.Pages
             get { return _item; }
             set { Set(ref _item, value); }
         }
-        public ImageSource ProfileImage { get; set; }
+        private ImageSource _profileImage;
+        public ImageSource ProfileImage { get { return _profileImage; } set { Set(ref _profileImage, value); } }
 
         //public ICommand ContactClickCommand { get; private set; }
         public ICommand PhoneClickCommand { get; private set; }
         public ICommand EmailClickCommand { get; private set; }
         public ICommand ViewScheduleClickCommand { get; private set; }
+        private EmployeeService Service { get; set; }
 
         public EmployeeSinglePageViewModel()
         {
@@ -39,6 +42,7 @@ namespace AvansApp.ViewModels.Pages
             PhoneClickCommand = new RelayCommand(OnPhoneClick);
             EmailClickCommand = new RelayCommand(OnEmailClick);
             ViewScheduleClickCommand = new RelayCommand(OnViewScheduleClick);
+            Service = Singleton<EmployeeService>.Instance;
         }
         public void Initialize()
         {
@@ -49,6 +53,7 @@ namespace AvansApp.ViewModels.Pages
         {
             try
             {
+                await Service.GetEmployeeImage(Item);
                 Item.ProfilePicture.bitmap = await Item.ProfilePicture.Base64StringToBitmap(Item.ProfilePicture.image);
                 ProfileImage = Item.ProfilePicture.bitmap;
             }

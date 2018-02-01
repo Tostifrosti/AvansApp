@@ -26,7 +26,7 @@ namespace AvansApp.Services.Pages
 
         public async Task<List<DisruptionItemVM>> GetDisruptions()
         {
-            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1))
+            if (Items == null || refreshTime < DateTime.Now.AddMinutes(-1))
             {
                 refreshTime = DateTime.Now;
 
@@ -169,6 +169,7 @@ namespace AvansApp.Services.Pages
                     {
                         items.Add(newItems[i]);
                         newItems.RemoveAt(i);
+                        storage.RemoveAt(temp);
                     }
                 }
 
@@ -208,6 +209,18 @@ namespace AvansApp.Services.Pages
             await ApplicationData.Current.LocalFolder.SaveAsync(StorageKey, items);
         }
         public bool Compare(DisruptionItem a, DisruptionItem b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.GuId == b.GuId)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool Compare(DisruptionItemVM a, DisruptionItemVM b)
         {
             if (a == null || b == null)
                 return false;

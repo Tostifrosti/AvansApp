@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="./Styles.xaml" />
@@ -316,6 +317,11 @@
             <SolidColorBrush x:Key="MyProgressRingForegroundBrush" Color="Gray" />
             <SolidColorBrush x:Key="MyLoadingTextForegroundBrush" Color="Gray" />
             
+            <!-- FontIcon -->
+            <Style TargetType="FontIcon" x:Key="MyFontIcon">
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+            
             <!-- Borders -->
             <SolidColorBrush x:Key="MyBorderBursh" Color="LightGray" />
             <SolidColorBrush x:Key="MySplitContentBorderBursh" Color="Black" />
@@ -337,6 +343,9 @@
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
                 <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
                 <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}" />
+                <Setter Property="IsSpellCheckEnabled" Value="False" />
+                <Setter Property="IsTextPredictionEnabled" Value="False" />
+                <Setter Property="InputScope" Value="Default" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TextBox">
@@ -623,6 +632,45 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            
+            <!-- Pull to Refresh -->
+            <Style TargetType="controls:PullToRefreshListView" x:Key="MyPullToRefreshList">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="TabNavigation" Value="Once" />
+                <Setter Property="IsSwipeEnabled" Value="True" />
+                <Setter Property="IsItemClickEnabled" Value="True" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+                <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+                <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+                <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+                <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+                <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+                <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="PullThreshold" Value="140" />
+                <Setter Property="OverscrollLimit" Value="0.35" />
+                <Setter Property="IsPullToRefreshWithMouseEnabled" Value="True" />
+                <Setter Property="ItemContainerTransitions">
+                    <Setter.Value>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition />
+                            <ContentThemeTransition />
+                            <ReorderThemeTransition />
+                            <EntranceThemeTransition IsStaggeringEnabled="False" />
+                        </TransitionCollection>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
         </ResourceDictionary>
         
@@ -733,7 +781,12 @@
             <!-- Loading -->
             <SolidColorBrush x:Key="MyProgressRingForegroundBrush" Color="White" />
             <SolidColorBrush x:Key="MyLoadingTextForegroundBrush" Color="White" />
-            
+
+            <!-- FontIcon -->
+            <Style TargetType="FontIcon" x:Key="MyFontIcon">
+                <Setter Property="Foreground" Value="White" />
+            </Style>
+
             <!-- Borders -->
             <SolidColorBrush x:Key="MyBorderBursh" Color="LightGray" />
             <SolidColorBrush x:Key="MySplitContentBorderBursh" Color="White" />
@@ -755,6 +808,9 @@
                 <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
                 <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
                 <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}" />
+                <Setter Property="IsSpellCheckEnabled" Value="False" />
+                <Setter Property="IsTextPredictionEnabled" Value="False" />
+                <Setter Property="InputScope" Value="Default" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TextBox">
@@ -1246,6 +1302,44 @@
                 </Setter>
             </Style>
 
+            <!-- Pull To Refresh -->
+            <Style TargetType="controls:PullToRefreshListView" x:Key="MyPullToRefreshList">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="TabNavigation" Value="Once" />
+                <Setter Property="IsSwipeEnabled" Value="True" />
+                <Setter Property="IsItemClickEnabled" Value="True" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+                <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+                <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+                <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+                <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+                <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+                <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+                <Setter Property="UseSystemFocusVisuals" Value="True" />
+                <Setter Property="PullThreshold" Value="140" />
+                <Setter Property="OverscrollLimit" Value="0.35" />
+                <Setter Property="IsPullToRefreshWithMouseEnabled" Value="True" />
+                <Setter Property="ItemContainerTransitions">
+                    <Setter.Value>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition />
+                            <ContentThemeTransition />
+                            <ReorderThemeTransition />
+                            <EntranceThemeTransition IsStaggeringEnabled="False" />
+                        </TransitionCollection>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 

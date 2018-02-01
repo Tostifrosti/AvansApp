@@ -32,27 +32,27 @@ namespace AvansApp.Services
                 if (args.Argument.Contains("AnnouncementsNotification"))
                 {
                     // Navigate to Announcement Page
-                    NavigationService.NavigateToFrame(typeof(AnnouncementPageViewModel).FullName, new Views.MainPage());
+                    NavigationService.NavigateToPage(typeof(AnnouncementPageViewModel).FullName, new Views.MainPage());
                 }
                 else if (args.Argument.Contains("ResultsNotification"))
                 {
                     // Navigate to Results Page
-                    NavigationService.NavigateToFrame(typeof(ResultPageViewModel).FullName, new Views.MainPage());
+                    NavigationService.NavigateToPage(typeof(ResultPageViewModel).FullName, new Views.MainPage());
                 }
                 else if (args.Argument.Contains("DisruptionsNotification"))
                 {
                     // Navigate to Disruptions Page
-                    NavigationService.NavigateToFrame(typeof(DisruptionPageViewModel).FullName, new Views.MainPage());
+                    NavigationService.NavigateToPage(typeof(DisruptionPageViewModel).FullName, new Views.MainPage());
                 }
                 else if (args.Argument.Contains("ExamsNotification"))
                 {
                     // Navigate to Exams Page
-                    NavigationService.NavigateToFrame(typeof(ExamPageViewModel).FullName, new Views.MainPage());
+                    NavigationService.NavigateToPage(typeof(ExamPageViewModel).FullName, new Views.MainPage());
                 }
             }
             else {
                 // Navigate to Splashscreen
-                NavigationService.NavigateToFrame(typeof(SplashPageViewModel).FullName, new SplashPage());
+                NavigationService.NavigateToPage(typeof(SplashPageViewModel).FullName, new SplashPage());
             }
             await Task.CompletedTask;
         }

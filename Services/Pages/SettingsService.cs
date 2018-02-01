@@ -77,7 +77,7 @@ namespace AvansApp.Services.Pages
         }
         public void RemoveKey(string key)
         {
-            ApplicationData.Current.LocalSettings.RemoveKeyAsync(key);
+            ApplicationData.Current.LocalSettings.RemoveKey(key);
         }
         public bool KeyExists(string key)
         {
@@ -92,8 +92,8 @@ namespace AvansApp.Services.Pages
         {
             var emailMessage = new EmailMessage()
             {
-                Body = messageBody,
-                Subject = subject
+                Subject = subject,
+                Body = messageBody
             };
             if (attachmentFile != null)
             {

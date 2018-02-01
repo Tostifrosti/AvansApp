@@ -93,8 +93,12 @@ namespace AvansApp.ViewModels.Pages
                 titleBar.ButtonBackgroundColor = background; //Colors.Transparent;
                 titleBar.BackgroundColor = background;
                 titleBar.ForegroundColor = foreground;
+                titleBar.InactiveBackgroundColor = background;
+                titleBar.InactiveForegroundColor = foreground;
                 titleBar.ButtonHoverBackgroundColor = hover;
                 titleBar.ButtonPressedBackgroundColor = pressed;
+                titleBar.ButtonInactiveBackgroundColor = background;
+                titleBar.ButtonInactiveForegroundColor = foreground;
                 CoreApplicationViewTitleBar coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
                 coreTitleBar.ExtendViewIntoTitleBar = false;
             }

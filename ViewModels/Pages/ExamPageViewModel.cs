@@ -6,6 +6,8 @@ using Windows.UI.Xaml.Controls;
 
 using AvansApp.Helpers;
 using AvansApp.Services.Pages;
+using System;
+using System.Collections.Generic;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -29,12 +31,23 @@ namespace AvansApp.ViewModels.Pages
             get { return _hasNoResult; }
             set { Set(ref _hasNoResult, value); }
         }
-        public ICommand OnItemClickCommand { get; private set; }
+        private bool _examNotification;
+        public bool ExamNotification {
+            get { return _examNotification; }
+            set { Set(ref _examNotification, value); }
+        }
+        public ICommand ItemClickCommand { get; private set; }
+        public ICommand RefreshItemsCommand { get; private set; }
         private ExamService Service { get; set; }
+        private DateTime refreshTime;
 
         public ExamPageViewModel()
         {
-            OnItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
+            Service = Singleton<ExamService>.Instance;
+            ItemClickCommand = new RelayCommand<ItemClickEventArgs>(OnItemClick);
+            RefreshItemsCommand = new RelayCommand(OnRefreshItems);
+            refreshTime = DateTime.Now;
+            ExamNotification = false;
         }
 
         public void Initialize()
@@ -43,20 +56,22 @@ namespace AvansApp.ViewModels.Pages
         }
         public async Task LoadDataAsync()
         {
-            if (Items.Count <= 0)
+            if (Items.Count <= 0 || refreshTime <= DateTime.Now.AddMinutes(-5))
             {
+                refreshTime = DateTime.Now;
                 IsLoading = true;
                 HasNoResult = false;
                 Items.Clear();
-
-                Service = Singleton<ExamService>.Instance;
+                
                 var data = await Service.GetExams();
                 data = data.OrderByDescending(d => d.DateTime).ToList();
+                ExamNotification = Service.ExamSubsriptionToken;
 
                 foreach (var item in data)
                 {
                     Items.Add(item);
                 }
+                
                 Selected = Items.FirstOrDefault();
                 IsLoading = false;
                 HasNoResult = Items.Count <= 0;
@@ -66,6 +81,44 @@ namespace AvansApp.ViewModels.Pages
         private void OnItemClick(ItemClickEventArgs e)
         {
             // TODO?
+        }
+
+        private async void OnRefreshItems()
+        {
+            // Pull-to-refresh will be available every 30 secs
+            if (refreshTime <= DateTime.Now.AddSeconds(-30))
+            {
+                refreshTime = DateTime.Now;
+
+                var data = await Service.GetExams();
+                data = new List<ExamVM>(data.OrderByDescending(d => d.DateTime));
+
+                var list = new List<ExamVM>();
+                
+                for (int i = 0; i < data.Count; i++)
+                {
+                    bool isFound = false;
+                    for (int j = 0; j < Items.Count; j++)
+                    {
+                        if (Service.Compare(data[i], Items[j]) == true)
+                        {
+                            isFound = true;
+                        }
+                    }
+                    if (!isFound)
+                        list.Add(data[i]);
+                }
+
+                if (list.Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        Items.Insert(0, item);
+                    }
+                    Selected = Items.FirstOrDefault();
+                }
+                HasNoResult = Items.Count <= 0;
+            }
         }
     }
 }

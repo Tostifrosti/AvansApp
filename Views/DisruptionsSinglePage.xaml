@@ -59,7 +59,7 @@
             <WebView x:Name="HTMLview" Grid.Column="0" Grid.Row="1" 
                      Style="{ThemeResource MyWebView}"
                      helper:Untils.SourceString="{x:Bind ViewModel.Item.Description, Mode=OneWay}"
-                     NavigationStarting="{x:Bind ViewModel.Item.HTMLview_NavigationStarting}"
+                     NavigationStarting="{x:Bind ViewModel.Item.HTMLview_NavigationStarting, Mode=OneWay}"
                      Width="Auto" Height="Auto" Opacity="1" 
                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,0" />
         </Grid>

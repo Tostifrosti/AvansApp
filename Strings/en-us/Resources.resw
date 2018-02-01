@@ -188,8 +188,8 @@ Please try again later!</value>
   <data name="ErrorMsgDialogHeader" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="FeedbackButton.Content" xml:space="preserve">
-    <value>Give feedback</value>
+  <data name="FeedbackEmailButton.Content" xml:space="preserve">
+    <value>Feedback email</value>
   </data>
   <data name="FillScheduleWithBlanks.Text" xml:space="preserve">
     <value>Fill schedule with blank days?</value>
@@ -351,7 +351,7 @@ to see more infomation.</value>
     <value>Profile</value>
   </data>
   <data name="SettingsHeader5.Text" xml:space="preserve">
-    <value>Info</value>
+    <value>Info about the app</value>
   </data>
   <data name="SettingsPageDisclaimer.Text" xml:space="preserve">
     <value>The App is not made by Avans University and has no responsibility or correlation for the Application.
@@ -491,5 +491,43 @@ Because the verification of your account is via the in-app browser, the App can 
   </data>
   <data name="ToastNewAnnouncementText" xml:space="preserve">
     <value>Open the Avans app to view the new announcements!</value>
+  </data>
+  <data name="HasErrorSchedule.Text" xml:space="preserve">
+    <value>The schedule can not be 
+retrieved due an error!</value>
+  </data>
+  <data name="FeedbackAppButton.Content" xml:space="preserve">
+    <value>Feedback App</value>
+  </data>
+  <data name="GiveFeedbackString.Text" xml:space="preserve">
+    <value>Give feedback via email or the feedback app!</value>
+  </data>
+  <data name="ReviewStoreButton.Content" xml:space="preserve">
+    <value>Rate the app!</value>
+  </data>
+  <data name="SettingsHeader6.Text" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="NotificationDisclaimer.Text" xml:space="preserve">
+    <value>* When using battery saving, background processes will unfortunately not work. This causes you to miss any notifications.</value>
+  </data>
+  <data name="AppDetailsHeader_name.Text" xml:space="preserve">
+    <value>Name of the app: </value>
+  </data>
+  <data name="AppDetailsHeader_version.Text" xml:space="preserve">
+    <value>App version:</value>
+  </data>
+  <data name="SettingsHeader7.Text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="SplashPageDisruptionLink.Content" xml:space="preserve">
+    <value>View disruptions</value>
+  </data>
+  <data name="ExamPageSubscriptionNotification.Text" xml:space="preserve">
+    <value>Don't forget to enroll for 
+the incoming exams!</value>
+  </data>
+  <data name="IntroText_LoginPage.Text" xml:space="preserve">
+    <value>Welcome!</value>
   </data>
 </root>

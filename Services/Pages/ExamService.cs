@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Windows.Data.Xml.Dom;
@@ -13,10 +12,11 @@ namespace AvansApp.Services.Pages
     public class ExamService
     {
         private const string base_url = "https://publicapi.avans.nl/oauth";
+        public bool ExamSubsriptionToken { get; private set; }
 
         public ExamService()
         {
-
+            ExamSubsriptionToken = false;
         }
 
         public async Task<List<ExamVM>> GetExams()
@@ -39,6 +39,13 @@ namespace AvansApp.Services.Pages
                         {
                             if (node.LocalName != null)
                             {
+                                if (node.LocalName.ToString().ToLower() == "inschrijven")
+                                {
+                                    ExamSubsriptionToken = true;
+                                    item = null;
+                                    break;
+                                }
+
                                 switch (node.LocalName.ToString())
                                 {
                                     case "TentamenRoosterStudentID":
@@ -83,12 +90,42 @@ namespace AvansApp.Services.Pages
                                 }
                             }
                         }
-                        result.Add(new ExamVM(item));
+                        if (item != null)
+                            result.Add(new ExamVM(item));
                     }
                 }
                 //result = result.OrderByDescending(d => d.DateTime).ToList();
             }
             return result;
+        }
+
+        public bool Compare(Exam a, Exam b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.naam == b.naam &&
+                a.studentnummer == b.studentnummer &&
+                a.Begindatum == b.Begindatum)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public bool Compare(ExamVM a, ExamVM b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.StudentName == b.StudentName &&
+                a.StudentNumber == b.StudentNumber &&
+                a.StartDate == b.StartDate)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

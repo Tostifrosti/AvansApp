@@ -26,7 +26,7 @@ namespace AvansApp.Services.Pages
 
         public async Task<List<AnnouncementVM>> GetAnnouncements()
         {
-            if (Items == null || refreshTime > DateTime.Now.AddMinutes(-1)) {
+            if (Items == null || refreshTime < DateTime.Now.AddMinutes(-1)) {
                 refreshTime = DateTime.Now;
 
                 Items = new List<AnnouncementVM>();
@@ -200,6 +200,19 @@ namespace AvansApp.Services.Pages
             if (a.course == b.course &&
                 a.link == b.link && 
                 a.title == b.title)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool Compare(AnnouncementVM a, AnnouncementVM b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            if (a.Course == b.Course &&
+                a.Link == b.Link &&
+                a.Title == b.Title)
             {
                 return true;
             }

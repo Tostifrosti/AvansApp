@@ -2,13 +2,14 @@
 using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Contacts;
-using Windows.Foundation.Metadata;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Input;
 
 using AvansApp.Services;
 using AvansApp.Helpers;
 using AvansApp.Services.Pages;
+using Windows.System.Profile;
+using Windows.UI.Xaml.Controls;
 
 namespace AvansApp.ViewModels.Pages
 {
@@ -79,16 +80,32 @@ namespace AvansApp.ViewModels.Pages
         }
 
         public ICommand SwitchThemeCommand { get; private set; }
-        public ICommand OnFeedbackButtonClickCommand { get; private set; }
+        public ICommand OnFeedbackEmailButtonClickCommand { get; private set; }
+        public ICommand OnFeedbackAppButtonClickCommand { get; private set; }
         public ICommand OnLogoutButtonClickCommand { get; private set; }
         public ICommand OnScheduleCodeKeydownCommand { get; private set; }
         public ICommand OnScheduleCodeButtonClickCommand { get; private set; }
+        public ICommand OnReviewStoreButtonClickCommand { get; private set; }
         private ProfileVM _user;
         public ProfileVM User {
             get { return _user; }
             set { Set(ref _user, value); }
         }
         private SettingsService Service { get; set; }
+
+        private string _appName;
+        public string AppName
+        {
+            get { return _appName; }
+            set { Set(ref _appName, value); }
+        }
+        private string _appVersion;
+        public string AppVersion
+        {
+            get { return _appVersion; }
+            set { Set(ref _appVersion, value); }
+        }
+
 
         public SettingsPageViewModel()
         {
@@ -101,10 +118,16 @@ namespace AvansApp.ViewModels.Pages
             SwitchThemeCommand = new RelayCommand(async () => {
                 await ThemeSelectorService.SwitchThemeAsync();
             });
-            OnFeedbackButtonClickCommand = new RelayCommand(OnFeedbackClick);
+            OnFeedbackEmailButtonClickCommand = new RelayCommand(OnFeedbackEmailClick);
             OnLogoutButtonClickCommand = new RelayCommand(OnLogoutButtonClick);
             OnScheduleCodeKeydownCommand = new RelayCommand<KeyRoutedEventArgs>(OnScheduleCodeKeydown);
             OnScheduleCodeButtonClickCommand = new RelayCommand(OnScheduleCodeButtonClick);
+            OnFeedbackAppButtonClickCommand = new RelayCommand(OnFeedbackAppClick);
+            OnReviewStoreButtonClickCommand = new RelayCommand(OnReviewStoreClick);
+
+            AppName = "Avans";
+            AppVersion = GetAppVersion();
+            
         }
 
         public async void Initialize()
@@ -129,7 +152,6 @@ namespace AvansApp.ViewModels.Pages
             OnPropertyChanged("IsAnnouncementNotificationEnabled");
             OnPropertyChanged("IsDisruptionNotificationEnabled");
             OnPropertyChanged("IsResultNotificationEnabled");
-
         }
         
         
@@ -165,7 +187,7 @@ namespace AvansApp.ViewModels.Pages
 
             }
         }
-        private async void OnFeedbackClick()
+        private async void OnFeedbackEmailClick()
         {
             var contact = new Contact()
             {
@@ -179,31 +201,32 @@ namespace AvansApp.ViewModels.Pages
             contact.Emails.Add(new ContactEmail() { Address = "info@rlsmedia.nl", Description = "RLSmedia", Kind = ContactEmailKind.Work });
 
             // Get the device manufacturer, model name, OS details etc.
-            string device_info = "";
-            string newline = (DeviceTypeHelper.GetDeviceFormFactorType() == DeviceFormFactorType.Phone) ? "\r\n" : "<br />";
-
-            if (ApiInformation.IsTypePresent("Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation"))
-            {
-                var clientDeviceInformation = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
-                var deviceManufacturer = clientDeviceInformation.SystemManufacturer;
-                var deviceModel = clientDeviceInformation.SystemProductName;
-                var operatingSystem = clientDeviceInformation.OperatingSystem;
-                var systemHardwareVersion = clientDeviceInformation.SystemHardwareVersion;
-                var systemFirmwareVersion = clientDeviceInformation.SystemFirmwareVersion;
-                device_info = "Fabrikant: " + deviceManufacturer.ToString() + newline + "Model: " + deviceModel.ToString() + newline + "OS: " + operatingSystem.ToString() + newline + "Hardware versie: " + systemHardwareVersion.ToString() + newline + "Firmware versie: " + systemFirmwareVersion.ToString();
-            }
             string subject = "Feedback over Avans App";
-            string body =   "Hallo, " + newline + newline +
-                            "Type hier je bericht... " + newline + newline +
-                            "Met vriendelijke groet, " + newline +
-                            "Onbekend" + newline + newline + newline +
-                            "Overige informatie: " + newline +
-                            "Mijn App Versie: " + Package.Current.Id.Version.Revision.ToString() + newline +
-                            "Mijn Build: " + Package.Current.Id.Version.Build.ToString() + newline +
-                            "Architectuur: " + Package.Current.Id.Architecture + newline +
-                            device_info;
+            string appVersion = GetAppVersion();
+            string body = "Hallo, \r\n\n" +
+                            "Type hier je bericht... \r\n\n" +
+                            "Met vriendelijke groet, \r\n" +
+                            "Onbekend \r\n\n\n" +
+                            "Overige informatie: \r\n" +
+                            "App Versie: " + appVersion + "\r\n" +
+                            "Architectuur: " + Package.Current.Id.Architecture + "\r\n" +
+                            "Apparaat: " + AnalyticsInfo.VersionInfo.DeviceFamily;
             await Service.ComposeEmail(contact, subject, body, null);
         }
+
+        private async void OnFeedbackAppClick()
+        {
+            if (Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.IsSupported())
+            {
+                var launcher = Microsoft.Services.Store.Engagement.StoreServicesFeedbackLauncher.GetDefault();
+                await launcher.LaunchAsync();
+            }
+        }
+        private async void OnReviewStoreClick()
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9NBLGGH4S3FG"));
+        }
+
         private async void OnLogoutButtonClick()
         {
             var dialog = new MessageDialog("LogoutMessageDialogContent".GetLocalized(), "LogoutMessageDialogHeader".GetLocalized());
@@ -216,19 +239,46 @@ namespace AvansApp.ViewModels.Pages
             if (response != null && response.Id.ToString() == "0")
             {
                 Service.ClearAllSettings();
-                NavigationService.NavigateToFrame(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
+                NavigationService.NavigateToPage(typeof(LoginPageViewModel).FullName, new Views.LoginPage());
             }
         }
 
         private void OnScheduleCodeKeydown(KeyRoutedEventArgs e)
         {
-            if (e != null && e.KeyStatus.RepeatCount == 1)
+            if (e != null)
             {
-                if (e.Key == Windows.System.VirtualKey.Enter)
+                if (e.KeyStatus.RepeatCount == 0 && e.Key == Windows.System.VirtualKey.Enter)
+                {
+                    if (DeviceTypeHelper.GetDeviceFormFactorType() != DeviceFormFactorType.Desktop)
+                        LoseFocus(e.OriginalSource);
                     OnScheduleCodeButtonClick();
-                else
+                }
+                else if (e.KeyStatus.RepeatCount == 1)
+                {
                     SearchBoxChanged = true;
+                }
+                e.Handled = false;
             }
+        }
+
+        public static string GetAppVersion()
+        {
+
+            Package package = Package.Current;
+            PackageId packageId = package.Id;
+            PackageVersion version = packageId.Version;
+
+            return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+
+        }
+        private void LoseFocus(object sender)
+        {
+            var control = sender as Control;
+            var isTabStop = control.IsTabStop;
+            control.IsTabStop = false;
+            control.IsEnabled = false;
+            control.IsEnabled = true;
+            control.IsTabStop = isTabStop;
         }
     }
 }
