@@ -146,7 +146,7 @@ namespace AvansApp.ViewModels.Pages
                         }
                     }
 
-                    if (todayIndex < 0)
+                    if (Items.Count > 0 && todayIndex < 0)
                         throw new IndexOutOfRangeException("CurrentDayIndex and TodayIndex are below 0.");
                     
                     HasNoResult = Items.Count <= 0;
